@@ -91,18 +91,18 @@ class Tools {
  }
  // Return a list of imports for the given array of nodes.
 packageImports(nodes: any) {
-var map = {},
-    imports = [];
+    var map : any = {};
+    let imports :any = [];
 
     // Compute a map from name to node.
     nodes.forEach(function(d: any) {
-    map[d.data.name] = d;
+        map[d.data.name] = d;
     });
 
 // For each import, construct a link from the source to target node.
-    nodes.forEach(function(d) {
+    nodes.forEach(function(d: any) {
     if (d.data.imports) 
-    d.data.imports.forEach(function(i) {
+    d.data.imports.forEach(function(i: any) {
         imports.push(map[d.data.name].path(map[i]));
     });
     });
@@ -112,9 +112,9 @@ var map = {},
 
         // Lazily construct the package hierarchy from class names.
     packageHierarchy(classes: any) {
-    var map = {};
+    var map:any  = {};
     
-        function find(name, data) {
+        function find(name: any, data?: any) {
             var node = map[name], i;
             if (!node) {
                 node = map[name] = data || {name: name, children: []};
@@ -133,7 +133,7 @@ var map = {},
         //   if(index == "children")
         //     find(classes[index].name,classes[index]);
         // }
-        classes.forEach(function(d) {
+        classes.forEach(function(d: any) {
             find(d.name, d);
         });
     

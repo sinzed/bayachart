@@ -76,7 +76,8 @@ var Tools = /** @class */ (function () {
     };
     // Return a list of imports for the given array of nodes.
     Tools.prototype.packageImports = function (nodes) {
-        var map = {}, imports = [];
+        var map = {};
+        var imports = [];
         // Compute a map from name to node.
         nodes.forEach(function (d) {
             map[d.data.name] = d;
@@ -128,6 +129,9 @@ var Voronoi = /** @class */ (function () {
         this.svgWidth = 960;
         this.svgAreaHeight = 1500;
         this.svgHeight = 800;
+        this.canDrawLegends = true;
+        this.canDrawTitle = true;
+        this.canDrawFooter = true;
         //begin: constants
         this.margin = { top: 10, right: 10, bottom: 10, left: 10 };
         this.height = this.svgHeight - this.margin.top - this.margin.bottom;
@@ -175,6 +179,8 @@ var Voronoi = /** @class */ (function () {
         this.drawLegends(rootData);
     };
     Voronoi.prototype.drawTitle = function () {
+        if (!this.canDrawTitle)
+            return true;
         this.drawingArea.append("text")
             .attr("id", "title")
             .attr("transform", "translate(" + [this.halfWidth, this.titleY] + ")")
@@ -182,6 +188,8 @@ var Voronoi = /** @class */ (function () {
             .text("The Global Economy by GDP (as of 01/2017)");
     };
     Voronoi.prototype.drawFooter = function () {
+        if (!this.canDrawFooter)
+            return true;
         this.drawingArea.append("text")
             .classed("tiny light", true)
             .attr("transform", "translate(" + [0, this.height] + ")")
@@ -199,6 +207,8 @@ var Voronoi = /** @class */ (function () {
             .text("bl.ocks.org/Kcnarf/fa95aa7b076f537c00aed614c29bb568");
     };
     Voronoi.prototype.drawLegends = function (rootData) {
+        if (!this.canDrawLegends)
+            return true;
         var legendHeight = 13, interLegend = 4, colorWidth = legendHeight * 6, continents = rootData.children.reverse();
         var legendContainer = this.drawingArea.append("g")
             .classed("legend", true)
@@ -276,11 +286,252 @@ var Voronoi = /** @class */ (function () {
     };
     return Voronoi;
 }());
+var DonutChart = /** @class */ (function () {
+    function DonutChart() {
+        this.canDrawPipeLables = true;
+        this._margin = { top: 10, right: 10, bottom: 10, left: 10 };
+        this.colorize = d3.scaleOrdinal(d3.schemeCategory20c); // colour scheme
+        this.floatFormat = d3.format('.4r');
+        this.percentFormat = d3.format(',.2%');
+        this._width = 300;
+        // getter and setter functions. See Mike Bostocks post "Towards Reusable Charts" for a tutorial on how this works.
+        // this.width = function(value: any) {
+        //     if (!arguments.length) return this.width;
+        //     this.width = value;
+        //     return this;
+        // };
+    }
+    DonutChart.prototype.getWidth = function () {
+        return this._width;
+    };
+    DonutChart.prototype.setWidth = function (value) {
+        this._width = value;
+        return this;
+    };
+    DonutChart.prototype.setHeight = function (value) {
+        this._height = value;
+        return this;
+    };
+    DonutChart.prototype.height = function (value) {
+        if (!arguments.length)
+            return this._height;
+        this._height = value;
+        return this;
+    };
+    ;
+    DonutChart.prototype.setMargin = function (value) {
+        this._margin = value;
+        return this;
+    };
+    ;
+    DonutChart.prototype.getMargin = function () {
+        return this._margin;
+    };
+    ;
+    DonutChart.prototype.setRadius = function (value) {
+        this._radius = value;
+        return this;
+    };
+    ;
+    DonutChart.prototype.getRadius = function () {
+        return this._radius;
+    };
+    ;
+    DonutChart.prototype.setPadAngle = function (value) {
+        this._padAngle = value;
+        return this;
+    };
+    ;
+    DonutChart.prototype.getPadAngle = function (value) {
+        return this._padAngle;
+    };
+    ;
+    DonutChart.prototype.setCornerRadius = function (value) {
+        this._cornerRadius = value;
+        return this;
+    };
+    ;
+    DonutChart.prototype.getCornerRadius = function (value) {
+        return this._cornerRadius;
+    };
+    ;
+    DonutChart.prototype.setColour = function (value) {
+        this._colour = value;
+        return this;
+    };
+    ;
+    DonutChart.prototype.getColour = function (value) {
+        return this._colour;
+    };
+    ;
+    DonutChart.prototype.setVariable = function (value) {
+        this._variable = value;
+        return this;
+    };
+    ;
+    DonutChart.prototype.getVariable = function (value) {
+        return this._variable;
+    };
+    ;
+    DonutChart.prototype.setCategory = function (value) {
+        this._category = value;
+        return this;
+    };
+    ;
+    DonutChart.prototype.getCategory = function (value) {
+        return this._category;
+    };
+    ;
+    DonutChart.prototype.chart = function (selection) {
+        var self = this;
+        selection.each(function (data) {
+            // generate chart
+            // ===========================================================================================
+            // Set up constructors for making donut. See https://github.com/d3/d3-shape/blob/master/README.md
+            var radius = Math.min(self._width, self._height) / 2;
+            // creates a new pie generator
+            var pie = d3.pie()
+                .value(function (d) { return self.floatFormat(d[self._variable]); })
+                .sort(null);
+            // contructs and arc generator. This will be used for the donut. The difference between outer and inner
+            // radius will dictate the thickness of the donut
+            var arc = d3.arc()
+                .outerRadius(radius * 0.8)
+                .innerRadius(radius * 0.6)
+                .cornerRadius(self._cornerRadius)
+                .padAngle(self._padAngle);
+            // this arc is used for aligning the text labels
+            var outerArc = d3.arc()
+                .outerRadius(radius * 0.9)
+                .innerRadius(radius * 0.9);
+            // ===========================================================================================
+            // ===========================================================================================
+            // append the svg object to the selection
+            var svg = selection.append('svg')
+                .attr('width', self._width + self._margin.left + self._margin.right)
+                .attr('height', self._height + self._margin.top + self._margin.bottom)
+                .append('g')
+                .attr('transform', 'translate(' + self._width / 2 + ',' + self._height / 2 + ')');
+            // ===========================================================================================
+            // ===========================================================================================
+            // g elements to keep elements within svg modular
+            svg.append('g').attr('class', 'slices');
+            svg.append('g').attr('class', 'labelName');
+            svg.append('g').attr('class', 'lines');
+            // ===========================================================================================
+            // ===========================================================================================
+            // add and colour the donut slices
+            var path = svg.select('.slices')
+                .datum(data).selectAll('path')
+                .data(pie)
+                .enter().append('path')
+                .attr('fill', function (d) {
+                //  return colour(d.data[category]);
+                return self.colorize(d.data.data.name);
+            })
+                .attr('d', arc);
+            // ===========================================================================================
+            if (self.canDrawPipeLables) {
+                // ===========================================================================================
+                // add text labels
+                var label = svg.select('.labelName').selectAll('text')
+                    .data(pie)
+                    .enter().append('text')
+                    .attr('dy', '.35em')
+                    .html(function (d) {
+                    // add "key: value" for given category. Number inside tspan is bolded in stylesheet.
+                    return d.data.data.name + ': <tspan>' + self.percentFormat(d.data[self._variable]) + '</tspan>';
+                    // return d.data[category] + ': <tspan>' + percentFormat(d.data[variable]) + '</tspan>';
+                })
+                    .attr('transform', function (d) {
+                    // effectively computes the centre of the slice.
+                    // see https://github.com/d3/d3-shape/blob/master/README.md#arc_centroid
+                    var pos = outerArc.centroid(d);
+                    // changes the point to be on left or right depending on where label is.
+                    pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
+                    return 'translate(' + pos + ')';
+                })
+                    .style('text-anchor', function (d) {
+                    // if slice centre is on the left, anchor text to start, otherwise anchor to end
+                    return (midAngle(d)) < Math.PI ? 'start' : 'end';
+                });
+                // ===========================================================================================
+                // ===========================================================================================
+                // add lines connecting labels to slice. A polyline creates straight lines connecting several points
+                var polyline = svg.select('.lines')
+                    .selectAll('polyline')
+                    .data(pie)
+                    .enter().append('polyline')
+                    .attr('points', function (d) {
+                    // see label transform function for explanations of these three lines.
+                    var pos = outerArc.centroid(d);
+                    pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
+                    return [arc.centroid(d), outerArc.centroid(d), pos];
+                });
+                // ===========================================================================================
+            }
+            // ===========================================================================================
+            // add tooltip to mouse events on slices and labels
+            d3.selectAll('.labelName text, .slices path').call(toolTip);
+            // ===========================================================================================
+            // ===========================================================================================
+            // Functions
+            // calculates the angle for the middle of a slice
+            function midAngle(d) { return d.startAngle + (d.endAngle - d.startAngle) / 2; }
+            // function that creates and adds the tool tip to a selected element
+            function toolTip(selection) {
+                // add tooltip (svg circle element) when mouse enters label or slice
+                selection.on('mouseenter', function (data) {
+                    svg.append('text')
+                        .attr('class', 'toolCircle')
+                        .attr('dy', -15) // hard-coded. can adjust this to adjust text vertical alignment in tooltip
+                        .html(toolTipHTML(data)) // add text to the circle.
+                        .style('font-size', '.9em')
+                        .style('text-anchor', 'middle'); // centres text in tooltip
+                    svg.append('circle')
+                        .attr('class', 'toolCircle')
+                        .attr('r', radius * 0.55) // radius of tooltip circle
+                        .style('fill', self.setColour(data.data.name)) // colour based on category mouse is over
+                        // .style('fill', colour(data.data[category])) // colour based on category mouse is over
+                        .style('fill-opacity', 0.35);
+                });
+                // remove the tooltip when mouse leaves the slice/label
+                selection.on('mouseout', function () {
+                    d3.selectAll('.toolCircle').remove();
+                });
+            }
+            // function to create the HTML string for the tool tip. Loops through each key in data object
+            // and returns the html string key: value
+            function toolTipHTML(data) {
+                var tip = '', i = 0;
+                for (var key in data.data) {
+                    // if value is a number, format it as a percentage
+                    var value = (!isNaN(parseFloat(data.data[key]))) ? self.percentFormat(data.data[key]) : data.data[key];
+                    // leave off 'dy' attr for first tspan so the 'dy' attr on text element works. The 'dy' attr on
+                    // tspan effectively imitates a line break.
+                    if (i === 0)
+                        tip += '<tspan x="0">' + key + ': ' + value + '</tspan>';
+                    else
+                        tip += '<tspan x="0" dy="1.2em">' + key + ': ' + value + '</tspan>';
+                    i++;
+                }
+                return tip;
+            }
+            // ===========================================================================================
+        });
+    };
+    return DonutChart;
+}());
 var diameter = 1260, radius = diameter / 2, innerRadius = radius - 120;
 var cluster;
 cluster = d3.cluster().size([360, innerRadius]);
 var tools = new Tools();
 var voronoiDiagram = new Voronoi();
+voronoiDiagram.canDrawLegends = false;
+voronoiDiagram.canDrawTitle = false;
+voronoiDiagram.canDrawFooter = false;
+var donut = new DonutChart();
+donut.canDrawPipeLables = false;
 // var line = d3.radialLine()
 // .curve(d3.curveBundle.beta(0.85))
 // .radius(function(d) {
@@ -338,7 +589,7 @@ d3.json("../voronoi-bundle-donut.json", function (error, rootData) {
         .attr("width", diameter)
         .attr("height", diameter)
         .insert('g', '#first + *');
-    var linkElement = svg.append("g").selectAll(".link"), node = svg.append("g").attr("transform", "translate(270,35)").selectAll(".node");
+    var linkElement = svg.append("g").selectAll(".link"), nodeElement = svg.append("g").attr("transform", "translate(270,35)").selectAll(".node");
     var root = tools.packageHierarchy(rootData.children)
         .sum(function (d) { return d.size; });
     cluster(root);
@@ -352,18 +603,20 @@ d3.json("../voronoi-bundle-donut.json", function (error, rootData) {
         .each(function (d) { d.source = d[0], d.target = d[d.length - 1]; })
         .attr("class", "link")
         .attr("d", line).attr("stroke-width", 2).attr("stroke-dasharray", 4);
-    var donut = donutChart()
-        .width(940)
-        .height(790)
-        .cornerRadius(3) // sets how rounded the corners are on each slice
-        .padAngle(0.015) // effectively dictates the gap between slices
-        .variable('value')
-        .category('data.data.name');
+    // var donut = donutChart()
+    donut.setWidth(940).
+        setHeight(790)
+        .setCornerRadius(3) // sets how rounded the corners are on each slice
+        .setPadAngle(0.015) // effectively dictates the gap between slices
+        .setVariable('value')
+        .setCategory('data.data.name');
     // d3.select('.drawingArea')
-    d3.select('svg')
+    var selection = d3.select('svg')
         .datum(leaves) // bind data to the div
-        .call(donut); // draw chart in div
-    node = node
+    ;
+    donut.chart(selection);
+    // .call(donut.chart); // draw chart in div
+    var node = nodeElement
         .data(leaves)
         .enter().append("text")
         .attr("class", "node")

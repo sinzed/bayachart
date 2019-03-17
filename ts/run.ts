@@ -8,6 +8,12 @@ cluster = d3.cluster().size([360, innerRadius]);
 
 let tools = new Tools();
 let voronoiDiagram = new Voronoi();
+voronoiDiagram.canDrawLegends = false;
+voronoiDiagram.canDrawTitle = false;
+voronoiDiagram.canDrawFooter = false;
+let donut = new DonutChart();
+donut.canDrawPipeLables= false;
+
 // var line = d3.radialLine()
 // .curve(d3.curveBundle.beta(0.85))
 // .radius(function(d) {
@@ -63,7 +69,7 @@ var line = d3.line()
 
 // .append("g")
 // .attr("transform", "translate(" + radius + "," + radius + ")");
-d3.json("../voronoi-bundle-donut.json", function(error, rootData) {
+d3.json("../voronoi-bundle-donut.json", function(error:any, rootData:any) {
     if (error) throw error;
     
     voronoiDiagram.initData();
@@ -79,7 +85,7 @@ d3.json("../voronoi-bundle-donut.json", function(error, rootData) {
     .attr("height", diameter)
     .insert('g', '#first + *');
     var linkElement = svg.append("g").selectAll(".link"),
-    node = svg.append("g").attr("transform","translate(270,35)").selectAll(".node");
+    nodeElement = svg.append("g").attr("transform","translate(270,35)").selectAll(".node");
     
 
     var root = tools.packageHierarchy(rootData.children)
@@ -93,32 +99,32 @@ d3.json("../voronoi-bundle-donut.json", function(error, rootData) {
     let link = linkElement
     .data(data)
     .enter().append("path").attr("transform","translate(263,208)")
-    .each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
+    .each(function(d: any) { d.source = d[0], d.target = d[d.length - 1]; })
     .attr("class", "link")
     .attr("d", line).attr("stroke-width", 2).attr("stroke-dasharray",4);
 
 
-    var donut = donutChart()
-    .width(940)
-    .height(790)
-    .cornerRadius(3) // sets how rounded the corners are on each slice
-    .padAngle(0.015) // effectively dictates the gap between slices
-    .variable('value')
-    .category('data.data.name');
-
-    
+    // var donut = donutChart()
+    donut.setWidth(940).
+    setHeight(790)
+    .setCornerRadius(3) // sets how rounded the corners are on each slice
+    .setPadAngle(0.015) // effectively dictates the gap between slices
+    .setVariable('value')
+    .setCategory('data.data.name');
 
     // d3.select('.drawingArea')
-    d3.select('svg')
+    let selection = d3.select('svg')
     .datum(leaves) // bind data to the div
-        .call(donut); // draw chart in div
+    ;
+  donut.chart(selection);
+    // .call(donut.chart); // draw chart in div
 
-    node = node
+    let node = nodeElement
     .data(leaves)
     .enter().append("text")
     .attr("class", "node")
     .attr("dy", "0.31em")
-    .attr("transform", function(d) {
+    .attr("transform", function(d:any) {
       // var x = Math.abs(d.polygon[0][0]-d.polygon[d.polygon.length-1][0])/2;
       // var y = Math.abs(d.polygon[0][0]-d.polygon[d.polygon.length-1][0])/2;
       var x = d.polygon[0][0];
@@ -134,7 +140,7 @@ d3.json("../voronoi-bundle-donut.json", function(error, rootData) {
       // return "rotate(" + (x- 90) + ")translate(" + (y + 8) + ",0)" + (x < 180 ? "" : "rotate(180)"); 
     
     })
-    .attr("text-anchor", function(d) { 
+    .attr("text-anchor", function(d:any ) { 
       var x = d.polygon[0][0];
       // var x = d.polygon.site.x;
       // var y = d.polygon.site.y;
@@ -143,7 +149,7 @@ d3.json("../voronoi-bundle-donut.json", function(error, rootData) {
       // return "start"; 
     
     })
-    .text(function(d) { return d.data.name; })
+    .text(function(d:any) { return d.data.name; })
     .on("mouseover", mouseovered)
     .on("mouseout", mouseouted);
     
