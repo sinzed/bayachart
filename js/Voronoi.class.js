@@ -1,4 +1,13 @@
 "use strict";
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var d3 = __importStar(require("d3"));
 var Voronoi = /** @class */ (function () {
     function Voronoi() {
         this._2PI = 2 * Math.PI;
@@ -24,11 +33,11 @@ var Voronoi = /** @class */ (function () {
         //end: reusable d3Selection
     }
     Voronoi.prototype.initData = function (rootData) {
-        this.circlingPolygon = this.computeCirclingPolygon(treemapRadius);
+        this.circlingPolygon = this.computeCirclingPolygon(this.treemapRadius);
         this.fontScale.domain([3, 20]).range([8, 20]).clamp(true);
     };
     Voronoi.prototype.computeCirclingPolygon = function (radius) {
-        var points = 60, increment = _2PI / points, circlingPolygon = [];
+        var points = 60, increment = this._2PI / points, circlingPolygon = [];
         for (var a = 0, i = 0; i < points; i++, a += increment) {
             circlingPolygon.push([radius + radius * Math.cos(a), radius + radius * Math.sin(a)]);
         }
@@ -36,52 +45,52 @@ var Voronoi = /** @class */ (function () {
     };
     ;
     Voronoi.prototype.initLayout = function (rootData) {
-        svg = d3.select("svg")
-            .attr("width", svgWidth)
-            .attr("height", svgAreaHeight);
-        drawingArea = svg.append("g")
+        this.svg = d3.select("svg")
+            .attr("width", this.svgWidth)
+            .attr("height", this.svgAreaHeight);
+        this.drawingArea = this.svg.append("g")
             .classed("drawingArea", true)
-            .attr("transform", "translate(" + [margin.left, margin.top] + ")");
-        treemapContainer = drawingArea.append("g")
+            .attr("transform", "translate(" + [this.margin.left, this.margin.top] + ")");
+        this.treemapContainer = this.drawingArea.append("g")
             .classed("treemap-container", true)
-            .attr("transform", "translate(" + treemapCenter + ")");
-        treemapContainer.append("path")
+            .attr("transform", "translate(" + this.treemapCenter + ")");
+        this.treemapContainer.append("path")
             .classed("world", true)
-            .attr("transform", "translate(" + [-treemapRadius, -treemapRadius] + ")")
-            .attr("d", "M" + circlingPolygon.join(",") + "Z");
-        drawTitle();
-        drawFooter();
-        drawLegends(rootData);
+            .attr("transform", "translate(" + [-this.treemapRadius, -this.treemapRadius] + ")")
+            .attr("d", "M" + this.circlingPolygon.join(",") + "Z");
+        this.drawTitle();
+        this.drawFooter();
+        this.drawLegends(rootData);
     };
     Voronoi.prototype.drawTitle = function () {
-        drawingArea.append("text")
+        this.drawingArea.append("text")
             .attr("id", "title")
-            .attr("transform", "translate(" + [halfWidth, titleY] + ")")
+            .attr("transform", "translate(" + [this.halfWidth, this.titleY] + ")")
             .attr("text-anchor", "middle")
             .text("The Global Economy by GDP (as of 01/2017)");
     };
     Voronoi.prototype.drawFooter = function () {
-        drawingArea.append("text")
+        this.drawingArea.append("text")
             .classed("tiny light", true)
-            .attr("transform", "translate(" + [0, height] + ")")
+            .attr("transform", "translate(" + [0, this.height] + ")")
             .attr("text-anchor", "start")
             .text("Remake of HowMuch.net's article 'The Global Economy by GDP'");
-        drawingArea.append("text")
+        this.drawingArea.append("text")
             .classed("tiny light", true)
-            .attr("transform", "translate(" + [halfWidth, height] + ")")
+            .attr("transform", "translate(" + [this.halfWidth, this.height] + ")")
             .attr("text-anchor", "middle")
             .text("by @_Kcnarf");
-        drawingArea.append("text")
+        this.drawingArea.append("text")
             .classed("tiny light", true)
-            .attr("transform", "translate(" + [width, height] + ")")
+            .attr("transform", "translate(" + [this.width, this.height] + ")")
             .attr("text-anchor", "end")
             .text("bl.ocks.org/Kcnarf/fa95aa7b076f537c00aed614c29bb568");
     };
     Voronoi.prototype.drawLegends = function (rootData) {
         var legendHeight = 13, interLegend = 4, colorWidth = legendHeight * 6, continents = rootData.children.reverse();
-        var legendContainer = drawingArea.append("g")
+        var legendContainer = this.drawingArea.append("g")
             .classed("legend", true)
-            .attr("transform", "translate(" + [0, legendsMinY] + ")");
+            .attr("transform", "translate(" + [0, this.legendsMinY] + ")");
         var legends = legendContainer.selectAll(".legend")
             .data(continents)
             .enter();
@@ -106,9 +115,10 @@ var Voronoi = /** @class */ (function () {
     };
     Voronoi.prototype.drawTreemap = function (hierarchy) {
         var leaves = hierarchy.leaves();
-        var appended = treemapContainer.append("g");
+        var self = this;
+        var appended = this.treemapContainer.append("g");
         var classed = appended.classed('cells', true);
-        var attributed = classed.attr("transform", "translate(" + [-treemapRadius, -treemapRadius] + ")");
+        var attributed = classed.attr("transform", "translate(" + [-this.treemapRadius, -this.treemapRadius] + ")");
         var selectedAll = classed.selectAll(".cell");
         var datalized = selectedAll.data(leaves);
         var entered = datalized.enter();
@@ -118,9 +128,9 @@ var Voronoi = /** @class */ (function () {
         var cells = attrd.style("fill", function (d) {
             return d.parent.data.color;
         });
-        var labels = treemapContainer.append("g")
+        var labels = this.treemapContainer.append("g")
             .classed('labels', true)
-            .attr("transform", "translate(" + [-treemapRadius, -treemapRadius] + ")")
+            .attr("transform", "translate(" + [-this.treemapRadius, -this.treemapRadius] + ")")
             .selectAll(".label")
             .data(leaves)
             .enter()
@@ -129,7 +139,9 @@ var Voronoi = /** @class */ (function () {
             .attr("transform", function (d) {
             return "translate(" + [d.polygon.site.x, d.polygon.site.y] + ")";
         })
-            .style("font-size", function (d) { return fontScale(d.data.weight); });
+            .style("font-size", function (d) {
+            return self.fontScale(d.data.weight);
+        });
         labels.append("text")
             .classed("name", true)
             .html(function (d) {
@@ -138,9 +150,9 @@ var Voronoi = /** @class */ (function () {
         labels.append("text")
             .classed("value", true)
             .text(function (d) { return d.data.weight + "%"; });
-        var hoverers = treemapContainer.append("g")
+        var hoverers = this.treemapContainer.append("g")
             .classed('hoverers', true)
-            .attr("transform", "translate(" + [-treemapRadius, -treemapRadius] + ")")
+            .attr("transform", "translate(" + [-this.treemapRadius, -this.treemapRadius] + ")")
             .selectAll(".hoverer")
             .data(leaves)
             .enter()
@@ -152,3 +164,4 @@ var Voronoi = /** @class */ (function () {
     };
     return Voronoi;
 }());
+//# sourceMappingURL=Voronoi.class.js.map

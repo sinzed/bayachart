@@ -1,3 +1,5 @@
+// import * as d3 from 'd3' ;
+
 class Voronoi {
     _2PI = 2*Math.PI;
     //end: constants
@@ -26,7 +28,7 @@ class Voronoi {
     //end: treemap conf.
     
     //begin: drawing conf.
-     fontScale: { domain: (arg0: number[]) => { range: (arg0: number[]) => { clamp: (arg0: boolean) => void; }; }; };
+     fontScale: any;
     //end: drawing conf.
     
     //begin: reusable d3Selection
@@ -50,14 +52,14 @@ class Voronoi {
         this.fontScale = d3.scaleLinear();
     //end: reusable d3Selection
     }
-    initData(rootData : any) {
-        this.circlingPolygon = this.computeCirclingPolygon(treemapRadius);
+    initData() {
+        this.circlingPolygon = this.computeCirclingPolygon(this.treemapRadius);
         this.fontScale.domain([3, 20]).range([8, 20]).clamp(true);
     }
 
  computeCirclingPolygon(radius: number) {
   var points = 60,
-      increment = _2PI/points,
+      increment = this._2PI/points,
       circlingPolygon = [];
   
   for (var a=0, i=0; i<points; i++, a+=increment) {
@@ -70,63 +72,63 @@ class Voronoi {
 };
 
  initLayout(rootData: any) {
-  svg = d3.select("svg")
-    .attr("width", svgWidth)
-    .attr("height", svgAreaHeight);
+    this.svg = d3.select("svg")
+    .attr("width", this.svgWidth)
+    .attr("height", this.svgAreaHeight);
   
-  drawingArea = svg.append("g")
+    this.drawingArea = this.svg.append("g")
       .classed("drawingArea", true)
-      .attr("transform", "translate("+[margin.left,margin.top]+")");
+      .attr("transform", "translate("+[this.margin.left,this.margin.top]+")");
   
-  treemapContainer = drawingArea.append("g")
+      this.treemapContainer = this.drawingArea.append("g")
       .classed("treemap-container", true)
-      .attr("transform", "translate("+treemapCenter+")");
+      .attr("transform", "translate("+this.treemapCenter+")");
   
-  treemapContainer.append("path")
+      this.treemapContainer.append("path")
       .classed("world", true)
-      .attr("transform", "translate("+[-treemapRadius,-treemapRadius]+")")
-      .attr("d", "M"+circlingPolygon.join(",")+"Z");
+      .attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")")
+      .attr("d", "M"+this.circlingPolygon.join(",")+"Z");
   
-   drawTitle();
-  drawFooter();
-  drawLegends(rootData);
+      this.drawTitle();
+      this.drawFooter();
+      this.drawLegends(rootData);
 }
 
      drawTitle() {
-    drawingArea.append("text")
+        this.drawingArea.append("text")
         .attr("id", "title")
-        .attr("transform", "translate("+[halfWidth, titleY]+")")
+        .attr("transform", "translate("+[this.halfWidth, this.titleY]+")")
         .attr("text-anchor", "middle")
         .text("The Global Economy by GDP (as of 01/2017)")
     }
 
      drawFooter() {
-    drawingArea.append("text")
+        this.drawingArea.append("text")
         .classed("tiny light", true)
-        .attr("transform", "translate("+[0, height]+")")
+        .attr("transform", "translate("+[0, this.height]+")")
         .attr("text-anchor", "start")
         .text("Remake of HowMuch.net's article 'The Global Economy by GDP'")
-    drawingArea.append("text")
+        this.drawingArea.append("text")
         .classed("tiny light", true)
-        .attr("transform", "translate("+[halfWidth, height]+")")
+        .attr("transform", "translate("+[this.halfWidth, this.height]+")")
         .attr("text-anchor", "middle")
         .text("by @_Kcnarf")
-    drawingArea.append("text")
+        this.drawingArea.append("text")
         .classed("tiny light", true)
-        .attr("transform", "translate("+[width, height]+")")
+        .attr("transform", "translate("+[this.width, this.height]+")")
         .attr("text-anchor", "end")
         .text("bl.ocks.org/Kcnarf/fa95aa7b076f537c00aed614c29bb568")
     }
 
-     drawLegends(rootData: { children: { reverse: () => void; }; }) {
+     drawLegends(rootData: { children: { reverse: () => Array<any>; }; }) {
     var legendHeight = 13,
         interLegend = 4,
         colorWidth = legendHeight*6,
         continents = rootData.children.reverse();
     
-    var legendContainer = drawingArea.append("g")
+    var legendContainer = this.drawingArea.append("g")
         .classed("legend", true)
-        .attr("transform", "translate("+[0, legendsMinY]+")");
+        .attr("transform", "translate("+[0, this.legendsMinY]+")");
     
     var legends = legendContainer.selectAll(".legend")
         .data(continents)
@@ -156,12 +158,12 @@ class Voronoi {
     drawTreemap(hierarchy : any) {
         var leaves=hierarchy.leaves();
         
+        let self = this;
         
-        
-        var appended = treemapContainer.append("g");
+        var appended = this.treemapContainer.append("g");
        
         var classed = appended.classed('cells', true);
-        var attributed = classed.attr("transform", "translate("+[-treemapRadius,-treemapRadius]+")");
+        var attributed = classed.attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")");
         var selectedAll =    classed.selectAll(".cell");
         var datalized = selectedAll.data(leaves);
         var entered = datalized.enter();
@@ -172,9 +174,9 @@ class Voronoi {
                 return d.parent.data.color;
                   });
         
-        var labels = treemapContainer.append("g")
+        var labels = this.treemapContainer.append("g")
             .classed('labels', true)
-            .attr("transform", "translate("+[-treemapRadius,-treemapRadius]+")")
+            .attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")")
             .selectAll(".label")
             .data(leaves)
             .enter()
@@ -183,7 +185,9 @@ class Voronoi {
                     .attr("transform", function(d: { polygon: { site: { x: any; y: any; }; }; }){
                       return "translate("+[d.polygon.site.x, d.polygon.site.y]+")";
               })
-                    .style("font-size", function(d: { data: { weight: any; }; }){ return fontScale(d.data.weight); });
+                    .style("font-size", function(d : any){
+                         return self.fontScale(d.data.weight); 
+                        });
         
         labels.append("text")
             .classed("name", true)
@@ -194,9 +198,9 @@ class Voronoi {
             .classed("value", true)
             .text(function(d: { data: { weight: string; }; }){ return d.data.weight+"%"; });
         
-        var hoverers = treemapContainer.append("g")
+        var hoverers = this.treemapContainer.append("g")
             .classed('hoverers', true)
-            .attr("transform", "translate("+[-treemapRadius,-treemapRadius]+")")
+            .attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")")
             .selectAll(".hoverer")
             .data(leaves)
             .enter()

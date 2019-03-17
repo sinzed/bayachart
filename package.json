@@ -1,0 +1,28 @@
+{
+  "name": "hybrograph",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/sinzed/hybograph.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/sinzed/hybograph/issues"
+  },
+  "homepage": "https://gitlab.com/sinzed/hybograph#readme",
+  "dependencies": {
+    "d3": "^5.9.2",
+    "d3-voronoi-treemap": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/d3": "^5.7.1",
+    "typescript": "^3.3.3333"
+  }
+}
