@@ -107,7 +107,7 @@ class DonutChart {
     draw(leaves:any){
             // d3.select('.drawingArea')
     let selection = d3.select('svg').datum(leaves); // bind data to the div
-    donutChart.chart(selection);
+    this.chart(selection);
     // .call(donutChart.chart); // draw chart in div
 
   // bundleChart.drawNodeNames();
@@ -146,7 +146,8 @@ class DonutChart {
                 .attr('width', self._width + self._margin.left + self._margin.right)
                 .attr('height', self._height + self._margin.top + self._margin.bottom)
               .append('g')
-                .attr('transform', 'translate(' + self._width / 2 + ',' + self._height / 2 + ')');
+                .style('transform', 'translate(50%,50%)');
+                // .attr('transform', 'translate(' + self._width / 2 + ',' + self._height / 2 + ')');
             // ===========================================================================================
 
             // ===========================================================================================
@@ -235,7 +236,8 @@ class DonutChart {
                     svg.append('text')
                         .attr('class', 'toolCircle')
                         .attr('dy', -15) // hard-coded. can adjust this to adjust text vertical alignment in tooltip
-                        .html(toolTipHTML(data)) // add text to the circle.
+                        // .html(toolTipHTML(data.data.name)) // add text to the circle.
+                        .html(data.data.name) // add text to the circle.
                         .style('font-size', '.9em')
                         .style('text-anchor', 'middle'); // centres text in tooltip
 

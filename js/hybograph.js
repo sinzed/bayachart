@@ -1,4 +1,16 @@
 "use strict";
+var Chart = /** @class */ (function () {
+    function Chart() {
+        // this.parent = null
+    }
+    Chart.prototype.setParent = function (chart) {
+        this.parent = chart;
+    };
+    Chart.prototype.getParent = function () {
+        return this.parent;
+    };
+    return Chart;
+}());
 var Tools = /** @class */ (function () {
     function Tools() {
     }
@@ -121,31 +133,48 @@ var Tools = /** @class */ (function () {
     return Tools;
 }());
 // import * as d3 from 'd3' ;
-var Voronoi = /** @class */ (function () {
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var Voronoi = /** @class */ (function (_super) {
+    __extends(Voronoi, _super);
     function Voronoi() {
-        this._2PI = 2 * Math.PI;
+        var _this = 
+        //begin: constants
+        _super.call(this) || this;
+        _this._2PI = 2 * Math.PI;
         //end: constants
         //begin: layout conf.
-        this.svgWidth = 960;
-        this.svgAreaHeight = 1500;
-        this.svgHeight = 800;
-        this.canDrawLegends = false;
-        this.canDrawTitle = false;
-        this.canDrawFooter = false;
-        //begin: constants
-        this.margin = { top: 10, right: 10, bottom: 10, left: 10 };
-        this.height = this.svgHeight - this.margin.top - this.margin.bottom;
-        this.width = this.svgWidth - this.margin.left - this.margin.right;
-        this.halfWidth = this.width / 2;
-        this.halfHeight = this.height / 2;
-        this.quarterWidth = this.width / 4;
-        this.quarterHeight = this.height / 4;
-        this.titleY = 20;
-        this.legendsMinY = this.height - 20;
-        this.treemapRadius = 205;
-        this.treemapCenter = [this.halfWidth, this.halfHeight + 5];
-        this._voronoiTreemap = d3.voronoiTreemap();
-        this.fontScale = d3.scaleLinear();
+        _this.svgWidth = 960;
+        _this.svgAreaHeight = 1500;
+        _this.svgHeight = 800;
+        _this.canDrawLegends = false;
+        _this.canDrawTitle = false;
+        _this.canDrawFooter = false;
+        _this.margin = { top: 10, right: 10, bottom: 10, left: 10 };
+        _this.height = _this.svgHeight - _this.margin.top - _this.margin.bottom;
+        _this.width = _this.svgWidth - _this.margin.left - _this.margin.right;
+        _this.halfWidth = _this.width / 2;
+        _this.halfHeight = _this.height / 2;
+        _this.quarterWidth = _this.width / 4;
+        _this.quarterHeight = _this.height / 4;
+        _this.titleY = 20;
+        _this.legendsMinY = _this.height - 20;
+        _this.treemapRadius = 205;
+        _this.treemapCenter = [_this.halfWidth, _this.halfHeight + 5];
+        _this._voronoiTreemap = d3.voronoiTreemap();
+        _this.fontScale = d3.scaleLinear();
+        return _this;
         //end: reusable d3Selection
     }
     Voronoi.prototype.initData = function (rootData) {
@@ -179,7 +208,7 @@ var Voronoi = /** @class */ (function () {
         this.drawFooter();
         this.drawLegends(rootData);
         this.hierarchy = d3.hierarchy(rootData).sum(function (d) { return d.weight; });
-        this._voronoiTreemap.clip(voronoiChart.circlingPolygon)(voronoiChart.hierarchy);
+        this._voronoiTreemap.clip(this.circlingPolygon)(this.hierarchy);
     };
     Voronoi.prototype.drawTitle = function () {
         if (!this.canDrawTitle)
@@ -292,13 +321,19 @@ var Voronoi = /** @class */ (function () {
         this.drawTreemap();
     };
     return Voronoi;
-}());
-var BundleChart = /** @class */ (function () {
+}(Chart));
+var BundleChart = /** @class */ (function (_super) {
+    __extends(BundleChart, _super);
     function BundleChart() {
-        this.init();
+        var _this = _super.call(this) || this;
+        _this.init();
+        return _this;
     }
     BundleChart.prototype.init = function () {
         this.lineFunction();
+    };
+    BundleChart.prototype.getParnet = function () {
+        return _super.prototype.getParent.call(this);
     };
     BundleChart.prototype.draw = function (rootData) {
         this.svg = d3.select(".drawingArea")
@@ -307,13 +342,13 @@ var BundleChart = /** @class */ (function () {
             .insert('g', '#first + *');
         this.linkElement = this.svg.append("g").selectAll(".link");
         this.nodeElement = this.svg.append("g").attr("transform", "translate(270,35)").selectAll(".node");
-        var root = tools.packageHierarchy(rootData.children)
+        var root = this.getParent().tools.packageHierarchy(rootData.children)
             .sum(function (d) { return d.size; });
         cluster(root);
         // cluster(rootDeb);
-        this.leaves = voronoiChart.hierarchy.descendants();
+        this.leaves = this.getParent().voronoiChart.hierarchy.descendants();
         // var leaves = root.descendants();
-        var data = tools.packageImports(this.leaves);
+        var data = this.getParent().tools.packageImports(this.leaves);
         var link = this.linkElement
             .data(data)
             .enter().append("path").attr("transform", "translate(263,208)")
@@ -356,23 +391,24 @@ var BundleChart = /** @class */ (function () {
             .on("mouseout", mouseouted);
     };
     BundleChart.prototype.lineFunction = function () {
+        var self = this;
         this.line = d3.line()
             .curve(d3.curveBundle.beta(0.25)).x(function (d) {
             var x = d.polygon[0][0];
-            x = tools.compute2DPolygonCentroid(d.polygon);
+            x = self.getParent().tools.compute2DPolygonCentroid(d.polygon);
             if (d.data && d.data.name == "Netherlands") {
-                x = tools.compute2DPolygonCentroidDebug(d.polygon);
+                x = self.getParent().tools.compute2DPolygonCentroidDebug(d.polygon);
             }
             return x.x;
         })
             .y(function (d) {
             var y = d.polygon[0][1];
-            y = tools.compute2DPolygonCentroid(d.polygon);
+            y = self.getParent().tools.compute2DPolygonCentroid(d.polygon);
             return y.y;
         });
     };
     return BundleChart;
-}());
+}(Chart));
 var DonutChart = /** @class */ (function () {
     function DonutChart() {
         this.canDrawPipeLables = false;
@@ -472,7 +508,7 @@ var DonutChart = /** @class */ (function () {
     DonutChart.prototype.draw = function (leaves) {
         // d3.select('.drawingArea')
         var selection = d3.select('svg').datum(leaves); // bind data to the div
-        donutChart.chart(selection);
+        this.chart(selection);
         // .call(donutChart.chart); // draw chart in div
         // bundleChart.drawNodeNames();
     };
@@ -505,7 +541,8 @@ var DonutChart = /** @class */ (function () {
                 .attr('width', self._width + self._margin.left + self._margin.right)
                 .attr('height', self._height + self._margin.top + self._margin.bottom)
                 .append('g')
-                .attr('transform', 'translate(' + self._width / 2 + ',' + self._height / 2 + ')');
+                .style('transform', 'translate(50%,50%)');
+            // .attr('transform', 'translate(' + self._width / 2 + ',' + self._height / 2 + ')');
             // ===========================================================================================
             // ===========================================================================================
             // g elements to keep elements within svg modular
@@ -579,7 +616,8 @@ var DonutChart = /** @class */ (function () {
                     svg.append('text')
                         .attr('class', 'toolCircle')
                         .attr('dy', -15) // hard-coded. can adjust this to adjust text vertical alignment in tooltip
-                        .html(toolTipHTML(data)) // add text to the circle.
+                        // .html(toolTipHTML(data.data.name)) // add text to the circle.
+                        .html(data.data.name) // add text to the circle.
                         .style('font-size', '.9em')
                         .style('text-anchor', 'middle'); // centres text in tooltip
                     svg.append('circle')
@@ -616,24 +654,44 @@ var DonutChart = /** @class */ (function () {
     };
     return DonutChart;
 }());
+var HybroChart = /** @class */ (function (_super) {
+    __extends(HybroChart, _super);
+    function HybroChart() {
+        var _this = _super.call(this) || this;
+        _this.init();
+        _this.tools = new Tools();
+        _this.voronoiChart = new Voronoi();
+        _this.donutChart = new DonutChart();
+        _this.bundleChart = new BundleChart();
+        _this.bundleChart.setParent(_this);
+        return _this;
+    }
+    HybroChart.prototype.init = function () {
+        this.initLayout();
+    };
+    HybroChart.prototype.initLayout = function () {
+        this.svg = d3.select("svg").style("margin", "0 auto 0 auto").style("position", "relative").style("display", "block");
+    };
+    HybroChart.prototype.draw = function (rootData) {
+        this.voronoiChart.draw(rootData);
+        this.bundleChart.draw(rootData);
+        this.donutChart.setWidth(940)
+            .setHeight(790)
+            .setCornerRadius(3) // sets how rounded the corners are on each slice
+            .setPadAngle(0.015) // effectively dictates the gap between slices
+            .setVariable('value')
+            .setCategory('data.data.name');
+        this.donutChart.draw(this.bundleChart.leaves);
+    };
+    return HybroChart;
+}(Chart));
 var diameter = 1260, radius = diameter / 2, innerRadius = radius - 120;
 var cluster;
 cluster = d3.cluster().size([360, innerRadius]);
-var tools = new Tools();
-var voronoiChart = new Voronoi();
-var donutChart = new DonutChart();
-var bundleChart = new BundleChart();
+var hybroChart = new HybroChart();
 d3.json("../voronoi-bundle-donut.json", function (error, rootData) {
     if (error)
         throw error;
-    voronoiChart.draw(rootData);
-    bundleChart.draw(rootData);
-    donutChart.setWidth(940)
-        .setHeight(790)
-        .setCornerRadius(3) // sets how rounded the corners are on each slice
-        .setPadAngle(0.015) // effectively dictates the gap between slices
-        .setVariable('value')
-        .setCategory('data.data.name');
-    donutChart.draw(bundleChart.leaves);
+    hybroChart.draw(rootData);
 });
 //# sourceMappingURL=hybograph.js.map

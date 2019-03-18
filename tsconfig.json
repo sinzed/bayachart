@@ -64,10 +64,12 @@
       "dist"
   ],
   "files": [
+    "ts/chart/Chart.class.ts",
     "ts/voronoi/tools/Tools.class.ts",
     "ts/voronoi/Voronoi.class.ts",
     "ts/bundle/BundleChart.class.ts",
     "ts/donut/DonutChart.class.ts",
+    "ts/hybro/HybroChart.class.ts",
     "ts/run.ts"
 ]
 }

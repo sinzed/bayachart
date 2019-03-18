@@ -1,3 +1,9 @@
+declare class Chart {
+    parent: any;
+    constructor();
+    setParent(chart: Chart): void;
+    getParent(): any;
+}
 declare class Tools {
     constructor();
     compute2DPolygonCentroid(vertices: any): {
@@ -11,7 +17,7 @@ declare class Tools {
     packageImports(nodes: any): any;
     packageHierarchy(classes: any): d3.HierarchyNode<any>;
 }
-declare class Voronoi {
+declare class Voronoi extends Chart {
     _2PI: number;
     svgWidth: number;
     svgAreaHeight: number;
@@ -51,14 +57,15 @@ declare class Voronoi {
     drawTreemap(): void;
     draw(rootData: any): void;
 }
-declare class BundleChart {
+declare class BundleChart extends Chart {
     svg: any;
     linkElement: any;
     nodeElement: any;
     leaves: any;
-    line: Function;
+    line: any;
     constructor();
     init(): void;
+    getParnet(): HybroChart;
     draw(rootData: any): void;
     drawNodeNames(): void;
     lineFunction(): void;
@@ -99,9 +106,17 @@ declare class DonutChart {
     draw(leaves: any): void;
     chart(selection: any): void;
 }
+declare class HybroChart extends Chart {
+    tools: Tools;
+    voronoiChart: Voronoi;
+    donutChart: DonutChart;
+    bundleChart: BundleChart;
+    svg: d3.Selection<d3.BaseType, {}, HTMLElement, any>;
+    constructor();
+    init(): void;
+    initLayout(): void;
+    draw(rootData: any): void;
+}
 declare var diameter: number, radius: number, innerRadius: number;
 declare var cluster: d3.ClusterLayout<any>;
-declare let tools: Tools;
-declare let voronoiChart: Voronoi;
-declare let donutChart: DonutChart;
-declare let bundleChart: BundleChart;
+declare let hybroChart: HybroChart;

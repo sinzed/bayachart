@@ -1,15 +1,19 @@
 
-class BundleChart {
+class BundleChart extends Chart {
     svg: any;
     linkElement: any;
     nodeElement: any;
     leaves: any;
-    line: Function;
+    line: any;
     constructor(){
+        super();
         this.init();
     }
     init(){
         this.lineFunction();
+    }
+    getParnet() : HybroChart{
+        return super.getParent();
     }
     draw(rootData:any){
         this.svg = d3.select(".drawingArea")
@@ -20,14 +24,14 @@ class BundleChart {
         this.nodeElement = this.svg.append("g").attr("transform","translate(270,35)").selectAll(".node");
 
         
-        var root = tools.packageHierarchy(rootData.children)
+        var root =  this.getParent().tools.packageHierarchy(rootData.children)
         .sum(function(d: any) { return d.size; });
 
         cluster(root);
         // cluster(rootDeb);
-        this.leaves = voronoiChart.hierarchy.descendants();
+        this.leaves = this.getParent().voronoiChart.hierarchy.descendants();
         // var leaves = root.descendants();
-        var data = tools.packageImports(this.leaves);
+        var data =  this.getParent().tools.packageImports(this.leaves);
         let link = this.linkElement
         .data(data)
         .enter().append("path").attr("transform","translate(263,208)")
@@ -75,19 +79,21 @@ class BundleChart {
     }
 
     lineFunction(){
+        let self = this;
         this.line = d3.line()
         .curve(d3.curveBundle.beta(0.25)).x(function(d : any) {
             var x = d.polygon[0][0];
-            x =  tools.compute2DPolygonCentroid(d.polygon);
+            x =   self.getParent().tools.compute2DPolygonCentroid(d.polygon);
             if(d.data && d.data.name == "Netherlands"){
-                x =  tools.compute2DPolygonCentroidDebug(d.polygon);
+                x =   self.getParent().tools.compute2DPolygonCentroidDebug(d.polygon);
             }
             return x.x ;
             })
             .y(function(d: any) {
                 var y =  d.polygon[0][1];     
-                        y = tools.compute2DPolygonCentroid(d.polygon);
+                        y =  self.getParent().tools.compute2DPolygonCentroid(d.polygon);
                         return y.y;
                 }    
             );
+        }
     }

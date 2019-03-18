@@ -1,6 +1,6 @@
 // import * as d3 from 'd3' ;
 
-class Voronoi {
+class Voronoi extends Chart {
     _2PI = 2*Math.PI;
     //end: constants
     
@@ -40,6 +40,7 @@ class Voronoi {
     canDrawFooter: boolean = false;
     constructor(){
     //begin: constants
+        super();
         this.margin = {top: 10, right: 10, bottom: 10, left: 10};
         this.height = this.svgHeight - this.margin.top - this.margin.bottom;
         this.width = this.svgWidth - this.margin.left - this.margin.right;
@@ -98,7 +99,7 @@ class Voronoi {
       this.drawLegends(rootData);
 
       this.hierarchy = d3.hierarchy(rootData).sum(function(d){ return d.weight; });
-      this._voronoiTreemap.clip(voronoiChart.circlingPolygon)(voronoiChart.hierarchy);
+      this._voronoiTreemap.clip(this.circlingPolygon)(this.hierarchy);
 }
 
      drawTitle() {
