@@ -66,6 +66,7 @@
   "files": [
     "ts/voronoi/tools/Tools.class.ts",
     "ts/voronoi/Voronoi.class.ts",
+    "ts/bundle/BundleChart.class.ts",
     "ts/donut/DonutChart.class.ts",
     "ts/run.ts"
 ]

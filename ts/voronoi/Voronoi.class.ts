@@ -35,9 +35,9 @@ class Voronoi {
     svg: any;
     drawingArea: any;
     treemapContainer: any;
-    canDrawLegends: boolean = true;
-    canDrawTitle: boolean = true;
-    canDrawFooter: boolean = true;
+    canDrawLegends: boolean = false;
+    canDrawTitle: boolean = false;
+    canDrawFooter: boolean = false;
     constructor(){
     //begin: constants
         this.margin = {top: 10, right: 10, bottom: 10, left: 10};
@@ -55,9 +55,10 @@ class Voronoi {
         this.fontScale = d3.scaleLinear();
     //end: reusable d3Selection
     }
-    initData() {
+    initData(rootData:any) {
         this.circlingPolygon = this.computeCirclingPolygon(this.treemapRadius);
         this.fontScale.domain([3, 20]).range([8, 20]).clamp(true);
+        this.initLayout(rootData);
     }
 
  computeCirclingPolygon(radius: number) {
@@ -95,6 +96,9 @@ class Voronoi {
       this.drawTitle();
       this.drawFooter();
       this.drawLegends(rootData);
+
+      this.hierarchy = d3.hierarchy(rootData).sum(function(d){ return d.weight; });
+      this._voronoiTreemap.clip(voronoiChart.circlingPolygon)(voronoiChart.hierarchy);
 }
 
      drawTitle() {
@@ -164,8 +168,8 @@ class Voronoi {
             .attr("transform", "translate("+[0, -continents.length*(legendHeight+interLegend)-5]+")")
             .text("Continents");
     }
-    drawTreemap(hierarchy : any) {
-        var leaves=hierarchy.leaves();
+    drawTreemap() {
+        var leaves=this.hierarchy.leaves();
         
         let self = this;
         
@@ -219,5 +223,9 @@ class Voronoi {
         
         hoverers.append("title")
           .text(function(d: { data: { name: string; }; value: string; }) { return d.data.name + "\n" + d.value+"%"; });
+      }
+      draw(rootData:any){
+          this.initData(rootData);
+          this.drawTreemap();
       }
 }

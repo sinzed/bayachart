@@ -38,7 +38,7 @@ declare class Voronoi {
     canDrawTitle: boolean;
     canDrawFooter: boolean;
     constructor();
-    initData(): void;
+    initData(rootData: any): void;
     computeCirclingPolygon(radius: number): number[][];
     initLayout(rootData: any): void;
     drawTitle(): true | undefined;
@@ -48,7 +48,20 @@ declare class Voronoi {
             reverse: () => Array<any>;
         };
     }): true | undefined;
-    drawTreemap(hierarchy: any): void;
+    drawTreemap(): void;
+    draw(rootData: any): void;
+}
+declare class BundleChart {
+    svg: any;
+    linkElement: any;
+    nodeElement: any;
+    leaves: any;
+    line: Function;
+    constructor();
+    init(): void;
+    draw(rootData: any): void;
+    drawNodeNames(): void;
+    lineFunction(): void;
 }
 declare class DonutChart {
     _height: any;
@@ -83,11 +96,12 @@ declare class DonutChart {
     getVariable(value: any): any;
     setCategory(value: any): this;
     getCategory(value: any): any;
+    draw(leaves: any): void;
     chart(selection: any): void;
 }
 declare var diameter: number, radius: number, innerRadius: number;
 declare var cluster: d3.ClusterLayout<any>;
 declare let tools: Tools;
-declare let voronoiDiagram: Voronoi;
-declare let donut: DonutChart;
-declare var line: d3.Line<[number, number]>;
+declare let voronoiChart: Voronoi;
+declare let donutChart: DonutChart;
+declare let bundleChart: BundleChart;

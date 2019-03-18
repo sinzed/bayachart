@@ -129,9 +129,9 @@ var Voronoi = /** @class */ (function () {
         this.svgWidth = 960;
         this.svgAreaHeight = 1500;
         this.svgHeight = 800;
-        this.canDrawLegends = true;
-        this.canDrawTitle = true;
-        this.canDrawFooter = true;
+        this.canDrawLegends = false;
+        this.canDrawTitle = false;
+        this.canDrawFooter = false;
         //begin: constants
         this.margin = { top: 10, right: 10, bottom: 10, left: 10 };
         this.height = this.svgHeight - this.margin.top - this.margin.bottom;
@@ -148,9 +148,10 @@ var Voronoi = /** @class */ (function () {
         this.fontScale = d3.scaleLinear();
         //end: reusable d3Selection
     }
-    Voronoi.prototype.initData = function () {
+    Voronoi.prototype.initData = function (rootData) {
         this.circlingPolygon = this.computeCirclingPolygon(this.treemapRadius);
         this.fontScale.domain([3, 20]).range([8, 20]).clamp(true);
+        this.initLayout(rootData);
     };
     Voronoi.prototype.computeCirclingPolygon = function (radius) {
         var points = 60, increment = this._2PI / points, circlingPolygon = [];
@@ -177,6 +178,8 @@ var Voronoi = /** @class */ (function () {
         this.drawTitle();
         this.drawFooter();
         this.drawLegends(rootData);
+        this.hierarchy = d3.hierarchy(rootData).sum(function (d) { return d.weight; });
+        this._voronoiTreemap.clip(voronoiChart.circlingPolygon)(voronoiChart.hierarchy);
     };
     Voronoi.prototype.drawTitle = function () {
         if (!this.canDrawTitle)
@@ -235,8 +238,8 @@ var Voronoi = /** @class */ (function () {
             .attr("transform", "translate(" + [0, -continents.length * (legendHeight + interLegend) - 5] + ")")
             .text("Continents");
     };
-    Voronoi.prototype.drawTreemap = function (hierarchy) {
-        var leaves = hierarchy.leaves();
+    Voronoi.prototype.drawTreemap = function () {
+        var leaves = this.hierarchy.leaves();
         var self = this;
         var appended = this.treemapContainer.append("g");
         var classed = appended.classed('cells', true);
@@ -284,11 +287,95 @@ var Voronoi = /** @class */ (function () {
         hoverers.append("title")
             .text(function (d) { return d.data.name + "\n" + d.value + "%"; });
     };
+    Voronoi.prototype.draw = function (rootData) {
+        this.initData(rootData);
+        this.drawTreemap();
+    };
     return Voronoi;
+}());
+var BundleChart = /** @class */ (function () {
+    function BundleChart() {
+        this.init();
+    }
+    BundleChart.prototype.init = function () {
+        this.lineFunction();
+    };
+    BundleChart.prototype.draw = function (rootData) {
+        this.svg = d3.select(".drawingArea")
+            .attr("width", diameter)
+            .attr("height", diameter)
+            .insert('g', '#first + *');
+        this.linkElement = this.svg.append("g").selectAll(".link");
+        this.nodeElement = this.svg.append("g").attr("transform", "translate(270,35)").selectAll(".node");
+        var root = tools.packageHierarchy(rootData.children)
+            .sum(function (d) { return d.size; });
+        cluster(root);
+        // cluster(rootDeb);
+        this.leaves = voronoiChart.hierarchy.descendants();
+        // var leaves = root.descendants();
+        var data = tools.packageImports(this.leaves);
+        var link = this.linkElement
+            .data(data)
+            .enter().append("path").attr("transform", "translate(263,208)")
+            .each(function (d) { d.source = d[0], d.target = d[d.length - 1]; })
+            .attr("class", "link")
+            .attr("d", this.line).attr("stroke-width", 2).attr("stroke-dasharray", 4);
+        // this.drawNodeNames();
+    };
+    BundleChart.prototype.drawNodeNames = function () {
+        var node = this.nodeElement
+            .data(this.leaves)
+            .enter()
+            .append("text")
+            .attr("class", "node")
+            .attr("dy", "0.31em")
+            .attr("transform", function (d) {
+            // var x = Math.abs(d.polygon[0][0]-d.polygon[d.polygon.length-1][0])/2;
+            // var y = Math.abs(d.polygon[0][0]-d.polygon[d.polygon.length-1][0])/2;
+            var x = d.polygon[0][0];
+            var y = d.polygon[0][1];
+            // console.log(d);
+            if (d.polygon.site != undefined) {
+                var x = d.polygon.site.x;
+                var y = d.polygon.site.y;
+            }
+            // console.log("dis",d.polygon.site);
+            // return "translate(0,0)"; 
+            return "translate(" + x + "," + y + ")";
+            // return "rotate(" + (x- 90) + ")translate(" + (y + 8) + ",0)" + (x < 180 ? "" : "rotate(180)"); 
+        })
+            .attr("text-anchor", function (d) {
+            var x = d.polygon[0][0];
+            // var x = d.polygon.site.x;
+            // var y = d.polygon.site.y;
+            return x < 180 ? "start" : "end";
+            // return "start"; 
+        })
+            .text(function (d) { return d.data.name; })
+            .on("mouseover", mouseovered)
+            .on("mouseout", mouseouted);
+    };
+    BundleChart.prototype.lineFunction = function () {
+        this.line = d3.line()
+            .curve(d3.curveBundle.beta(0.25)).x(function (d) {
+            var x = d.polygon[0][0];
+            x = tools.compute2DPolygonCentroid(d.polygon);
+            if (d.data && d.data.name == "Netherlands") {
+                x = tools.compute2DPolygonCentroidDebug(d.polygon);
+            }
+            return x.x;
+        })
+            .y(function (d) {
+            var y = d.polygon[0][1];
+            y = tools.compute2DPolygonCentroid(d.polygon);
+            return y.y;
+        });
+    };
+    return BundleChart;
 }());
 var DonutChart = /** @class */ (function () {
     function DonutChart() {
-        this.canDrawPipeLables = true;
+        this.canDrawPipeLables = false;
         this._margin = { top: 10, right: 10, bottom: 10, left: 10 };
         this.colorize = d3.scaleOrdinal(d3.schemeCategory20c); // colour scheme
         this.floatFormat = d3.format('.4r');
@@ -382,6 +469,13 @@ var DonutChart = /** @class */ (function () {
         return this._category;
     };
     ;
+    DonutChart.prototype.draw = function (leaves) {
+        // d3.select('.drawingArea')
+        var selection = d3.select('svg').datum(leaves); // bind data to the div
+        donutChart.chart(selection);
+        // .call(donutChart.chart); // draw chart in div
+        // bundleChart.drawNodeNames();
+    };
     DonutChart.prototype.chart = function (selection) {
         var self = this;
         selection.each(function (data) {
@@ -526,125 +620,20 @@ var diameter = 1260, radius = diameter / 2, innerRadius = radius - 120;
 var cluster;
 cluster = d3.cluster().size([360, innerRadius]);
 var tools = new Tools();
-var voronoiDiagram = new Voronoi();
-voronoiDiagram.canDrawLegends = false;
-voronoiDiagram.canDrawTitle = false;
-voronoiDiagram.canDrawFooter = false;
-var donut = new DonutChart();
-donut.canDrawPipeLables = false;
-// var line = d3.radialLine()
-// .curve(d3.curveBundle.beta(0.85))
-// .radius(function(d) {
-//      return d.y / 180 * Math.PI;
-//     })
-// .angle(function(d) { 
-//     return d.x / 180 * Math.PI;
-// });
-var line = d3.line()
-    .curve(d3.curveBundle.beta(0.25)).x(function (d) {
-    var x = d.polygon[0][0];
-    console.log(d.polygon);
-    // let centeroid;
-    // if( d.polygon.site && d.polygon.site.x != undefined){
-    //   x = d.polygon.site.x;
-    // }
-    // else {
-    x = tools.compute2DPolygonCentroid(d.polygon);
-    if (d.data && d.data.name == "Netherlands") {
-        x = tools.compute2DPolygonCentroidDebug(d.polygon);
-    }
-    // }
-    // var x = d.polygon.site.x;
-    return x.x;
-    return x;
-})
-    .y(function (d) {
-    var y = d.polygon[0][1];
-    // if(d.polygon.site && d.polygon.site.y != undefined){
-    // y = d.polygon.site.y;
-    // }
-    // else {
-    y = tools.compute2DPolygonCentroid(d.polygon);
-    // }
-    return y.y;
-    return y;
-    // return d.polygon.site.y;
-});
-// var line = d3.line()
-// .curve(d3.curveBundle.beta(0.85)).x(function(d) { return d.x + d.dx / 2; })
-// .y(function(d) { return d.y + d.dy / 2; })
-// .angle(function(d) { return d.x / 180 * Math.PI; });
-// var svg = d3.select("body").append("svg")
-// .append("g")
-// .attr("transform", "translate(" + radius + "," + radius + ")");
+var voronoiChart = new Voronoi();
+var donutChart = new DonutChart();
+var bundleChart = new BundleChart();
 d3.json("../voronoi-bundle-donut.json", function (error, rootData) {
     if (error)
         throw error;
-    voronoiDiagram.initData();
-    voronoiDiagram.initLayout(rootData);
-    voronoiDiagram.hierarchy = d3.hierarchy(rootData).sum(function (d) { return d.weight; });
-    voronoiDiagram._voronoiTreemap.clip(voronoiDiagram.circlingPolygon)(voronoiDiagram.hierarchy);
-    voronoiDiagram.drawTreemap(voronoiDiagram.hierarchy);
-    var svg = d3.select(".drawingArea")
-        .attr("width", diameter)
-        .attr("height", diameter)
-        .insert('g', '#first + *');
-    var linkElement = svg.append("g").selectAll(".link"), nodeElement = svg.append("g").attr("transform", "translate(270,35)").selectAll(".node");
-    var root = tools.packageHierarchy(rootData.children)
-        .sum(function (d) { return d.size; });
-    cluster(root);
-    // cluster(rootDeb);
-    var leaves = voronoiDiagram.hierarchy.descendants();
-    // var leaves = root.descendants();
-    var data = tools.packageImports(leaves);
-    var link = linkElement
-        .data(data)
-        .enter().append("path").attr("transform", "translate(263,208)")
-        .each(function (d) { d.source = d[0], d.target = d[d.length - 1]; })
-        .attr("class", "link")
-        .attr("d", line).attr("stroke-width", 2).attr("stroke-dasharray", 4);
-    // var donut = donutChart()
-    donut.setWidth(940).
-        setHeight(790)
+    voronoiChart.draw(rootData);
+    bundleChart.draw(rootData);
+    donutChart.setWidth(940)
+        .setHeight(790)
         .setCornerRadius(3) // sets how rounded the corners are on each slice
         .setPadAngle(0.015) // effectively dictates the gap between slices
         .setVariable('value')
         .setCategory('data.data.name');
-    // d3.select('.drawingArea')
-    var selection = d3.select('svg')
-        .datum(leaves) // bind data to the div
-    ;
-    donut.chart(selection);
-    // .call(donut.chart); // draw chart in div
-    var node = nodeElement
-        .data(leaves)
-        .enter().append("text")
-        .attr("class", "node")
-        .attr("dy", "0.31em")
-        .attr("transform", function (d) {
-        // var x = Math.abs(d.polygon[0][0]-d.polygon[d.polygon.length-1][0])/2;
-        // var y = Math.abs(d.polygon[0][0]-d.polygon[d.polygon.length-1][0])/2;
-        var x = d.polygon[0][0];
-        var y = d.polygon[0][1];
-        // console.log(d);
-        if (d.polygon.site != undefined) {
-            var x = d.polygon.site.x;
-            var y = d.polygon.site.y;
-        }
-        // console.log("dis",d.polygon.site);
-        return "translate(0,0)";
-        // return "translate(" + x + "," +y+")"; 
-        // return "rotate(" + (x- 90) + ")translate(" + (y + 8) + ",0)" + (x < 180 ? "" : "rotate(180)"); 
-    })
-        .attr("text-anchor", function (d) {
-        var x = d.polygon[0][0];
-        // var x = d.polygon.site.x;
-        // var y = d.polygon.site.y;
-        return x < 180 ? "start" : "end";
-        // return "start"; 
-    })
-        .text(function (d) { return d.data.name; })
-        .on("mouseover", mouseovered)
-        .on("mouseout", mouseouted);
+    donutChart.draw(bundleChart.leaves);
 });
 //# sourceMappingURL=hybograph.js.map

@@ -12,7 +12,7 @@ class DonutChart {
     colorize: Function;
     _radius: any;
     _width: number;
-    canDrawPipeLables: boolean = true;
+    canDrawPipeLables: boolean = false;
     constructor(){
         this._margin = {top: 10, right: 10, bottom: 10, left: 10};
         this.colorize = d3.scaleOrdinal(d3.schemeCategory20c); // colour scheme
@@ -104,6 +104,14 @@ class DonutChart {
     getCategory (value: any) {
         return this._category;
     };
+    draw(leaves:any){
+            // d3.select('.drawingArea')
+    let selection = d3.select('svg').datum(leaves); // bind data to the div
+    donutChart.chart(selection);
+    // .call(donutChart.chart); // draw chart in div
+
+  // bundleChart.drawNodeNames();
+    }
     chart(selection: any){
         let self =this;
         selection.each(function(data:any) {
