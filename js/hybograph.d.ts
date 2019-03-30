@@ -1,3 +1,22 @@
+declare class ForceChart {
+    link: any;
+    node: any;
+    svg: any;
+    width: number;
+    height: number;
+    simulation: any;
+    g: any;
+    constructor();
+    draw(): void;
+    /** Functions **/
+    circleColour(d: any): "blue" | "pink";
+    linkColour(d: any): "green" | "red";
+    drag_start(d: any): void;
+    drag_drag(d: any): void;
+    drag_end(d: any): void;
+    zoom_actions(): void;
+    tickActions(): void;
+}
 declare class Chart {
     parent: any;
     constructor();
@@ -111,7 +130,8 @@ declare class HybroChart extends Chart {
     voronoiChart: Voronoi;
     donutChart: DonutChart;
     bundleChart: BundleChart;
-    svg: d3.Selection<d3.BaseType, {}, HTMLElement, any>;
+    svg: any;
+    forceChart: ForceChart;
     constructor();
     init(): void;
     initLayout(): void;

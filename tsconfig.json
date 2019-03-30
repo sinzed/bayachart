@@ -64,6 +64,7 @@
       "dist"
   ],
   "files": [
+    "ts/force/ForceChart.class.ts",
     "ts/chart/Chart.class.ts",
     "ts/voronoi/tools/Tools.class.ts",
     "ts/voronoi/Voronoi.class.ts",

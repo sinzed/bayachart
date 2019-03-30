@@ -3,7 +3,8 @@ class HybroChart extends Chart {
     voronoiChart: Voronoi;
     donutChart: DonutChart;
     bundleChart: BundleChart;
-    svg: d3.Selection<d3.BaseType, {}, HTMLElement, any>;
+    svg: any;
+    forceChart: ForceChart;
     constructor(){
         super();
         this.init();
@@ -11,6 +12,7 @@ class HybroChart extends Chart {
         this.voronoiChart = new Voronoi();
         this.donutChart = new DonutChart();
         this.bundleChart = new BundleChart();
+        this.forceChart = new ForceChart();
         this.bundleChart.setParent(this);
     }
     init(){
@@ -30,6 +32,7 @@ class HybroChart extends Chart {
         .setVariable('value')
         .setCategory('data.data.name');
         this.donutChart.draw(this.bundleChart.leaves);
+        // this.forceChart.draw();
     }
 
 }
