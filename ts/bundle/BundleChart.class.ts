@@ -5,9 +5,13 @@ class BundleChart extends Chart {
     nodeElement: any;
     leaves: any;
     line: any;
+    transTop : number;
+    transLeft : number;
     constructor(){
         super();
         this.init();
+        this.transTop = 203;
+        this.transLeft = 273;
     }
     init(){
         this.lineFunction();
@@ -36,7 +40,7 @@ class BundleChart extends Chart {
         .data(data)
         .enter()
         .append("path")
-        .attr("transform","translate(263,194)")
+        .attr("transform","translate("+this.transLeft+","+this.transTop+")")
         .each(function(d: any) { d.source = d[0], d.target = d[d.length - 1]; })
         .attr("class", "link")
         .attr("d", this.line)

@@ -35,6 +35,7 @@ class HybroChart extends Chart {
         .setVariable('value')
         .setCategory('data.data.name');
         this.donutChart.draw(this.bundleChart.leaves);
+        this.layout.manageZoomIn();
     }
 
 }

@@ -106,7 +106,7 @@ class DonutChart {
     };
     draw(leaves:any){
             // d3.select('.drawingArea')
-    let selection = d3.select('svg').datum(leaves); // bind data to the div
+    let selection = d3.select('svg g').datum(leaves); // bind data to the div
     this.chart(selection);
     // .call(donutChart.chart); // draw chart in div
 

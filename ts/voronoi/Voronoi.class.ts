@@ -5,9 +5,9 @@ class Voronoi extends Chart {
     //end: constants
     
     //begin: layout conf.
-    svgWidth = 960;
+    svgWidth = 980;
     svgAreaHeight = 1500;
-    svgHeight = 800;
+    svgHeight = 820;
     margin : any;
     height : any;
     width : any;

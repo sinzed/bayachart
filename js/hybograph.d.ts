@@ -76,6 +76,8 @@ declare class BundleChart extends Chart {
     nodeElement: any;
     leaves: any;
     line: any;
+    transTop: number;
+    transLeft: number;
     constructor();
     init(): void;
     getParnet(): HybroChart;
