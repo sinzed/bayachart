@@ -1,4 +1,10 @@
-declare class ForceChart {
+declare class Chart {
+    parent: any;
+    constructor();
+    setParent(chart: Chart): void;
+    getParent(): any;
+}
+declare class ForceChart extends Chart {
     link: any;
     node: any;
     svg: any;
@@ -7,7 +13,7 @@ declare class ForceChart {
     simulation: any;
     g: any;
     constructor();
-    draw(): void;
+    draw(rootData: any): void;
     /** Functions **/
     circleColour(d: any): "blue" | "pink";
     linkColour(d: any): "green" | "red";
@@ -16,12 +22,6 @@ declare class ForceChart {
     drag_end(d: any): void;
     zoom_actions(): void;
     tickActions(): void;
-}
-declare class Chart {
-    parent: any;
-    constructor();
-    setParent(chart: Chart): void;
-    getParent(): any;
 }
 declare class Tools {
     constructor();

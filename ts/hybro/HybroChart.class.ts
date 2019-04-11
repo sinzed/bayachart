@@ -13,6 +13,7 @@ class HybroChart extends Chart {
         this.donutChart = new DonutChart();
         this.bundleChart = new BundleChart();
         this.forceChart = new ForceChart();
+        this.forceChart.setParent(this);
         this.bundleChart.setParent(this);
     }
     init(){
@@ -32,7 +33,7 @@ class HybroChart extends Chart {
         .setVariable('value')
         .setCategory('data.data.name');
         this.donutChart.draw(this.bundleChart.leaves);
-        // this.forceChart.draw();
+        this.forceChart.draw(rootData);
     }
 
 }

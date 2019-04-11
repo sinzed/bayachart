@@ -1,4 +1,4 @@
-class ForceChart {
+class ForceChart extends Chart {
     link: any;
     node: any;
     svg: any;
@@ -7,10 +7,11 @@ class ForceChart {
     simulation: any;
     g: any;
     constructor() {
+        super();
         this.width = 0;
         this.height = 0;
     }
-    draw() {
+    draw(rootData:any) {
         //create somewhere to put the force directed graph
         // var svg = d3.select(".drawingArea"),
         //     width = +svg.attr("width"),
@@ -20,7 +21,7 @@ class ForceChart {
         this.height = +this.svg.attr("height");
 
         var radius = 10;
-
+        let hybrochart : HybroChart = this.getParent();
         var nodes_data = [
             { "name": "Lillian", "sex": "F" },
             { "name": "Gordon", "sex": "M" },
@@ -50,7 +51,8 @@ class ForceChart {
             { "name": "Damo", "sex": "M" },
             { "name": "Imogen", "sex": "F" }
         ]
-
+        
+        // nodes_data = hybroChart.bundleChart.leaves;
         //Sample links data 
         //type: A for Ally, E for Enemy
         var links_data = [

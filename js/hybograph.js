@@ -1,10 +1,38 @@
 "use strict";
-var ForceChart = /** @class */ (function () {
-    function ForceChart() {
-        this.width = 0;
-        this.height = 0;
+var Chart = /** @class */ (function () {
+    function Chart() {
+        // this.parent = null
     }
-    ForceChart.prototype.draw = function () {
+    Chart.prototype.setParent = function (chart) {
+        this.parent = chart;
+    };
+    Chart.prototype.getParent = function () {
+        return this.parent;
+    };
+    return Chart;
+}());
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var ForceChart = /** @class */ (function (_super) {
+    __extends(ForceChart, _super);
+    function ForceChart() {
+        var _this = _super.call(this) || this;
+        _this.width = 0;
+        _this.height = 0;
+        return _this;
+    }
+    ForceChart.prototype.draw = function (rootData) {
         //create somewhere to put the force directed graph
         // var svg = d3.select(".drawingArea"),
         //     width = +svg.attr("width"),
@@ -13,6 +41,7 @@ var ForceChart = /** @class */ (function () {
         this.width = +this.svg.attr("width");
         this.height = +this.svg.attr("height");
         var radius = 10;
+        var hybrochart = this.getParent();
         var nodes_data = [
             { "name": "Lillian", "sex": "F" },
             { "name": "Gordon", "sex": "M" },
@@ -42,6 +71,7 @@ var ForceChart = /** @class */ (function () {
             { "name": "Damo", "sex": "M" },
             { "name": "Imogen", "sex": "F" }
         ];
+        // nodes_data = hybroChart.bundleChart.leaves;
         //Sample links data 
         //type: A for Ally, E for Enemy
         var links_data = [
@@ -194,19 +224,7 @@ var ForceChart = /** @class */ (function () {
             .attr("y2", function (d) { return d.target.y; });
     };
     return ForceChart;
-}());
-var Chart = /** @class */ (function () {
-    function Chart() {
-        // this.parent = null
-    }
-    Chart.prototype.setParent = function (chart) {
-        this.parent = chart;
-    };
-    Chart.prototype.getParent = function () {
-        return this.parent;
-    };
-    return Chart;
-}());
+}(Chart));
 var Tools = /** @class */ (function () {
     function Tools() {
     }
@@ -329,19 +347,6 @@ var Tools = /** @class */ (function () {
     return Tools;
 }());
 // import * as d3 from 'd3' ;
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var Voronoi = /** @class */ (function (_super) {
     __extends(Voronoi, _super);
     function Voronoi() {
@@ -860,6 +865,7 @@ var HybroChart = /** @class */ (function (_super) {
         _this.donutChart = new DonutChart();
         _this.bundleChart = new BundleChart();
         _this.forceChart = new ForceChart();
+        _this.forceChart.setParent(_this);
         _this.bundleChart.setParent(_this);
         return _this;
     }
@@ -879,7 +885,7 @@ var HybroChart = /** @class */ (function (_super) {
             .setVariable('value')
             .setCategory('data.data.name');
         this.donutChart.draw(this.bundleChart.leaves);
-        // this.forceChart.draw();
+        this.forceChart.draw(rootData);
     };
     return HybroChart;
 }(Chart));
