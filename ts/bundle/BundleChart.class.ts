@@ -34,10 +34,23 @@ class BundleChart extends Chart {
         var data =  this.getParent().tools.packageImports(this.leaves);
         let link = this.linkElement
         .data(data)
-        .enter().append("path").attr("transform","translate(263,208)")
+        .enter()
+        .append("path")
+        .attr("transform","translate(263,194)")
         .each(function(d: any) { d.source = d[0], d.target = d[d.length - 1]; })
         .attr("class", "link")
-        .attr("d", this.line).attr("stroke-width", 2).attr("stroke-dasharray",4);
+        .attr("d", this.line)
+        .attr("stroke-width", 2)
+        .attr("stroke-dasharray",4)
+        .style("stroke", "#000000")
+        .style('color', 'darkOrange')
+        .on("mouseover", function(){
+            alert("fde");
+        })
+        .on("mouseout", function(){
+            alert("wirklich");
+        })
+
 
         // this.drawNodeNames();
     }
@@ -73,21 +86,27 @@ class BundleChart extends Chart {
           // return "start"; 
         
         })
-        .text(function(d:any) { return d.data.name; })
-        .on("mouseover", mouseovered)
-        .on("mouseout", mouseouted);
+        .text(function(d:any) {
+             return d.data.name;
+             })
+        // .on("mouseover", function(){
+        //     alert("fde");
+        // })
+        // .on("mouseout", function(){
+        //     alert("wirklich");
+        // });
     }
 
     lineFunction(){
         let self = this;
-        this.line = d3.line()
-        .curve(d3.curveBundle.beta(0.25)).x(function(d : any) {
-            var x = d.polygon[0][0];
-            x =   self.getParent().tools.compute2DPolygonCentroid(d.polygon);
-            if(d.data && d.data.name == "Netherlands"){
-                x =   self.getParent().tools.compute2DPolygonCentroidDebug(d.polygon);
-            }
-            return x.x ;
+        this.line = d3.line().curve(d3.curveBundle.beta(0.25)).x(
+            function(d : any) {
+                var x = d.polygon[0][0];
+                x =   self.getParent().tools.compute2DPolygonCentroid(d.polygon);
+                if(d.data && d.data.name == "Netherlands"){
+                    x =   self.getParent().tools.compute2DPolygonCentroidDebug(d.polygon);
+                }
+                return x.x ;
             })
             .y(function(d: any) {
                 var y =  d.polygon[0][1];     
