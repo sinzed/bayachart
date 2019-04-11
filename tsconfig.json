@@ -65,6 +65,8 @@
   ],
   "files": [
     "ts/chart/Chart.class.ts",
+    "ts/layout/options/LayoutOption.class.ts",
+    "ts/layout/Layout.class.ts",
     "ts/voronoi/tools/Tools.class.ts",
     "ts/voronoi/Voronoi.class.ts",
     "ts/bundle/BundleChart.class.ts",

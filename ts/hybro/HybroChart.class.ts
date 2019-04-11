@@ -4,6 +4,7 @@ class HybroChart extends Chart {
     donutChart: DonutChart;
     bundleChart: BundleChart;
     svg: d3.Selection<d3.BaseType, {}, HTMLElement, any>;
+    private layout: Layout;
     constructor(){
         super();
         this.init();
@@ -11,14 +12,18 @@ class HybroChart extends Chart {
         this.voronoiChart = new Voronoi();
         this.donutChart = new DonutChart();
         this.bundleChart = new BundleChart();
+        this.layout = new Layout(this);
+
         this.bundleChart.setParent(this);
     }
     init(){
         this.initLayout();
     }
     initLayout(){
-        this.svg = d3.select("svg").style("margin","0 auto 0 auto").style(
-            "position","relative").style("display","block");
+        this.svg = d3.select("svg")
+        .style("margin","0 auto 0 auto")
+        .style("position","relative")
+        .style("display","block");
     }
     draw(rootData:any){
         this.voronoiChart.draw(rootData);

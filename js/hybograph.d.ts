@@ -4,6 +4,18 @@ declare class Chart {
     setParent(chart: Chart): void;
     getParent(): any;
 }
+declare class LayoutOption {
+    private _zoomIn;
+    constructor();
+    canZoomIn: boolean;
+}
+declare class Layout {
+    layoutOption: LayoutOption;
+    hybroChart: HybroChart;
+    constructor(hybroChart: HybroChart);
+    init(): void;
+    manageZoomIn(): false | undefined;
+}
 declare class Tools {
     constructor();
     compute2DPolygonCentroid(vertices: any): {
@@ -112,6 +124,7 @@ declare class HybroChart extends Chart {
     donutChart: DonutChart;
     bundleChart: BundleChart;
     svg: d3.Selection<d3.BaseType, {}, HTMLElement, any>;
+    private layout;
     constructor();
     init(): void;
     initLayout(): void;
