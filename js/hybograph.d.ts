@@ -15,6 +15,7 @@ declare class Layout {
     constructor(hybroChart: HybroChart);
     init(): void;
     manageZoomIn(): false | undefined;
+    zoom_actions(): void;
 }
 declare class Tools {
     constructor();

@@ -16,4 +16,8 @@ class Layout {
         alert("lets manage zoom  in");
         
     }
+    //Zoom functions 
+    zoom_actions() {
+        this.g.attr("transform", d3.event.transform)
+    }
 }
