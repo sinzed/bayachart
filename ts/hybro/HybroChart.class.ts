@@ -3,7 +3,7 @@ class HybroChart extends Chart {
     voronoiChart: Voronoi;
     donutChart: DonutChart;
     bundleChart: BundleChart;
-    svg: d3.Selection<d3.BaseType, {}, HTMLElement, any>;
+    svg:any;
     private layout: Layout;
     constructor(){
         super();
