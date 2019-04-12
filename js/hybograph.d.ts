@@ -6,15 +6,27 @@ declare class Chart {
 }
 declare class LayoutOption {
     private _zoomIn;
+    private _donutChart;
+    private _bundleChart;
     constructor();
     canZoomIn: boolean;
+    canShowBundleChart: boolean;
+    canShowDonutChart: boolean;
 }
 declare class Layout {
     layoutOption: LayoutOption;
     hybroChart: HybroChart;
+    zoomInBtn: any;
+    showDonutChartBtn: any;
+    showBundleChartBtn: any;
     constructor(hybroChart: HybroChart);
     init(): void;
-    manageZoomIn(): false | undefined;
+    addZoomInButton(): any;
+    addDonutChartButton(): any;
+    addBundleChartButton(): any;
+    toggleBundleChart(): void;
+    toggleDonutChart(): void;
+    manageZoomIn(): void;
     zoom_actions(): void;
 }
 declare class Tools {
@@ -78,6 +90,7 @@ declare class BundleChart extends Chart {
     line: any;
     transTop: number;
     transLeft: number;
+    element: any;
     constructor();
     init(): void;
     getParnet(): HybroChart;
@@ -99,6 +112,8 @@ declare class DonutChart {
     _radius: any;
     _width: number;
     canDrawPipeLables: boolean;
+    selection: any;
+    element: any;
     constructor();
     getWidth(): any;
     setWidth(value: any): DonutChart;
