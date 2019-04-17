@@ -21,7 +21,7 @@ class BundleChart extends Chart {
         return super.getParent();
     }
     draw(rootData:any){
-        this.element = d3.select(".drawingArea")
+        this.element = this.getParent().voronoiChart.drawingArea
         .attr("width", diameter)
         .attr("height", diameter)
         .insert('g', '#first + *');

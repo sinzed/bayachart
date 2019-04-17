@@ -1,4 +1,4 @@
-class DonutChart {
+class DonutChart extends Chart {
     // width: any;
     _height: any;
     _margin: any;
@@ -16,6 +16,7 @@ class DonutChart {
     selection: any;
     element : any;
     constructor(){
+        super();
         this._margin = {top: 10, right: 10, bottom: 10, left: 10};
         this.colorize = d3.scaleOrdinal(d3.schemeCategory20c); // colour scheme
         this.floatFormat = d3.format('.4r');
@@ -30,6 +31,9 @@ class DonutChart {
         
         
         
+    }
+    getParent() : HybroChart{
+        return super.getParent();
     }
     getWidth () : any {
             return this._width;
@@ -108,7 +112,8 @@ class DonutChart {
     };
     draw(leaves:any){
             // d3.select('.drawingArea')
-    this.selection = d3.select('svg g').datum(leaves); // bind data to the div
+    // this.selection = d3.select('svg g').datum(leaves); // bind data to the div
+    this.selection = this.getParent().voronoiChart.drawingArea.datum(leaves); // bind data to the div
     this.chart(this.selection);
     
     // .call(donutChart.chart); // draw chart in div

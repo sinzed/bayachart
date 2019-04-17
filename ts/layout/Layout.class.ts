@@ -67,7 +67,7 @@ class Layout {
     zoom_actions() {
         //error 
         let g;
-        g = this.hybroChart.svg.select("g");
+        g = this.hybroChart.svg.selectAll(".zoomable");
         g.attr("transform", d3.event.transform);
     }
 }

@@ -70,6 +70,7 @@ declare class Voronoi extends Chart {
     canDrawFooter: boolean;
     constructor();
     initData(rootData: any): void;
+    setMarginLeft(marginLeft: number): void;
     computeCirclingPolygon(radius: number): number[][];
     initLayout(rootData: any): void;
     drawTitle(): true | undefined;
@@ -98,7 +99,7 @@ declare class BundleChart extends Chart {
     drawNodeNames(): void;
     lineFunction(): void;
 }
-declare class DonutChart {
+declare class DonutChart extends Chart {
     _height: any;
     _margin: any;
     _colour: any;
@@ -115,6 +116,7 @@ declare class DonutChart {
     selection: any;
     element: any;
     constructor();
+    getParent(): HybroChart;
     getWidth(): any;
     setWidth(value: any): DonutChart;
     setHeight(value: any): DonutChart;
@@ -151,3 +153,4 @@ declare class HybroChart extends Chart {
 declare var diameter: number, radius: number, innerRadius: number;
 declare var cluster: d3.ClusterLayout<any>;
 declare let hybroChart: HybroChart;
+declare let hybroChart2: HybroChart;

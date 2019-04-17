@@ -15,6 +15,7 @@ class HybroChart extends Chart {
         this.layout = new Layout(this);
 
         this.bundleChart.setParent(this);
+        this.donutChart.setParent(this);
     }
     init(){
         this.initLayout();
