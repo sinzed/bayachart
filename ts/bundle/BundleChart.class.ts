@@ -5,9 +5,14 @@ class BundleChart extends Chart {
     nodeElement: any;
     leaves: any;
     line: any;
+    transTop : number;
+    transLeft : number;
+    element: any;
     constructor(){
         super();
         this.init();
+        this.transTop = 203;
+        this.transLeft = 273;
     }
     init(){
         this.lineFunction();
@@ -16,12 +21,12 @@ class BundleChart extends Chart {
         return super.getParent();
     }
     draw(rootData:any){
-        this.svg = d3.select(".drawingArea")
+        this.element = this.getParent().voronoiChart.drawingArea
         .attr("width", diameter)
         .attr("height", diameter)
         .insert('g', '#first + *');
-        this.linkElement = this.svg.append("g").selectAll(".link");
-        this.nodeElement = this.svg.append("g").attr("transform","translate(270,35)").selectAll(".node");
+        this.linkElement = this.element.append("g").selectAll(".link");
+        this.nodeElement = this.element.append("g").attr("transform","translate(270,35)").selectAll(".node");
 
         
         var root =  this.getParent().tools.packageHierarchy(rootData.children)
@@ -36,7 +41,7 @@ class BundleChart extends Chart {
         .data(data)
         .enter()
         .append("path")
-        .attr("transform","translate(263,194)")
+        .attr("transform","translate("+this.transLeft+","+this.transTop+")")
         .each(function(d: any) { d.source = d[0], d.target = d[d.length - 1]; })
         .attr("class", "link")
         .attr("d", this.line)

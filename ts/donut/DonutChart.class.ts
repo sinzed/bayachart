@@ -1,4 +1,4 @@
-class DonutChart {
+class DonutChart extends Chart {
     // width: any;
     _height: any;
     _margin: any;
@@ -13,7 +13,10 @@ class DonutChart {
     _radius: any;
     _width: number;
     canDrawPipeLables: boolean = false;
+    selection: any;
+    element : any;
     constructor(){
+        super();
         this._margin = {top: 10, right: 10, bottom: 10, left: 10};
         this.colorize = d3.scaleOrdinal(d3.schemeCategory20c); // colour scheme
         this.floatFormat = d3.format('.4r');
@@ -28,6 +31,9 @@ class DonutChart {
         
         
         
+    }
+    getParent() : HybroChart{
+        return super.getParent();
     }
     getWidth () : any {
             return this._width;
@@ -106,8 +112,10 @@ class DonutChart {
     };
     draw(leaves:any){
             // d3.select('.drawingArea')
-    let selection = d3.select('svg').datum(leaves); // bind data to the div
-    this.chart(selection);
+    // this.selection = d3.select('svg g').datum(leaves); // bind data to the div
+    this.selection = this.getParent().voronoiChart.drawingArea.datum(leaves); // bind data to the div
+    this.chart(this.selection);
+    
     // .call(donutChart.chart); // draw chart in div
 
   // bundleChart.drawNodeNames();
@@ -142,7 +150,8 @@ class DonutChart {
 
             // ===========================================================================================
             // append the svg object to the selection
-            var svg = selection.append('svg')
+            self.element = selection.append('svg');
+            var svg =  self.element
                 .attr('width', self._width + self._margin.left + self._margin.right)
                 .attr('height', self._height + self._margin.top + self._margin.bottom)
               .append('g')

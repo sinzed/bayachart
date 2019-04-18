@@ -5,6 +5,8 @@ class HybroChart extends Chart {
     bundleChart: BundleChart;
     svg: any;
     forceChart: ForceChart;
+
+    private layout: Layout;
     constructor(){
         super();
         this.init();
@@ -14,14 +16,19 @@ class HybroChart extends Chart {
         this.bundleChart = new BundleChart();
         this.forceChart = new ForceChart();
         this.forceChart.setParent(this);
+        this.layout = new Layout(this);
+
         this.bundleChart.setParent(this);
+        this.donutChart.setParent(this);
     }
     init(){
         this.initLayout();
     }
     initLayout(){
-        this.svg = d3.select("svg").style("margin","0 auto 0 auto").style(
-            "position","relative").style("display","block");
+        this.svg = d3.select("svg")
+        .style("margin","0 auto 0 auto")
+        .style("position","relative")
+        .style("display","block");
     }
     draw(rootData:any){
         this.voronoiChart.draw(rootData);
@@ -34,6 +41,7 @@ class HybroChart extends Chart {
         .setCategory('data.data.name');
         this.donutChart.draw(this.bundleChart.leaves);
         this.forceChart.draw(rootData);
+
     }
 
 }

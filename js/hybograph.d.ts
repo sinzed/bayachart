@@ -12,7 +12,10 @@ declare class ForceChart extends Chart {
     height: number;
     simulation: any;
     g: any;
+    links_data: any;
+    nodes_data: any;
     constructor();
+    getParent(): HybroChart;
     draw(rootData: any): void;
     /** Functions **/
     circleColour(d: any): "blue" | "pink";
@@ -22,6 +25,32 @@ declare class ForceChart extends Chart {
     drag_end(d: any): void;
     zoom_actions(): void;
     tickActions(): void;
+    initData(): void;
+}
+declare class LayoutOption {
+    private _zoomIn;
+    private _donutChart;
+    private _bundleChart;
+    constructor();
+    canZoomIn: boolean;
+    canShowBundleChart: boolean;
+    canShowDonutChart: boolean;
+}
+declare class Layout {
+    layoutOption: LayoutOption;
+    hybroChart: HybroChart;
+    zoomInBtn: any;
+    showDonutChartBtn: any;
+    showBundleChartBtn: any;
+    constructor(hybroChart: HybroChart);
+    init(): void;
+    addZoomInButton(): any;
+    addDonutChartButton(): any;
+    addBundleChartButton(): any;
+    toggleBundleChart(): void;
+    toggleDonutChart(): void;
+    manageZoomIn(): void;
+    zoom_actions(): void;
 }
 declare class Tools {
     constructor();
@@ -64,6 +93,7 @@ declare class Voronoi extends Chart {
     canDrawFooter: boolean;
     constructor();
     initData(rootData: any): void;
+    setMarginLeft(marginLeft: number): void;
     computeCirclingPolygon(radius: number): number[][];
     initLayout(rootData: any): void;
     drawTitle(): true | undefined;
@@ -82,6 +112,9 @@ declare class BundleChart extends Chart {
     nodeElement: any;
     leaves: any;
     line: any;
+    transTop: number;
+    transLeft: number;
+    element: any;
     constructor();
     init(): void;
     getParnet(): HybroChart;
@@ -89,7 +122,7 @@ declare class BundleChart extends Chart {
     drawNodeNames(): void;
     lineFunction(): void;
 }
-declare class DonutChart {
+declare class DonutChart extends Chart {
     _height: any;
     _margin: any;
     _colour: any;
@@ -103,7 +136,10 @@ declare class DonutChart {
     _radius: any;
     _width: number;
     canDrawPipeLables: boolean;
+    selection: any;
+    element: any;
     constructor();
+    getParent(): HybroChart;
     getWidth(): any;
     setWidth(value: any): DonutChart;
     setHeight(value: any): DonutChart;
@@ -132,6 +168,7 @@ declare class HybroChart extends Chart {
     bundleChart: BundleChart;
     svg: any;
     forceChart: ForceChart;
+    private layout;
     constructor();
     init(): void;
     initLayout(): void;
@@ -139,4 +176,3 @@ declare class HybroChart extends Chart {
 }
 declare var diameter: number, radius: number, innerRadius: number;
 declare var cluster: d3.ClusterLayout<any>;
-declare let hybroChart: HybroChart;

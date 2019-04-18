@@ -1,0 +1,13 @@
+button {
+    border-radius: 17px;
+    border-color: brown;
+    background-color: lightgray;
+    color: #9e7300;
+    font-weight: bold;
+    outline: none; 
+}
+button.selected {
+    background-color: white;
+    border-color: coral;
+     outline: none; 
+}

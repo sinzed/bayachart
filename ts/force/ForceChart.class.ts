@@ -6,111 +6,44 @@ class ForceChart extends Chart {
     height: number;
     simulation: any;
     g: any;
+    links_data: any;
+    nodes_data: any;
     constructor() {
         super();
         this.width = 0;
         this.height = 0;
+        this.initData();
+    }
+    getParent()  : HybroChart {
+        return super.getParent();
     }
     draw(rootData:any) {
         //create somewhere to put the force directed graph
         // var svg = d3.select(".drawingArea"),
         //     width = +svg.attr("width"),
         //     height = +svg.attr("height");
-        this.svg = d3.select("svg");
+        this.svg = this.getParent().voronoiChart.svg;
         this.width = +this.svg.attr("width");
         this.height = +this.svg.attr("height");
 
-        var radius = 10;
-        let hybrochart : HybroChart = this.getParent();
-        var nodes_data = [
-            { "name": "Lillian", "sex": "F" },
-            { "name": "Gordon", "sex": "M" },
-            { "name": "Sylvester", "sex": "M" },
-            { "name": "Mary", "sex": "F" },
-            { "name": "Helen", "sex": "F" },
-            { "name": "Jamie", "sex": "M" },
-            { "name": "Jessie", "sex": "F" },
-            { "name": "Ashton", "sex": "M" },
-            { "name": "Duncan", "sex": "M" },
-            { "name": "Evette", "sex": "F" },
-            { "name": "Mauer", "sex": "M" },
-            { "name": "Fray", "sex": "F" },
-            { "name": "Duke", "sex": "M" },
-            { "name": "Baron", "sex": "M" },
-            { "name": "Infante", "sex": "M" },
-            { "name": "Percy", "sex": "M" },
-            { "name": "Cynthia", "sex": "F" },
-            { "name": "Feyton", "sex": "M" },
-            { "name": "Lesley", "sex": "F" },
-            { "name": "Yvette", "sex": "F" },
-            { "name": "Maria", "sex": "F" },
-            { "name": "Lexy", "sex": "F" },
-            { "name": "Peter", "sex": "M" },
-            { "name": "Ashley", "sex": "F" },
-            { "name": "Finkler", "sex": "M" },
-            { "name": "Damo", "sex": "M" },
-            { "name": "Imogen", "sex": "F" }
-        ]
-        
-        // nodes_data = hybroChart.bundleChart.leaves;
-        //Sample links data 
-        //type: A for Ally, E for Enemy
-        var links_data = [
-            { "source": "Sylvester", "target": "Gordon", "type": "A" },
-            { "source": "Sylvester", "target": "Lillian", "type": "A" },
-            { "source": "Sylvester", "target": "Mary", "type": "A" },
-            { "source": "Sylvester", "target": "Jamie", "type": "A" },
-            { "source": "Sylvester", "target": "Jessie", "type": "A" },
-            { "source": "Sylvester", "target": "Helen", "type": "A" },
-            { "source": "Helen", "target": "Gordon", "type": "A" },
-            { "source": "Mary", "target": "Lillian", "type": "A" },
-            { "source": "Ashton", "target": "Mary", "type": "A" },
-            { "source": "Duncan", "target": "Jamie", "type": "A" },
-            { "source": "Gordon", "target": "Jessie", "type": "A" },
-            { "source": "Sylvester", "target": "Fray", "type": "E" },
-            { "source": "Fray", "target": "Mauer", "type": "A" },
-            { "source": "Fray", "target": "Cynthia", "type": "A" },
-            { "source": "Fray", "target": "Percy", "type": "A" },
-            { "source": "Percy", "target": "Cynthia", "type": "A" },
-            { "source": "Infante", "target": "Duke", "type": "A" },
-            { "source": "Duke", "target": "Gordon", "type": "A" },
-            { "source": "Duke", "target": "Sylvester", "type": "A" },
-            { "source": "Baron", "target": "Duke", "type": "A" },
-            { "source": "Baron", "target": "Sylvester", "type": "E" },
-            { "source": "Evette", "target": "Sylvester", "type": "E" },
-            { "source": "Cynthia", "target": "Sylvester", "type": "E" },
-            { "source": "Cynthia", "target": "Jamie", "type": "E" },
-            { "source": "Mauer", "target": "Jessie", "type": "E" },
-            { "source": "Duke", "target": "Lexy", "type": "A" },
-            { "source": "Feyton", "target": "Lexy", "type": "A" },
-            { "source": "Maria", "target": "Feyton", "type": "A" },
-            { "source": "Baron", "target": "Yvette", "type": "E" },
-            { "source": "Evette", "target": "Maria", "type": "E" },
-            { "source": "Cynthia", "target": "Yvette", "type": "E" },
-            { "source": "Maria", "target": "Jamie", "type": "E" },
-            { "source": "Maria", "target": "Lesley", "type": "E" },
-            { "source": "Ashley", "target": "Damo", "type": "A" },
-            { "source": "Damo", "target": "Lexy", "type": "A" },
-            { "source": "Maria", "target": "Feyton", "type": "A" },
-            { "source": "Finkler", "target": "Ashley", "type": "E" },
-            { "source": "Sylvester", "target": "Maria", "type": "E" },
-            { "source": "Peter", "target": "Finkler", "type": "E" },
-            { "source": "Ashley", "target": "Gordon", "type": "E" },
-            { "source": "Maria", "target": "Imogen", "type": "E" }
-
-        ]
+        var radius = 15;
+     
 
         //set up the simulation and add forces  
         this.simulation = d3.forceSimulation()
-            .nodes(nodes_data);
+            // .nodes(this.getParent().bundleChart.leaves);
+            .nodes(this.nodes_data);
 
-        var link_force = d3.forceLink(links_data)
-            .id(function (d:any) { return d.name; });
+        var link_force = d3.forceLink(this.links_data)
+        // var link_force = d3.forceLink(this.getParent().bundleChart.leaves)
+            .id(function (d:any) { 
+                return d.name;
+             });
 
         var charge_force = d3.forceManyBody()
             .strength(-100);
 
-        var center_force = d3.forceCenter(this.width / 2, this.height / 2);
+        var center_force = d3.forceCenter(this.width / 2, this.height / 4);
 
         this.simulation
             .force("charge_force", charge_force)
@@ -121,38 +54,53 @@ class ForceChart extends Chart {
 
         //add tick instructions: 
         let self = this;
-        this.simulation.on("tick", function(){self.tickActions()});
+        this.simulation.on("tick", function(){
+            self.tickActions()}
+            );
 
         //add encompassing group for the zoom 
         // this.g = this.svg.append("g")
         //     .attr("class", "everything");
         //add encompassing group for the zoom 
-        this.g = this.svg.select(".drawingArea")
-            .attr("class", "everything");
+        this.g = this.getParent().voronoiChart.drawingArea
+            .classed("class", "everything");
 
         //draw lines for the links 
         this.link = this.g.append("g")
             .attr("class", "links")
             .selectAll("line")
-            .data(links_data)
-            .enter().append("line")
-            .attr("stroke-width", 2)
+            .data(this.links_data)
+            // .data(this.getParent().bundleChart.leaves)
+            .enter()
+            .append("line")
+            .attr("stroke-width", 3)
             .style("stroke", this.linkColour);
 
         //draw circles for the nodes 
-        this.node = this.g.append("g")
+        // let nodes = this.getParent().voronoiChart.treemapContainer.selectAll("path")
+    
+        this.node = this.g
+            .append("g")
             .attr("class", "nodes")
+            // .selectAll("circle")
+        // this.node = this.getParent().voronoiChart.treemapContainer
+            // .append("g")
             .selectAll("circle")
-            .data(nodes_data)
+            .data(this.nodes_data)
+            // .data(this.getParent().bundleChart.leaves)
             .enter()
             .append("circle")
             .attr("r", radius)
-            .attr("fill", this.circleColour);
+            // .attr("fill", this.circleColour);
 
 
         //add drag capabilities  
         var drag_handler = d3.drag()
-            .on("start", function(d){self.drag_start(d)})
+            .on("start", function(d){
+                
+                self.drag_start(d)
+            
+            })
             .on("drag", function(d){self.drag_drag(d)})
             .on("end", function(d){self.drag_end(d)});
 
@@ -193,7 +141,8 @@ class ForceChart extends Chart {
     //Drag functions 
     //d is the node 
     drag_start(d:any) {
-        if (!d3.event.active) this.simulation.alphaTarget(0.3).restart();
+
+        if (!d3.event.active) this.simulation.alphaTarget(0.9).restart();
         d.fx = d.x;
         d.fy = d.y;
     }
@@ -210,7 +159,7 @@ class ForceChart extends Chart {
         d.fy = null;
     }
 
-    //Zoom functions 
+    // //Zoom functions 
     zoom_actions() {
         this.g.attr("transform", d3.event.transform)
     }
@@ -218,15 +167,47 @@ class ForceChart extends Chart {
     tickActions() {
         //update circle positions each tick of the simulation 
         this.node
-            .attr("cx", function (d:any) { return d.x; })
-            .attr("cy", function (d:any) { return d.y; });
+            .attr("cx", function (d:any) {
+                 return d.x; 
+                })
+            .attr("cy", function (d:any) { 
+                return d.y; 
+            });
+        this.node
+            .attr("cx", function (d:any) {
+                 return d.x; 
+                })
+            .attr("cy", function (d:any) { 
+                return d.y; 
+            });
 
         //update link positions 
         this.link
-            .attr("x1", function (d:any) { return d.source.x; })
+            .attr("x1", function (d:any) { 
+                
+                return d.source.x; 
+            
+            })
             .attr("y1", function (d:any) { return d.source.y; })
             .attr("x2", function (d:any) { return d.target.x; })
             .attr("y2", function (d:any) { return d.target.y; });
+    }
+    initData(){
+        this.nodes_data = [
+            { "name": "Lillian", "sex": "F","source": "Lillian", "target": "Gordon", "type": "A" },
+            { "name": "Gordon", "sex": "M", "source": "Gordon", "target": "Gordon", "type": "A"}
+        ]
+        
+        // nodes_data = hybroChart.bundleChart.leaves;
+        //Sample links data 
+        //type: A for Ally, E for Enemy
+        // this.links_data = [
+        //     { "source": "Sylvester", "target": "Gordon", "type": "A" },
+        //     { "source": "Gordon", "target": "Sylvester", "type": "A" },
+        //     { "source": "Sylvester", "target": "Lillian", "type": "A" },
+        //     { "source": "Sylvester", "target": "Maria", "type": "E" }
+        // ]
+        this.links_data = this.nodes_data;
     }
 
 }

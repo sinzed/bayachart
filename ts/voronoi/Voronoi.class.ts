@@ -5,9 +5,9 @@ class Voronoi extends Chart {
     //end: constants
     
     //begin: layout conf.
-    svgWidth = 960;
+    svgWidth = 980;
     svgAreaHeight = 1500;
-    svgHeight = 800;
+    svgHeight = 820;
     margin : any;
     height : any;
     width : any;
@@ -61,6 +61,9 @@ class Voronoi extends Chart {
         this.fontScale.domain([3, 20]).range([8, 20]).clamp(true);
         this.initLayout(rootData);
     }
+    setMarginLeft(marginLeft : number){
+        this.margin.left = marginLeft;
+    }
 
  computeCirclingPolygon(radius: number) {
   var points = 60,
@@ -81,7 +84,7 @@ class Voronoi extends Chart {
     .attr("width", this.svgWidth)
     .attr("height", this.svgAreaHeight);
   
-    this.drawingArea = this.svg.append("g")
+    this.drawingArea = this.svg.select(".layout").append("g")
       .classed("drawingArea", true)
       .attr("transform", "translate("+[this.margin.left,this.margin.top]+")");
   
