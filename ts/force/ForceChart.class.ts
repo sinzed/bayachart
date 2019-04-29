@@ -26,7 +26,7 @@ class ForceChart extends Chart {
         this.width = +this.svg.attr("width");
         this.height = +this.svg.attr("height");
 
-        var radius = 15;
+        var radius = 205;
      
 
         //set up the simulation and add forces  
@@ -41,13 +41,13 @@ class ForceChart extends Chart {
              });
 
         var charge_force = d3.forceManyBody()
-            .strength(-100);
+            .strength(-322222);
 
         var center_force = d3.forceCenter(this.width / 2, this.height / 4);
 
         this.simulation
             .force("charge_force", charge_force)
-            .force("center_force", center_force)
+            // .force("center_force", center_force)
             .force("links", link_force)
             ;
 
@@ -91,6 +91,7 @@ class ForceChart extends Chart {
             .enter()
             .append("circle")
             .attr("r", radius)
+            .attr("fill-opacity","0.1")
             // .attr("fill", this.circleColour);
 
 
