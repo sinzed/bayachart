@@ -1,5 +1,6 @@
 class Chart {
     parent: any;
+    enable: boolean = true;
     constructor(){
         // this.parent = null
     }
@@ -8,5 +9,8 @@ class Chart {
     }
     getParent(){
         return this.parent;
+    }
+    disable(){
+        this.enable = false;
     }
 }

@@ -31,6 +31,8 @@ class HybroChart extends Chart {
         .style("display","block");
     }
     draw(rootData:any){
+        if(!this.enable)
+        return false;
         this.voronoiChart.draw(rootData);
         this.bundleChart.draw(rootData);
         this.donutChart.setWidth(940)

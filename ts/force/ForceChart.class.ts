@@ -8,6 +8,7 @@ class ForceChart extends Chart {
     g: any;
     links_data: any;
     nodes_data: any;
+    nodeCells: any;
     constructor() {
         super();
         this.width = 0;
@@ -18,6 +19,8 @@ class ForceChart extends Chart {
         return super.getParent();
     }
     draw(rootData:any) {
+        if(!this.enable)
+        return false;
         //create somewhere to put the force directed graph
         // var svg = d3.select(".drawingArea"),
         //     width = +svg.attr("width"),
@@ -26,32 +29,25 @@ class ForceChart extends Chart {
         this.width = +this.svg.attr("width");
         this.height = +this.svg.attr("height");
 
-        var radius = 205;
+
      
 
         //set up the simulation and add forces  
         this.simulation = d3.forceSimulation()
             // .nodes(this.getParent().bundleChart.leaves);
             .nodes(this.nodes_data);
-
-        var link_force = d3.forceLink(this.links_data)
+        let link_force = d3.forceLink(this.links_data)
         // var link_force = d3.forceLink(this.getParent().bundleChart.leaves)
             .id(function (d:any) { 
                 return d.name;
              });
-
-        var charge_force = d3.forceManyBody()
-            .strength(-322222);
-
-        var center_force = d3.forceCenter(this.width / 2, this.height / 4);
-
+        let charge_force = d3.forceManyBody().strength(-322222);
+        let center_force = d3.forceCenter(this.width / 2, this.height / 4);
+        // let force_colide = d3.forceCollide(this.width / 2, this.height / 4);
         this.simulation
             .force("charge_force", charge_force)
-            // .force("center_force", center_force)
-            .force("links", link_force)
-            ;
-
-
+            .force("center_force", center_force)
+            .force("links", link_force);
         //add tick instructions: 
         let self = this;
         this.simulation.on("tick", function(){
@@ -78,24 +74,9 @@ class ForceChart extends Chart {
 
         //draw circles for the nodes 
         // let nodes = this.getParent().voronoiChart.treemapContainer.selectAll("path")
-    
-        this.node = this.g
-            .append("g")
-            .attr("class", "nodes")
-            // .selectAll("circle")
-        // this.node = this.getParent().voronoiChart.treemapContainer
-            // .append("g")
-            .selectAll("circle")
-            .data(this.nodes_data)
-            // .data(this.getParent().bundleChart.leaves)
-            .enter()
-            .append("circle")
-            .attr("r", radius)
-            .attr("fill-opacity","0.1")
-            // .attr("fill", this.circleColour);
-
-
-        //add drag capabilities  
+        this.initNode();
+        this.initNodeCells();
+     
         var drag_handler = d3.drag()
             .on("start", function(d){
                 
@@ -106,12 +87,43 @@ class ForceChart extends Chart {
             .on("end", function(d){self.drag_end(d)});
 
         drag_handler(this.node);
+        drag_handler(this.nodeCells);
 
         //add zoom capabilities 
-        var zoom_handler = d3.zoom()
-            .on("zoom", function(){self.zoom_actions()});
+        // var zoom_handler = d3.zoom()
+        //     .on("zoom", function(){self.zoom_actions()});
 
-        zoom_handler(this.svg);
+        // zoom_handler(this.svg);
+    }
+    initNode(){
+        // this.initNode1();
+        this.node = this.getParent().svg.selectAll(".drawingArea .hoverers path");
+
+        // this.node
+        console.log(this.node);
+    }
+    initNodeCells(){
+        this.nodeCells = this.getParent().svg.selectAll(".drawingArea .cells path");
+    }
+    initNode1() {
+        var radius = 25;
+        this.node = this.g
+        .append("g")
+        // .attr("class", "nodes")
+        // .selectAll("circle")
+    // this.node = this.getParent().voronoiChart.treemapContainer
+        // .append("g")
+        .selectAll("circle")
+        .data(this.nodes_data)
+        // .data(this.getParent().bundleChart.leaves)
+        .enter()
+        .append("circle")
+        .attr("r", radius)
+        .attr("fill-opacity","0.8")
+        // .attr("fill", this.circleColour);
+
+
+    //add drag capabilities  
     }
 
 
@@ -144,20 +156,21 @@ class ForceChart extends Chart {
     drag_start(d:any) {
 
         if (!d3.event.active) this.simulation.alphaTarget(0.9).restart();
-        d.fx = d.x;
-        d.fy = d.y;
+        d.fx = d3.event.x - d.polygon.site.x;
+        d.fy = d3.event.y - d.polygon.site.y;
     }
 
     //make sure you can't drag the circle outside the box
     drag_drag(d:any) {
-        d.fx = d3.event.x;
-        d.fy = d3.event.y;
+        
+        d.fx = d3.event.x - d.polygon.site.x;
+        d.fy = d3.event.y - d.polygon.site.y;
     }
 
     drag_end(d:any) {
         if (!d3.event.active) this.simulation.alphaTarget(0);
-        d.fx = null;
-        d.fy = null;
+            d.fx = 0;
+            d.fy = 0;
     }
 
     // //Zoom functions 
@@ -167,31 +180,34 @@ class ForceChart extends Chart {
 
     tickActions() {
         //update circle positions each tick of the simulation 
-        this.node
-            .attr("cx", function (d:any) {
-                 return d.x; 
+        // this.node
+        //     .attr("cx", function (d:any) {
+        //          return d.x; 
+        //         })
+        //     .attr("cy", function (d:any) { 
+        //         return d.y; 
+        //     });
+        this.node.attr("transform", function (d:any) {
+                 return "translate("+d.fx+","+d.fy+")"; 
                 })
-            .attr("cy", function (d:any) { 
-                return d.y; 
-            });
-        this.node
-            .attr("cx", function (d:any) {
-                 return d.x; 
+        this.nodeCells.attr("transform", function (d:any) {
+                 return "translate("+d.fx+","+d.fy+")"; 
                 })
-            .attr("cy", function (d:any) { 
-                return d.y; 
-            });
+            // .attr("cy", function (d:any) { 
+            //     return d.y; 
+            // });
 
         //update link positions 
         this.link
             .attr("x1", function (d:any) { 
-                
-                return d.source.x; 
-            
-            })
-            .attr("y1", function (d:any) { return d.source.y; })
-            .attr("x2", function (d:any) { return d.target.x; })
-            .attr("y2", function (d:any) { return d.target.y; });
+                return d.x; 
+            }).attr("y1", function (d:any) { 
+                return d.y;
+             })
+            .attr("x2", function (d:any) {
+                 return d.x; 
+                })
+            .attr("y2", function (d:any) { return d.y; });
     }
     initData(){
         this.nodes_data = [

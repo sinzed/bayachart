@@ -94,6 +94,7 @@ class Voronoi extends Chart {
   
       this.treemapContainer.append("path")
       .classed("world", true)
+      .attr("fill","transparent")
       .attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")")
       .attr("d", "M"+this.circlingPolygon.join(",")+"Z");
   

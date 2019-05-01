@@ -8,8 +8,8 @@ cluster = d3.cluster().size([360, innerRadius]);
 
 
 
-// let hybroChart2 = new HybroChart();
-// hybroChart2.voronoiChart.setMarginLeft(500);
+let hybroChart2 = new HybroChart();
+hybroChart2.voronoiChart.setMarginLeft(500);
 
 
 d3.json("../voronoi-bundle-donut.json", function(error:any, graphsData:any) {
@@ -18,9 +18,11 @@ d3.json("../voronoi-bundle-donut.json", function(error:any, graphsData:any) {
       if(graphData=="hybrograph")
         continue;
       let hybroChart = new HybroChart();
-      hybroChart.voronoiChart.setMarginLeft(Math.random()*500);
+      // hybroChart.voronoiChart.setMarginLeft(Math.random()*-500);
       hybroChart.draw(graphsData[graphData]);
     }
-    // hybroChart2.draw(rootData);
+    hybroChart2.forceChart.disable();
+    hybroChart2.voronoiChart.setMarginLeft(Math.random()*-500);
+    // hybroChart2.draw(graphsData[graphData]);
   });
   

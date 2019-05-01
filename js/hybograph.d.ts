@@ -1,8 +1,10 @@
 declare class Chart {
     parent: any;
+    enable: boolean;
     constructor();
     setParent(chart: Chart): void;
     getParent(): any;
+    disable(): void;
 }
 declare class ForceChart extends Chart {
     link: any;
@@ -14,9 +16,13 @@ declare class ForceChart extends Chart {
     g: any;
     links_data: any;
     nodes_data: any;
+    nodeCells: any;
     constructor();
     getParent(): HybroChart;
-    draw(rootData: any): void;
+    draw(rootData: any): false | undefined;
+    initNode(): void;
+    initNodeCells(): void;
+    initNode1(): void;
     /** Functions **/
     circleColour(d: any): "blue" | "pink";
     linkColour(d: any): "green" | "red";
@@ -172,7 +178,8 @@ declare class HybroChart extends Chart {
     constructor();
     init(): void;
     initLayout(): void;
-    draw(rootData: any): void;
+    draw(rootData: any): false | undefined;
 }
 declare var diameter: number, radius: number, innerRadius: number;
 declare var cluster: d3.ClusterLayout<any>;
+declare let hybroChart2: HybroChart;
