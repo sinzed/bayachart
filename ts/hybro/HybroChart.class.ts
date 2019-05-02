@@ -20,6 +20,7 @@ class HybroChart extends Chart {
 
         this.bundleChart.setParent(this);
         this.donutChart.setParent(this);
+
     }
     init(){
         this.initLayout();
@@ -43,6 +44,9 @@ class HybroChart extends Chart {
         .setCategory('data.data.name');
         this.donutChart.draw(this.bundleChart.leaves);
         this.forceChart.draw(rootData);
+
+        this.layout.toggleDonutChart();
+
 
     }
 

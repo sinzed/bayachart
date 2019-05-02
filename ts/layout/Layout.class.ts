@@ -13,7 +13,10 @@ class Layout {
         this.addZoomInButton();
 
 
+
+
         this.initZoom();
+
     }
     init(){
         this.manageZoomIn();
@@ -21,7 +24,7 @@ class Layout {
     initZoom(){
         let g;
         g = this.hybroChart.svg.selectAll(".zoomable");
-        g.attr("transform", "scale(0.1)");
+        g.attr("transform", "scale(0.6)");
     }
     addZoomInButton(){
         //alternative way

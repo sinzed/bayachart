@@ -97,7 +97,8 @@ class ForceChart extends Chart {
     }
     initNode(){
         // this.initNode1();
-        this.node = this.getParent().svg.selectAll(".drawingArea .cells path");
+        // this.node = this.getParent().svg.selectAll(".drawingArea .cells path");
+        this.node = this.getParent().svg.selectAll(".drawingArea");
 
         // this.node
         console.log(this.node);
@@ -156,8 +157,8 @@ class ForceChart extends Chart {
     drag_start(d:any) {
 
         if (!d3.event.active) this.simulation.alphaTarget(0.9).restart();
-        d.fx = d.polygon.site.x;
-        d.fy = d.polygon.site.y;
+        d.fx = 0;
+        d.fy = 0;
     }
 
     //make sure you can't drag the circle outside the box
@@ -179,20 +180,12 @@ class ForceChart extends Chart {
     }
 
     tickActions() {
-        //update circle positions each tick of the simulation 
-        // this.node
-        //     .attr("cx", function (d:any) {
-        //          return d.x; 
-        //         })
-        //     .attr("cy", function (d:any) { 
-        //         return d.y; 
-        //     });
         this.node.attr("transform", function (d:any) {
                  return "translate("+d.fx+","+d.fy+")"; 
                 })
-        this.nodeCells.attr("transform", function (d:any) {
-                 return "translate("+d.fx+","+d.fy+")"; 
-                })
+        // this.nodeCells.attr("transform", function (d:any) {
+        //          return "translate("+d.fx+","+d.fy+")"; 
+        //         })
             // .attr("cy", function (d:any) { 
             //     return d.y; 
             // });

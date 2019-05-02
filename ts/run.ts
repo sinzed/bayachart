@@ -23,6 +23,6 @@ d3.json("../voronoi-bundle-donut.json", function(error:any, graphsData:any) {
     }
     hybroChart2.forceChart.disable();
     hybroChart2.voronoiChart.setMarginLeft(Math.random()*-500);
-    // hybroChart2.draw(graphsData[graphData]);
+    hybroChart2.draw(graphsData[graphData]);
   });
   
