@@ -11,9 +11,17 @@ class Layout {
         this.addDonutChartButton();
         this.addBundleChartButton();
         this.addZoomInButton();
+
+
+        this.initZoom();
     }
     init(){
         this.manageZoomIn();
+    }
+    initZoom(){
+        let g;
+        g = this.hybroChart.svg.selectAll(".zoomable");
+        g.attr("transform", "scale(0.1)");
     }
     addZoomInButton(){
         //alternative way
