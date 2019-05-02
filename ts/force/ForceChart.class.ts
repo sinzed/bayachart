@@ -42,10 +42,14 @@ class ForceChart extends Chart {
              
         let charge_force = d3.forceManyBody().strength(-32);
         let center_force = d3.forceCenter(this.width / 2, this.height / 4);
-        // let force_colide = d3.forceCollide(this.width / 2, this.height / 4);
+        // let force_colide = d3.forceCollide();
         this.simulation
             .force("charge_force", charge_force)
             .force("center_force", center_force)
+            .force('collision', d3.forceCollide().
+            radius(function(d) {
+                return 300
+              }))
             .force("links", link_force);
         //add tick instructions: 
         let self = this;
@@ -63,6 +67,7 @@ class ForceChart extends Chart {
         //draw lines for the links 
         this.link = this.g.append("g")
             .attr("class", "links")
+            // .attr("transform", "translate(230,-190)")
             .selectAll("line")
             .data(this.links_data)
             // .data(this.getParent().bundleChart.leaves)
@@ -97,7 +102,8 @@ class ForceChart extends Chart {
     initNode(){
         // this.initNode1();
         // this.node = this.getParent().svg.selectAll(".drawingArea .cells path");
-        this.node = this.getParent().svg.selectAll(".drawingArea");
+        // this.node = this.getParent().svg.selectAll(".drawingArea");
+        this.node = d3.selectAll(".drawingArea");
         this.node.data(this.nodes_data);
 
         // this.node
@@ -193,14 +199,14 @@ class ForceChart extends Chart {
         //update link positions 
         this.link
             .attr("x1", function (d:any) { 
-                return d.x; 
+                return d.source.x; 
             }).attr("y1", function (d:any) { 
-                return d.y;
+                return d.source.y;
              })
             .attr("x2", function (d:any) {
-                 return d.x; 
+                 return d.target.x; 
                 })
-            .attr("y2", function (d:any) { return d.y; });
+            .attr("y2", function (d:any) { return d.target.y; });
     }
     initData(){
         this.nodes_data = [

@@ -215,20 +215,26 @@ class Voronoi extends Chart {
         labels.append("text")
             .classed("value", true)
             .text(function(d: { data: { weight: string; }; }){ return d.data.weight+"%"; });
-        
-        var hoverers = this.treemapContainer.append("g")
+        if(this.canShowHoverer()){
+
+            var hoverers = this.treemapContainer.append("g")
             .classed('hoverers', true)
             .attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")")
             .selectAll(".hoverer")
             .data(leaves)
             .enter()
-                .append("path")
-                    .classed("hoverer", true)
-                    .attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; });
-        
-        hoverers.append("title")
-          .text(function(d: { data: { name: string; }; value: string; }) { return d.data.name + "\n" + d.value+"%"; });
+            .append("path")
+            .classed("hoverer", true)
+            .attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; });
+            
+            hoverers.append("title")
+            .text(function(d: { data: { name: string; }; value: string; }) { return d.data.name + "\n" + d.value+"%"; });
+        }
       }
+    canShowHoverer() {
+        return false;
+        // throw new Error("Method not implemented.");
+    }
       draw(rootData:any){
           this.initData(rootData);
           this.drawTreemap();
