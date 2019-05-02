@@ -41,7 +41,7 @@ class ForceChart extends Chart {
             .id(function (d:any) { 
                 return d.name;
              });
-        let charge_force = d3.forceManyBody().strength(-322222);
+        let charge_force = d3.forceManyBody().strength(-32);
         let center_force = d3.forceCenter(this.width / 2, this.height / 4);
         // let force_colide = d3.forceCollide(this.width / 2, this.height / 4);
         this.simulation
@@ -97,13 +97,13 @@ class ForceChart extends Chart {
     }
     initNode(){
         // this.initNode1();
-        this.node = this.getParent().svg.selectAll(".drawingArea .hoverers path");
+        this.node = this.getParent().svg.selectAll(".drawingArea .cells path");
 
         // this.node
         console.log(this.node);
     }
     initNodeCells(){
-        this.nodeCells = this.getParent().svg.selectAll(".drawingArea .cells path");
+        this.nodeCells = this.getParent().svg.selectAll(".drawingArea .hoverers path");
     }
     initNode1() {
         var radius = 25;
@@ -156,21 +156,21 @@ class ForceChart extends Chart {
     drag_start(d:any) {
 
         if (!d3.event.active) this.simulation.alphaTarget(0.9).restart();
-        d.fx = d3.event.x - d.polygon.site.x;
-        d.fy = d3.event.y - d.polygon.site.y;
+        d.fx = d.polygon.site.x;
+        d.fy = d.polygon.site.y;
     }
 
     //make sure you can't drag the circle outside the box
     drag_drag(d:any) {
         
-        d.fx = d3.event.x - d.polygon.site.x;
-        d.fy = d3.event.y - d.polygon.site.y;
+        d.fx = d3.event.x ;
+        d.fy = d3.event.y;
     }
 
     drag_end(d:any) {
         if (!d3.event.active) this.simulation.alphaTarget(0);
-            d.fx = 0;
-            d.fy = 0;
+            d.fx = null;
+            d.fy = null;
     }
 
     // //Zoom functions 
