@@ -21,16 +21,10 @@ class ForceChart extends Chart {
     draw(rootData:any) {
         if(!this.enable)
         return false;
-        //create somewhere to put the force directed graph
-        // var svg = d3.select(".drawingArea"),
-        //     width = +svg.attr("width"),
-        //     height = +svg.attr("height");
+
         this.svg = this.getParent().voronoiChart.svg;
         this.width = +this.svg.attr("width");
         this.height = +this.svg.attr("height");
-
-
-     
 
         //set up the simulation and add forces  
         this.simulation = d3.forceSimulation()
@@ -48,7 +42,7 @@ class ForceChart extends Chart {
             .force("center_force", center_force)
             .force('collision', d3.forceCollide().
             radius(function(d) {
-                return 300
+                return 250
               }))
             .force("links", link_force);
         //add tick instructions: 
@@ -57,23 +51,20 @@ class ForceChart extends Chart {
             self.tickActions()}
             );
 
-        //add encompassing group for the zoom 
-        // this.g = this.svg.append("g")
-        //     .attr("class", "everything");
-        //add encompassing group for the zoom 
         this.g = this.getParent().voronoiChart.drawingArea
             .classed("class", "everything");
 
         //draw lines for the links 
         this.link = this.g.append("g")
             .attr("class", "links")
-            // .attr("transform", "translate(230,-190)")
+            // .attr("transform-origin", "2500px 250px")
+            // .attr("transform", "translate(200,300)")
             .selectAll("line")
             .data(this.links_data)
             // .data(this.getParent().bundleChart.leaves)
             .enter()
             .append("line")
-            .attr("stroke-width", 3)
+            .attr("stroke-width", 8)
             .style("stroke", this.linkColour);
 
         //draw circles for the nodes 
@@ -93,11 +84,6 @@ class ForceChart extends Chart {
         drag_handler(this.node);
         drag_handler(this.nodeCells);
 
-        //add zoom capabilities 
-        // var zoom_handler = d3.zoom()
-        //     .on("zoom", function(){self.zoom_actions()});
-
-        // zoom_handler(this.svg);
     }
     initNode(){
         // this.initNode1();
@@ -152,7 +138,7 @@ class ForceChart extends Chart {
     //If the link type is "E" return red 
     linkColour(d:any) {
         if (d.type == "A") {
-            return "green";
+            return "pink";
         } else {
             return "red";
         }
@@ -206,7 +192,9 @@ class ForceChart extends Chart {
             .attr("x2", function (d:any) {
                  return d.target.x; 
                 })
-            .attr("y2", function (d:any) { return d.target.y; });
+            .attr("y2", function (d:any) { 
+                return d.target.y; 
+            });
     }
     initData(){
         this.nodes_data = [

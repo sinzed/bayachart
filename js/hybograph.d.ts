@@ -25,7 +25,7 @@ declare class ForceChart extends Chart {
     initNode1(): void;
     /** Functions **/
     circleColour(d: any): "blue" | "pink";
-    linkColour(d: any): "green" | "red";
+    linkColour(d: any): "pink" | "red";
     drag_start(d: any): void;
     drag_drag(d: any): void;
     drag_end(d: any): void;
@@ -50,6 +50,7 @@ declare class Layout {
     showBundleChartBtn: any;
     constructor(hybroChart: HybroChart);
     init(): void;
+    initZoom(): void;
     addZoomInButton(): any;
     addDonutChartButton(): any;
     addBundleChartButton(): any;
@@ -110,6 +111,7 @@ declare class Voronoi extends Chart {
         };
     }): true | undefined;
     drawTreemap(): void;
+    canShowHoverer(): boolean;
     draw(rootData: any): void;
 }
 declare class BundleChart extends Chart {

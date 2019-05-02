@@ -82,6 +82,7 @@ class Voronoi extends Chart {
  initLayout(rootData: any) {
     this.svg = d3.select("svg")
     .attr("width", this.svgWidth)
+    .style("background-color","black")
     .attr("height", this.svgAreaHeight);
   
     this.drawingArea = this.svg.select(".layout").append("g")
