@@ -34,7 +34,7 @@ class ForceChart extends Chart {
                 return d.name;
              });
              
-        let charge_force = d3.forceManyBody().strength(-32);
+        let charge_force = d3.forceManyBody().strength(200);
         let center_force = d3.forceCenter(this.width / 2, this.height / 4);
         // let force_colide = d3.forceCollide();
         this.simulation
@@ -42,7 +42,7 @@ class ForceChart extends Chart {
             .force("center_force", center_force)
             .force('collision', d3.forceCollide().
             radius(function(d) {
-                return 250
+                return 210
               }))
             .force("links", link_force);
         //add tick instructions: 
@@ -69,7 +69,7 @@ class ForceChart extends Chart {
 
         //draw circles for the nodes 
         // let nodes = this.getParent().voronoiChart.treemapContainer.selectAll("path")
-        this.initNode();
+        // this.initNode1();
         this.initNodeCells();
      
         var drag_handler = d3.drag()
@@ -81,7 +81,7 @@ class ForceChart extends Chart {
             .on("drag", function(d){self.drag_drag(d)})
             .on("end", function(d){self.drag_end(d)});
 
-        drag_handler(this.node);
+        // drag_handler(this.node);
         drag_handler(this.nodeCells);
 
     }
@@ -89,14 +89,17 @@ class ForceChart extends Chart {
         // this.initNode1();
         // this.node = this.getParent().svg.selectAll(".drawingArea .cells path");
         // this.node = this.getParent().svg.selectAll(".drawingArea");
-        this.node = d3.selectAll(".drawingArea");
+        this.node = d3.selectAll(".drawingArea .treemap-container");
         this.node.data(this.nodes_data);
 
         // this.node
         console.log(this.node);
     }
     initNodeCells(){
-        this.nodeCells = this.getParent().svg.selectAll(".drawingArea .hoverers path");
+        // this.nodeCells = this.getParent().svg.selectAll(".drawingArea .hoverers path");
+        this.nodeCells = this.getParent().svg.selectAll(".drawingArea .treemap-container");
+        this.nodeCells.data(this.nodes_data);
+
     }
     initNode1() {
         var radius = 25;
@@ -138,7 +141,7 @@ class ForceChart extends Chart {
     //If the link type is "E" return red 
     linkColour(d:any) {
         if (d.type == "A") {
-            return "pink";
+            return "#a1dd00";
         } else {
             return "red";
         }
@@ -172,15 +175,12 @@ class ForceChart extends Chart {
     }
 
     tickActions() {
-        this.node.attr("transform", function (d:any) {
+        // this.node.attr("transform", function (d:any) {
+        //          return "translate("+d.x+","+d.y+")"; 
+        //         })
+        this.nodeCells.attr("transform", function (d:any) {
                  return "translate("+d.x+","+d.y+")"; 
                 })
-        // this.nodeCells.attr("transform", function (d:any) {
-        //          return "translate("+d.fx+","+d.fy+")"; 
-        //         })
-            // .attr("cy", function (d:any) { 
-            //     return d.y; 
-            // });
 
         //update link positions 
         this.link
@@ -198,8 +198,9 @@ class ForceChart extends Chart {
     }
     initData(){
         this.nodes_data = [
-            { "name": "Lillian", "sex": "F","source": "Lillian", "target": "Gordon", "type": "A" },
-            { "name": "Gordon", "sex": "M", "source": "Gordon", "target": "Gordon", "type": "A"}
+            { "name": "Lillian", "sex": "F","source": "Lillian", "target": "Lillian", "type": "A" },
+            { "name": "Gordon", "sex": "M", "source": "Gordon", "target": "Lillian", "type": "A"}
+            { "name": "America", "sex": "M", "source": "America", "target": "Lillian", "type": "A"}
         ]
         
         // nodes_data = hybroChart.bundleChart.leaves;

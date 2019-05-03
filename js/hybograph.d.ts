@@ -25,7 +25,7 @@ declare class ForceChart extends Chart {
     initNode1(): void;
     /** Functions **/
     circleColour(d: any): "blue" | "pink";
-    linkColour(d: any): "pink" | "red";
+    linkColour(d: any): "#a1dd00" | "red";
     drag_start(d: any): void;
     drag_drag(d: any): void;
     drag_end(d: any): void;
@@ -88,6 +88,7 @@ declare class Voronoi extends Chart {
     legendsMinY: number;
     treemapRadius: number;
     treemapCenter: any[];
+    backgroundColor: string;
     _voronoiTreemap: any;
     hierarchy: any;
     circlingPolygon: any;
@@ -185,3 +186,4 @@ declare class HybroChart extends Chart {
 declare var diameter: number, radius: number, innerRadius: number;
 declare var cluster: d3.ClusterLayout<any>;
 declare let hybroChart2: HybroChart;
+declare let hybroChart3: HybroChart;

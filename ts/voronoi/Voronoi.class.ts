@@ -19,6 +19,7 @@ class Voronoi extends Chart {
     legendsMinY: number;
     treemapRadius: number;
     treemapCenter: any[];
+    backgroundColor: string = "whitesmoke";
     //end: layout conf.
 
 //begin: treemap conf.
@@ -82,7 +83,7 @@ class Voronoi extends Chart {
  initLayout(rootData: any) {
     this.svg = d3.select("svg")
     .attr("width", this.svgWidth)
-    .style("background-color","black")
+    .style("background-color",this.backgroundColor)
     .attr("height", this.svgAreaHeight);
   
     this.drawingArea = this.svg.select(".layout").append("g")
