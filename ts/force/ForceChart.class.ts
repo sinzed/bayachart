@@ -199,7 +199,7 @@ class ForceChart extends Chart {
     initData(){
         this.nodes_data = [
             { "name": "Lillian", "sex": "F","source": "Lillian", "target": "Lillian", "type": "A" },
-            { "name": "Gordon", "sex": "M", "source": "Gordon", "target": "Lillian", "type": "A"}
+            { "name": "Gordon", "sex": "M", "source": "Gordon", "target": "Lillian", "type": "A"},
             { "name": "America", "sex": "M", "source": "America", "target": "Lillian", "type": "A"}
         ]
         

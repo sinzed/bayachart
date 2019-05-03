@@ -21,12 +21,12 @@ class BundleChart extends Chart {
         return super.getParent();
     }
     draw(rootData:any){
-        this.element = this.getParent().voronoiChart.drawingArea
-        .attr("width", diameter)
-        .attr("height", diameter)
+        this.element = this.getParent().voronoiChart.drawingArea.select(".treemap-container")
+        // .attr("width", diameter)
+        // .attr("height", diameter)
         .insert('g', '#first + *');
-        this.linkElement = this.element.append("g").selectAll(".link");
-        this.nodeElement = this.element.append("g").attr("transform","translate(270,35)").selectAll(".node");
+        this.linkElement = this.element.append("g").attr("id","bundleElements").attr("transform","translate(-480,-405)").selectAll(".link");
+        this.nodeElement = this.element.append("g").attr("id","bundleNodes").selectAll(".node");
 
         
         var root =  this.getParent().tools.packageHierarchy(rootData.children)
