@@ -113,7 +113,7 @@ class DonutChart extends Chart {
     draw(leaves:any){
             // d3.select('.drawingArea')
     // this.selection = d3.select('svg g').datum(leaves); // bind data to the div
-    this.selection = this.getParent().voronoiChart.drawingArea.datum(leaves); // bind data to the div
+    this.selection = this.getParent().voronoiChart.drawingArea.select(".treemap-container").datum(leaves); // bind data to the div
     this.chart(this.selection);
     
     // .call(donutChart.chart); // draw chart in div
@@ -150,12 +150,12 @@ class DonutChart extends Chart {
 
             // ===========================================================================================
             // append the svg object to the selection
-            self.element = selection.append('svg');
+            self.element = selection.append('g').attr("id","donut");
             var svg =  self.element
                 .attr('width', self._width + self._margin.left + self._margin.right)
                 .attr('height', self._height + self._margin.top + self._margin.bottom)
               .append('g')
-                .style('transform', 'translate(50%,50%)');
+                // .style('transform', 'translate(50%,50%)');
                 // .attr('transform', 'translate(' + self._width / 2 + ',' + self._height / 2 + ')');
             // ===========================================================================================
 
