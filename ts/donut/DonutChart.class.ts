@@ -122,6 +122,7 @@ class DonutChart extends Chart {
     }
     chart(selection: any){
         let self =this;
+        self.element = selection.append('g').classed("donut",true);
         selection.each(function(data:any) {
             // generate chart
 
@@ -150,7 +151,7 @@ class DonutChart extends Chart {
 
             // ===========================================================================================
             // append the svg object to the selection
-            self.element = selection.append('g').attr("id","donut");
+            // self.element = selection.append('g').classed("donut",true);
             var svg =  self.element
                 .attr('width', self._width + self._margin.left + self._margin.right)
                 .attr('height', self._height + self._margin.top + self._margin.bottom)

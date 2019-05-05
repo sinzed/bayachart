@@ -20,15 +20,30 @@ declare class ForceChart extends Chart {
     constructor();
     getParent(): BayaChart;
     draw(rootData: any): false | undefined;
+    radius(): number;
     initNode(): void;
     initNodeCells(): void;
     circleColour(d: any): "blue" | "pink";
-    linkColour(d: any): "#a1dd00" | "red";
+    linkColour(d: any): string;
     linkColour2(d: any): string;
     drag_start(d: any): void;
     drag_drag(d: any): void;
     drag_end(d: any): void;
     initData(): void;
+    buildLeavesWithParentName(): void;
+    buildLinkData(): void;
+    findMainSource(leaf: any): any;
+    findMainTarget(target: any): any;
+    followToFindleaf(hierarchy: any, target: string): any;
+    findSourceMargin(leaf: any): {
+        "x": number;
+        "y": number;
+    };
+    findTargetMargin(leaf: any): {
+        "x": number;
+        "y": number;
+    };
+    addLink(mainSource: any, sourceMargin: any, mainTarget: any, targetMargin: any): void;
     tickActions(): void;
 }
 declare class JoinLink {
@@ -200,6 +215,7 @@ declare class BayaChart extends Chart {
     hybroCharts: Array<HybroChart>;
     forceChart: ForceChart;
     jsonData: any;
+    nodesData: Array<any>;
     svg: any;
     layout: Layout;
     constructor();

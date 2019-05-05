@@ -13,7 +13,7 @@ class ForceChart extends Chart {
         super();
         this.width = 0;
         this.height = 0;
-        this.initData();
+        // this.initData();
     }
     getParent()  : BayaChart {
         return super.getParent();
@@ -21,7 +21,7 @@ class ForceChart extends Chart {
     draw(rootData:any) {
         if(!this.enable)
         return false;
-
+        this.initData();
         this.svg = this.getParent().svg;
         this.width = +this.svg.attr("width");
         this.height = +this.svg.attr("height");
@@ -40,10 +40,8 @@ class ForceChart extends Chart {
         this.simulation
             .force("charge_force", charge_force)
             .force("center_force", center_force)
-            .force('collision', d3.forceCollide().
-            radius(function(d) {
-                return 210
-              }))
+            .force('collision', d3.forceCollide()
+            .radius(this.radius))
             .force("links", link_force);
         //add tick instructions: 
         let self = this;
@@ -74,7 +72,8 @@ class ForceChart extends Chart {
             .attr("stroke-width", function(d) { return 1 });
       
         this.link.style('fill', 'none')
-            .style('stroke', '#36fffdcf')
+            // .style('stroke', '#36fffdcf')
+            .style('stroke', this.linkColour)
             .style("stroke-width", '4px');
 
   
@@ -95,6 +94,9 @@ class ForceChart extends Chart {
         drag_handler(this.nodeCells);
 
     }
+    radius(){
+        return 210;
+    }
     initNode(){
         this.node = d3.selectAll(".drawingArea .treemap-container");
         this.node.data(this.nodes_data);
@@ -114,11 +116,8 @@ class ForceChart extends Chart {
     }
 
     linkColour(d:any) {
-        if (d.type == "A") {
-            return "#a1dd00";
-        } else {
-            return "red";
-        }
+        return '#'+(Math.random()*0xFFFFFF<<0).toString(16); 
+        
     }
     linkColour2(d:any) {
         return "yellow";
@@ -146,20 +145,94 @@ class ForceChart extends Chart {
    
     initData(){
         this.nodes_data = [
-            { "name": "Lillian"},
-            { "name": "Gordon"},
-            { "name": "America"}
-        ]
+            { "name": "controllers"},
+            { "name": "hybrograph"},
+            { "name": "providers"}
+        ];
+        this.nodes_data = this.getParent().nodesData;
         //type: A for Ally, E for Enemy
-        this.links_data = [
-            { "source": "America", "sourcePoint" : {"x":0,"y":0}, "target": "Gordon", "targetPoint" : {"x":0,"y":0}, "type": "A" },
-            { "source": "Gordon", "sourcePoint" : {"x":0,"y":0}, "target": "America", "targetPoint" : {"x":0,"y":0}, "type": "A" },
-            { "source": "Lillian", "sourcePoint" : {"x":0,"y":0}, "target": "Lillian", "targetPoint" : {"x":0,"y":0}, "type": "A" },
-            { "source": "Lillian", "sourcePoint" : {"x":0,"y":0}, "target": "Gordon", "targetPoint" : {"x":0,"y":0}, "type": "E" },
-            { "source": "Lillian", "sourcePoint" : {"x":70,"y":10}, "target": "Gordon", "targetPoint" : {"x":30,"y":10}, "type": "A" },
-            { "source": "Lillian", "sourcePoint" : {"x":70,"y":50}, "target": "America", "targetPoint" : {"x":0,"y":10}, "type": "A" },
-            { "source": "Lillian", "sourcePoint" : {"x":50,"y":30}, "target": "America", "targetPoint" : {"x":10,"y":15}, "type": "A" }
-        ]
+        this.buildLinkData();
+        console.log(this.links_data);
+        // this.links_data = [
+        //     { "source": "controllers", "sourcePoint" : {"x":0,"y":0}, "target": "hybrograph", "targetPoint" : {"x":0,"y":0}, "type": "A" },
+        //     { "source": "controllers", "sourcePoint" : {"x":0,"y":0}, "target": "hybrograph", "targetPoint" : {"x":0,"y":0}, "type": "A" },
+        //     // { "source": "Lillian", "sourcePoint" : {"x":0,"y":0}, "target": "Lillian", "targetPoint" : {"x":0,"y":0}, "type": "A" },
+        //     // { "source": "Lillian", "sourcePoint" : {"x":0,"y":0}, "target": "Gordon", "targetPoint" : {"x":0,"y":0}, "type": "E" },
+        //     // { "source": "Lillian", "sourcePoint" : {"x":70,"y":10}, "target": "Gordon", "targetPoint" : {"x":30,"y":10}, "type": "A" },
+        //     // { "source": "Lillian", "sourcePoint" : {"x":70,"y":50}, "target": "America", "targetPoint" : {"x":0,"y":10}, "type": "A" },
+        //     // { "source": "Lillian", "sourcePoint" : {"x":50,"y":30}, "target": "America", "targetPoint" : {"x":10,"y":15}, "type": "A" }
+        // ]
+    }
+    buildLeavesWithParentName(){
+        // this.h
+    }
+    buildLinkData(){
+        this.links_data = [];
+        for(let hybroChart of this.getParent().hybroCharts){
+            if(hybroChart.bundleChart == undefined || hybroChart.bundleChart.leaves == undefined )
+                continue;
+            for(let leaf of hybroChart.bundleChart.leaves){
+                if(leaf.data.targets){
+                    let link = {};
+                    for(let target of leaf.data.targets){
+                        let mainSource = this.findMainSource(leaf);
+                        let sourceMargin = this.findSourceMargin(leaf);
+                        let mainTarget = this.findMainTarget(target);
+                        let targetMargin = this.findTargetMargin(mainTarget);
+                        let mainTargetName = {"name": target.split(".")[0]};
+                        this.addLink(mainSource,sourceMargin,mainTargetName,targetMargin);
+                    }
+                }
+            }
+            
+        }
+    }
+    findMainSource(leaf : any){
+        // let mainSource = null;
+        while(leaf.parent != null){
+            leaf = leaf.parent;            
+        }
+        return leaf;
+    }
+    findMainTarget(target :any){
+        for(let hybridChart of this.getParent().hybroCharts){
+            if(hybridChart.voronoiChart.hierarchy == undefined)
+                continue;
+            if(hybridChart.voronoiChart.hierarchy.data.name == target.split(".")[0] )
+            return this.followToFindleaf(hybridChart.voronoiChart.hierarchy, target)
+        }
+    }
+    followToFindleaf(hierarchy : any, target: string) :any {
+        let part1 = target.split(".")[0];
+        let part2 = target.split(".")[1];
+        if(part2 == undefined)
+            return hierarchy;
+
+        let foundLeaf = null;
+        for(let leaf of hierarchy.children) {
+            if(leaf.data.name == part2)
+                foundLeaf = leaf;
+        }
+        if(foundLeaf)
+            return this.followToFindleaf(foundLeaf, part2);
+    }
+    
+    findSourceMargin(leaf){
+        if(leaf.polygon.site == undefined)
+            return {"x":0,"y":0};
+        let x = leaf.polygon.site.x;
+        let y = leaf.polygon.site.y;
+        return {"x":x-200,"y":y-200};
+    }
+    findTargetMargin(leaf){
+        if(leaf.polygon == undefined)
+            return {"x":0,"y":0};
+        let x = leaf.polygon.site.x;
+        let y = leaf.polygon.site.y;
+        return {"x":x-200,"y":y-200};
+    }
+    addLink(mainSource: any, sourceMargin: any, mainTarget: any, targetMargin: any) {
+        this.links_data.push({"source":mainSource.data.name,"sourcePoint":sourceMargin,"target":mainTarget.name,"targetPoint":targetMargin});
     }
  
     tickActions() {
