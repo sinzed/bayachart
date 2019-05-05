@@ -17,8 +17,6 @@ declare class ForceChart extends Chart {
     links_data: any;
     nodes_data: any;
     nodeCells: any;
-    link2: any;
-    _links: Array<JoinLink>;
     constructor();
     getParent(): HybroChart;
     draw(rootData: any): false | undefined;
@@ -32,7 +30,6 @@ declare class ForceChart extends Chart {
     drag_end(d: any): void;
     zoom_actions(): void;
     initData(): void;
-    links: Array<JoinLink>;
     tickActions(): void;
 }
 declare class JoinLink {

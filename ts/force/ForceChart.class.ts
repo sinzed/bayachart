@@ -9,13 +9,10 @@ class ForceChart extends Chart {
     links_data: any;
     nodes_data: any;
     nodeCells: any;
-    link2: any;
-    _links: Array<JoinLink>;
     constructor() {
         super();
         this.width = 0;
         this.height = 0;
-        this._links = [];
         this.initData();
     }
     getParent()  : HybroChart {
@@ -67,16 +64,7 @@ class ForceChart extends Chart {
             .attr("stroke-width", 6)
             .style("stroke", this.linkColour);
 
-        //draw lines for the links 
-        this.link2 = this.g.append("g")
-            .attr("class", "links")
-            .selectAll("line")
-            .data(this.links_data)
-            .enter()
-            .append("line")
-            .attr("stroke-width", 6)
-            .style("stroke", this.linkColour2);
-
+  
         //draw circles for the nodes 
         // this.initNode1();
         this.initNodeCells();
@@ -150,57 +138,11 @@ class ForceChart extends Chart {
 
    
     initData(){
-        // this.nodes_data = [
-        //     { "name": "Lillian", "sex": "F","source": "Lillian", "target": "Lillian", "type": "A" },
-        //     { "name": "Gordon", "sex": "M", "source": "Gordon", "target": "Lillian", "type": "A"},
-        //     { "name": "America", "sex": "M", "source": "America", "target": "Lillian", "type": "A"}
-        // ]
         this.nodes_data = [
-            { "name": "Lillian", "sex": "F", "source": "Lillian", "target": "Lillian" , "type": "A",
-                joints : [
-                    {
-                        "source": {"name" :"part2" ,"CenterMargin":{"x":10,"y":10}},
-                        "target": {"name":"America.Lillian","CenterMargin":{"x":30,"y":30}},
-                        "type": "A"
-                    },
-                    {
-                        "source": {"name" :"part3" ,"CenterMargin":{"x":0,"y":0}},
-                        "target": {"name":"America.Lillian","CenterMargin":{"x":40,"y":40}},
-                        "type": "A"
-                    }
-                ]
-            },
-            { "name": "Gordon", "sex": "M", "source": "Gordon", "target": "America" , "type": "A",
-                joints : [
-                        {
-                            "source": {"name" :"part2" ,"CenterMargin":{"x":30,"y":30}},
-                            "target": {"name":"America.Lillian","CenterMargin":{"x":30,"y":30}},
-                            "type": "A"
-                        },
-                        {
-                            "source": {"name" :"part3" ,"CenterMargin":{"x":50,"y":50}},
-                            "target": {"name":"America.Lillian","CenterMargin":{"x":40,"y":40}},
-                            "type": "A"
-                        }
-                ]
-            },
-            { "name": "America", "sex": "M", "source": "America", "target": "Lillian" , "type": "A",
-                joints : [
-                    {
-                        "source": {"name" :"part2" ,"CenterMargin":{"x":70,"y":30}},
-                        "target": {"name":"America.Lillian","CenterMargin":{"x":30,"y":30}},
-                        "type": "A"
-                    },
-                    {
-                        "source": {"name" :"part3" ,"CenterMargin":{"x":60,"y":50}},
-                        "target": {"name":"America.Lillian","CenterMargin":{"x":30,"y":40}},
-                        "type": "A"
-                    }
-                ]
-            }
+            { "name": "Lillian", "sex": "F", "source": "Lillian", "target": "Lillian" , "type": "A"},
+            { "name": "Gordon", "sex": "M", "source": "Gordon", "target": "America" , "type": "A"},
+            { "name": "America", "sex": "M", "source": "America", "target": "Lillian" , "type": "A"}
         ]
-        // nodes_data = hybroChart.bundleChart.leaves;
-        //Sample links data 
         //type: A for Ally, E for Enemy
         this.links_data = [
             { "source": "America", "sourcePoint" : {"x":0,"y":0}, "target": "Gordon", "targetPont" : {"x":0,"y":0}, "type": "A" },
@@ -211,23 +153,10 @@ class ForceChart extends Chart {
             { "source": "Lillian", "sourcePoint" : {"x":70,"y":-100}, "target": "Gordon", "targetPont" : {"x":-50,"y":105}, "type": "A" },
             { "source": "Lillian", "sourcePoint" : {"x":50,"y":200}, "target": "Gordon", "targetPont" : {"x":-150,"y":15}, "type": "A" }
         ]
-        // this.links_data = this.nodes_data;
-        // this.links = this.links_data;
     }
-    get links() : Array<JoinLink> {
-        return this._links;
-    }
-    set links(links_data){
-        for(let joint of links_data){
-            let joinLine = new JoinLink(joint.joints);
-            joinLine.setParent(this);
-            this._links.push(joinLine);
-        }
-    }
+ 
     tickActions() {
-        let positionData= null;
         this.nodeCells.attr("transform", function (d:any) {
-            positionData = d;
             return "translate("+d.x+","+d.y+")"; 
         })
 
@@ -244,12 +173,7 @@ class ForceChart extends Chart {
             .attr("y2", function (d:any) { 
                 return d.target.y+d.targetPont.y; 
             })
-            // console.log(positionData.source.name,positionData.target.name);
-            for(let link of this.links) {
-                // all the lines are added before but now its time to find the source and 
-                if(link.mainSource == positionData.source && link.mainTarget == positionData.target)
-                    link.update(positionData);
-            }
+
 
 
     }
