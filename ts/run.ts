@@ -6,27 +6,15 @@ innerRadius = radius - 120;
 var cluster : d3.ClusterLayout<any>;
 cluster = d3.cluster().size([360, innerRadius]);
 
+let bayaChart = new BayaChart();
 
-
-let hybroChart2 = new HybroChart();
-let hybroChart3 = new HybroChart();
 // hybroChart2.voronoiChart.setMarginLeft(500);
 
 
 d3.json("../voronoi-bundle-donut.json", function(error:any, graphsData:any) {
     if (error) throw error;
-    for(let graphData in graphsData){
-      let hybroChart = new HybroChart();
-      // if(graphData=="hybrograph")
-      //   continue;
-      // if(graphData=="controllers")
-        hybroChart.forceChart.disable();
-      // hybroChart.voronoiChart.setMarginLeft(Math.random()*-500);
-      hybroChart.draw(graphsData[graphData]);
-    }
-    // hybroChart2.voronoiChart.setMarginLeft(Math.random()*-500);
-    // hybroChart2.forceChart.disable();
-    hybroChart2.draw(graphsData["controllers"]);
+    bayaChart.jsonData = graphsData;
+    bayaChart.draw();
     // hybroChart3.draw(graphsData[0]);
   });
   

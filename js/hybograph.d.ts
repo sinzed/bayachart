@@ -18,7 +18,7 @@ declare class ForceChart extends Chart {
     nodes_data: any;
     nodeCells: any;
     constructor();
-    getParent(): HybroChart;
+    getParent(): BayaChart;
     draw(rootData: any): false | undefined;
     initNode(): void;
     initNodeCells(): void;
@@ -28,7 +28,6 @@ declare class ForceChart extends Chart {
     drag_start(d: any): void;
     drag_drag(d: any): void;
     drag_end(d: any): void;
-    zoom_actions(): void;
     initData(): void;
     tickActions(): void;
 }
@@ -58,12 +57,13 @@ declare class LayoutOption {
 }
 declare class Layout {
     layoutOption: LayoutOption;
-    hybroChart: HybroChart;
+    bayaChart: BayaChart;
     zoomInBtn: any;
     showDonutChartBtn: any;
     showBundleChartBtn: any;
     element: any;
-    constructor(hybroChart: HybroChart);
+    graphic: any;
+    constructor(bayaChart: BayaChart);
     init(): void;
     initElement(): void;
     initZoom(): void;
@@ -193,13 +193,20 @@ declare class HybroChart extends Chart {
     bundleChart: BundleChart;
     svg: any;
     forceChart: ForceChart;
-    private layout;
+    constructor();
+    draw(rootData: any): false | undefined;
+}
+declare class BayaChart extends Chart {
+    hybroCharts: Array<HybroChart>;
+    forceChart: ForceChart;
+    jsonData: any;
+    svg: any;
+    layout: Layout;
     constructor();
     init(): void;
     initLayout(): void;
-    draw(rootData: any): false | undefined;
+    draw(): void;
 }
 declare var diameter: number, radius: number, innerRadius: number;
 declare var cluster: d3.ClusterLayout<any>;
-declare let hybroChart2: HybroChart;
-declare let hybroChart3: HybroChart;
+declare let bayaChart: BayaChart;

@@ -74,6 +74,7 @@
     "ts/bundle/BundleChart.class.ts",
     "ts/donut/DonutChart.class.ts",
     "ts/hybro/HybroChart.class.ts",
+    "ts/baya/BayaChart.class.ts",
     "ts/run.ts"
 ]
 }

@@ -1,12 +1,13 @@
 class Layout {
     layoutOption : LayoutOption;
-    hybroChart : HybroChart;
+    bayaChart : BayaChart;
     zoomInBtn:any;
     showDonutChartBtn:any;
     showBundleChartBtn:any;
     element: any;
-    constructor(hybroChart : HybroChart){
-        this.hybroChart = hybroChart;
+    graphic : any;
+    constructor(bayaChart : BayaChart){
+        this.bayaChart = bayaChart;
         this.layoutOption = new LayoutOption();
         // this.init();
         this.initElement();
@@ -26,10 +27,11 @@ class Layout {
     }
     initElement(){
         this.element = d3.select("body").insert("div",":first-child");
+        this.graphic = d3.select(".layout");
     }
     initZoom(){
         let g;
-        g = this.hybroChart.svg.selectAll(".zoomable");
+        g = this.bayaChart.svg.selectAll(".zoomable");
         g.attr("transform", "scale(0.6)");
     }
     addZoomInButton(){
@@ -62,12 +64,14 @@ class Layout {
     toggleBundleChart(){
         this.layoutOption.canShowBundleChart = !this.layoutOption.canShowBundleChart;
         this.showBundleChartBtn.classed("selected", this.layoutOption.canShowBundleChart);
-        this.hybroChart.bundleChart.element.attr("display",this.layoutOption.canShowBundleChart?"block":"none");
+        for(let hybroChart of this.bayaChart.hybroCharts)
+            hybroChart.bundleChart.element.attr("display",this.layoutOption.canShowBundleChart?"block":"none");
     }
     toggleDonutChart(){
         this.layoutOption.canShowDonutChart = !this.layoutOption.canShowDonutChart;
         this.showDonutChartBtn.classed("selected", this.layoutOption.canShowDonutChart);
-        this.hybroChart.donutChart.element.attr("display",this.layoutOption.canShowDonutChart?"block":"none");
+        for(let hybroChart of this.bayaChart.hybroCharts)
+            hybroChart.donutChart.element.attr("display",this.layoutOption.canShowDonutChart?"block":"none");
     }
     manageZoomIn(){
         this.layoutOption.canZoomIn = !this.layoutOption.canZoomIn;
@@ -78,13 +82,13 @@ class Layout {
             // Exclude wheel event unless zoomKey is set
             return self.layoutOption.canZoomIn || !(d3.event.type === "wheel");
         });
-        zoom_handler(this.hybroChart.svg);
+        zoom_handler(this.bayaChart.svg);
     }
     //Zoom functions 
     zoom_actions() {
         //error 
         let g;
-        g = this.hybroChart.svg.selectAll(".zoomable");
+        g = this.bayaChart.svg.selectAll(".zoomable");
         g.attr("transform", d3.event.transform);
     }
 }

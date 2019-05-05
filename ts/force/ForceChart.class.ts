@@ -15,14 +15,14 @@ class ForceChart extends Chart {
         this.height = 0;
         this.initData();
     }
-    getParent()  : HybroChart {
+    getParent()  : BayaChart {
         return super.getParent();
     }
     draw(rootData:any) {
         if(!this.enable)
         return false;
 
-        this.svg = this.getParent().voronoiChart.svg;
+        this.svg = this.getParent().svg;
         this.width = +this.svg.attr("width");
         this.height = +this.svg.attr("height");
 
@@ -51,8 +51,10 @@ class ForceChart extends Chart {
             self.tickActions()}
             );
 
-        this.g = this.getParent().voronoiChart.drawingArea
+        this.g = this.getParent().layout.graphic.append("g")
             .classed("class", "everything");
+
+        
 
         // //draw lines for the links 
         // this.link = this.g.append("g")
@@ -141,18 +143,12 @@ class ForceChart extends Chart {
             d.fx = null;
             d.fy = null;
     }
-
-    // //Zoom functions 
-    zoom_actions() {
-        this.g.attr("transform", d3.event.transform)
-    }
-
    
     initData(){
         this.nodes_data = [
-            { "name": "Lillian", "sex": "F", "source": "Lillian", "target": "Lillian" , "type": "A"},
-            { "name": "Gordon", "sex": "M", "source": "Gordon", "target": "America" , "type": "A"},
-            { "name": "America", "sex": "M", "source": "America", "target": "Lillian" , "type": "A"}
+            { "name": "Lillian"},
+            { "name": "Gordon"},
+            { "name": "America"}
         ]
         //type: A for Ally, E for Enemy
         this.links_data = [
