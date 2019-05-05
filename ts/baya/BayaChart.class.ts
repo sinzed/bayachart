@@ -42,6 +42,7 @@ class BayaChart extends Chart {
         //   hybroChart2.setParent(this);
         //   hybroChart2.draw(this.jsonData["controllers"]);
           this.forceChart.draw(this.jsonData);
+          this.layout.toggleDonutChart();
     }
 
 }

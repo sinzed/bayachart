@@ -74,6 +74,8 @@ class Layout {
             hybroChart.donutChart.element.attr("display",this.layoutOption.canShowDonutChart?"block":"none");
         this.bayaChart.forceChart.simulation.force('collision', d3.forceCollide()
         .radius(this.layoutOption.canShowDonutChart?310:210));
+        this.bayaChart.forceChart.simulation.force('charge_force',d3.forceManyBody().strength(4000));
+        this.bayaChart.forceChart.simulation.force('charge_force',d3.forceManyBody().strength(200));
     }
     manageZoomIn(){
         this.layoutOption.canZoomIn = !this.layoutOption.canZoomIn;
