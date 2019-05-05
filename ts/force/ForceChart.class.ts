@@ -54,15 +54,26 @@ class ForceChart extends Chart {
         this.g = this.getParent().voronoiChart.drawingArea
             .classed("class", "everything");
 
+        // //draw lines for the links 
+        // this.link = this.g.append("g")
+        //     .attr("class", "links")
+        //     .selectAll("line")
+        //     .data(this.links_data)
+        //     .enter()
+        //     .append("line")
+        //     .attr("stroke-width", 6)
+        //     .style("stroke", this.linkColour);
         //draw lines for the links 
-        this.link = this.g.append("g")
+        this.link =  this.g.append("g")
             .attr("class", "links")
-            .selectAll("line")
+            .selectAll("path")
             .data(this.links_data)
-            .enter()
-            .append("line")
-            .attr("stroke-width", 6)
-            .style("stroke", this.linkColour);
+            .enter().append("svg:path")
+            .attr("stroke-width", function(d) { return 1 });
+      
+        this.link.style('fill', 'none')
+            .style('stroke', '#36fffdcf')
+            .style("stroke-width", '4px');
 
   
         //draw circles for the nodes 
@@ -145,13 +156,13 @@ class ForceChart extends Chart {
         ]
         //type: A for Ally, E for Enemy
         this.links_data = [
-            { "source": "America", "sourcePoint" : {"x":0,"y":0}, "target": "Gordon", "targetPont" : {"x":0,"y":0}, "type": "A" },
-            { "source": "Gordon", "sourcePoint" : {"x":0,"y":0}, "target": "America", "targetPont" : {"x":0,"y":0}, "type": "A" },
-            { "source": "Lillian", "sourcePoint" : {"x":0,"y":0}, "target": "Lillian", "targetPont" : {"x":0,"y":0}, "type": "A" },
-            { "source": "Lillian", "sourcePoint" : {"x":0,"y":0}, "target": "Gordon", "targetPont" : {"x":0,"y":0}, "type": "E" },
-            { "source": "Lillian", "sourcePoint" : {"x":70,"y":100}, "target": "Gordon", "targetPont" : {"x":-50,"y":105}, "type": "A" },
-            { "source": "Lillian", "sourcePoint" : {"x":70,"y":-100}, "target": "Gordon", "targetPont" : {"x":-50,"y":105}, "type": "A" },
-            { "source": "Lillian", "sourcePoint" : {"x":50,"y":200}, "target": "Gordon", "targetPont" : {"x":-150,"y":15}, "type": "A" }
+            { "source": "America", "sourcePoint" : {"x":0,"y":0}, "target": "Gordon", "targetPoint" : {"x":0,"y":0}, "type": "A" },
+            { "source": "Gordon", "sourcePoint" : {"x":0,"y":0}, "target": "America", "targetPoint" : {"x":0,"y":0}, "type": "A" },
+            { "source": "Lillian", "sourcePoint" : {"x":0,"y":0}, "target": "Lillian", "targetPoint" : {"x":0,"y":0}, "type": "A" },
+            { "source": "Lillian", "sourcePoint" : {"x":0,"y":0}, "target": "Gordon", "targetPoint" : {"x":0,"y":0}, "type": "E" },
+            { "source": "Lillian", "sourcePoint" : {"x":70,"y":10}, "target": "Gordon", "targetPoint" : {"x":30,"y":10}, "type": "A" },
+            { "source": "Lillian", "sourcePoint" : {"x":70,"y":50}, "target": "America", "targetPoint" : {"x":0,"y":10}, "type": "A" },
+            { "source": "Lillian", "sourcePoint" : {"x":50,"y":30}, "target": "America", "targetPoint" : {"x":10,"y":15}, "type": "A" }
         ]
     }
  
@@ -161,18 +172,31 @@ class ForceChart extends Chart {
         })
 
         //update link positions 
-        this.link
-            .attr("x1", function (d:any) { 
-                return d.source.x+d.sourcePoint.x; 
-            }).attr("y1", function (d:any) { 
-                return d.source.y+d.sourcePoint.y;
-            })
-            .attr("x2", function (d:any) {
-                return d.target.x+d.targetPont.x; 
-            })
-            .attr("y2", function (d:any) { 
-                return d.target.y+d.targetPont.y; 
-            })
+        // this.link
+        //     .attr("x1", function (d:any) { 
+        //         return d.source.x+d.sourcePoint.x; 
+        //     }).attr("y1", function (d:any) { 
+        //         return d.source.y+d.sourcePoint.y;
+        //     })
+        //     .attr("x2", function (d:any) {
+        //         return d.target.x+d.targetPoint.x; 
+        //     })
+        //     .attr("y2", function (d:any) { 
+        //         return d.target.y+d.targetPoint.y; 
+        //     })
+
+            this.link.attr("d", function(d) {
+                var dx = d.target.x - d.targetPoint.x + - d.source.x + d.sourcePoint.x ,
+                    dy = d.target.y - d.targetPoint.y - d.source.y + d.sourcePoint.y,
+                    dr = Math.sqrt(dx * dx + dy * dy);
+                    let prop = "M" + 
+                    (d.source.x + d.sourcePoint.x) + "," + 
+                    (d.source.y + d.sourcePoint.y) + "A" + 
+                    dr + "," + dr + " 0 0,1 " + 
+                    (d.target.x + d.targetPoint.x) + "," + 
+                    (d.target.y + d.targetPoint.y);
+                    return prop;
+            });
 
 
 
