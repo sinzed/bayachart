@@ -66,6 +66,7 @@
   "files": [
     "ts/chart/Chart.class.ts",
     "ts/force/ForceChart.class.ts",
+    "ts/force/link/JoinLink.class.ts",
     "ts/layout/options/LayoutOption.class.ts",
     "ts/layout/Layout.class.ts",
     "ts/voronoi/tools/Tools.class.ts",

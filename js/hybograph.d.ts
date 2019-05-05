@@ -17,21 +17,38 @@ declare class ForceChart extends Chart {
     links_data: any;
     nodes_data: any;
     nodeCells: any;
+    link2: any;
+    _links: Array<JoinLink>;
     constructor();
     getParent(): HybroChart;
     draw(rootData: any): false | undefined;
     initNode(): void;
     initNodeCells(): void;
-    initNode1(): void;
-    /** Functions **/
     circleColour(d: any): "blue" | "pink";
     linkColour(d: any): "#a1dd00" | "red";
+    linkColour2(d: any): string;
     drag_start(d: any): void;
     drag_drag(d: any): void;
     drag_end(d: any): void;
     zoom_actions(): void;
-    tickActions(): void;
     initData(): void;
+    links: Array<JoinLink>;
+    tickActions(): void;
+}
+declare class JoinLink {
+    element: any;
+    parent: any;
+    mainSource: any;
+    mainTarget: any;
+    centerMargin: any;
+    source: any;
+    target: any;
+    centerMarginTarget: any;
+    constructor(linkData: any);
+    getParent(): any;
+    setParent(parent: any): void;
+    draw(): void;
+    update(positionData: any): boolean;
 }
 declare class LayoutOption {
     private _zoomIn;
@@ -48,8 +65,10 @@ declare class Layout {
     zoomInBtn: any;
     showDonutChartBtn: any;
     showBundleChartBtn: any;
+    element: any;
     constructor(hybroChart: HybroChart);
     init(): void;
+    initElement(): void;
     initZoom(): void;
     addZoomInButton(): any;
     addDonutChartButton(): any;

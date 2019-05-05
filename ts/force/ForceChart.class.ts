@@ -9,10 +9,13 @@ class ForceChart extends Chart {
     links_data: any;
     nodes_data: any;
     nodeCells: any;
+    link2: any;
+    _links: Array<JoinLink>;
     constructor() {
         super();
         this.width = 0;
         this.height = 0;
+        this._links = [];
         this.initData();
     }
     getParent()  : HybroChart {
@@ -57,18 +60,24 @@ class ForceChart extends Chart {
         //draw lines for the links 
         this.link = this.g.append("g")
             .attr("class", "links")
-            // .attr("transform-origin", "2500px 250px")
-            // .attr("transform", "translate(200,300)")
             .selectAll("line")
             .data(this.links_data)
-            // .data(this.getParent().bundleChart.leaves)
             .enter()
             .append("line")
-            .attr("stroke-width", 8)
+            .attr("stroke-width", 6)
             .style("stroke", this.linkColour);
 
+        //draw lines for the links 
+        this.link2 = this.g.append("g")
+            .attr("class", "links")
+            .selectAll("line")
+            .data(this.links_data)
+            .enter()
+            .append("line")
+            .attr("stroke-width", 6)
+            .style("stroke", this.linkColour2);
+
         //draw circles for the nodes 
-        // let nodes = this.getParent().voronoiChart.treemapContainer.selectAll("path")
         // this.initNode1();
         this.initNodeCells();
      
@@ -86,14 +95,8 @@ class ForceChart extends Chart {
 
     }
     initNode(){
-        // this.initNode1();
-        // this.node = this.getParent().svg.selectAll(".drawingArea .cells path");
-        // this.node = this.getParent().svg.selectAll(".drawingArea");
         this.node = d3.selectAll(".drawingArea .treemap-container");
         this.node.data(this.nodes_data);
-
-        // this.node
-        console.log(this.node);
     }
     initNodeCells(){
         // this.nodeCells = this.getParent().svg.selectAll(".drawingArea .hoverers path");
@@ -101,33 +104,6 @@ class ForceChart extends Chart {
         this.nodeCells.data(this.nodes_data);
 
     }
-    initNode1() {
-        var radius = 25;
-        this.node = this.g
-        .append("g")
-        // .attr("class", "nodes")
-        // .selectAll("circle")
-    // this.node = this.getParent().voronoiChart.treemapContainer
-        // .append("g")
-        .selectAll("circle")
-        .data(this.nodes_data)
-        // .data(this.getParent().bundleChart.leaves)
-        .enter()
-        .append("circle")
-        .attr("r", radius)
-        .attr("fill-opacity","0.8")
-        // .attr("fill", this.circleColour);
-
-
-    //add drag capabilities  
-    }
-
-
-
-    /** Functions **/
-
-    //Function to choose what color circle we have
-    //Let's return blue for males and red for females
     circleColour(d:any) {
         if (d.sex == "M") {
             return "blue";
@@ -136,9 +112,6 @@ class ForceChart extends Chart {
         }
     }
 
-    //Function to choose the line colour and thickness 
-    //If the link type is "A" return green 
-    //If the link type is "E" return red 
     linkColour(d:any) {
         if (d.type == "A") {
             return "#a1dd00";
@@ -146,9 +119,10 @@ class ForceChart extends Chart {
             return "red";
         }
     }
+    linkColour2(d:any) {
+        return "yellow";
+    }
 
-    //Drag functions 
-    //d is the node 
     drag_start(d:any) {
 
         if (!d3.event.active) this.simulation.alphaTarget(0.9).restart();
@@ -174,45 +148,110 @@ class ForceChart extends Chart {
         this.g.attr("transform", d3.event.transform)
     }
 
+   
+    initData(){
+        // this.nodes_data = [
+        //     { "name": "Lillian", "sex": "F","source": "Lillian", "target": "Lillian", "type": "A" },
+        //     { "name": "Gordon", "sex": "M", "source": "Gordon", "target": "Lillian", "type": "A"},
+        //     { "name": "America", "sex": "M", "source": "America", "target": "Lillian", "type": "A"}
+        // ]
+        this.nodes_data = [
+            { "name": "Lillian", "sex": "F", "source": "Lillian", "target": "Lillian" , "type": "A",
+                joints : [
+                    {
+                        "source": {"name" :"part2" ,"CenterMargin":{"x":10,"y":10}},
+                        "target": {"name":"America.Lillian","CenterMargin":{"x":30,"y":30}},
+                        "type": "A"
+                    },
+                    {
+                        "source": {"name" :"part3" ,"CenterMargin":{"x":0,"y":0}},
+                        "target": {"name":"America.Lillian","CenterMargin":{"x":40,"y":40}},
+                        "type": "A"
+                    }
+                ]
+            },
+            { "name": "Gordon", "sex": "M", "source": "Gordon", "target": "America" , "type": "A",
+                joints : [
+                        {
+                            "source": {"name" :"part2" ,"CenterMargin":{"x":30,"y":30}},
+                            "target": {"name":"America.Lillian","CenterMargin":{"x":30,"y":30}},
+                            "type": "A"
+                        },
+                        {
+                            "source": {"name" :"part3" ,"CenterMargin":{"x":50,"y":50}},
+                            "target": {"name":"America.Lillian","CenterMargin":{"x":40,"y":40}},
+                            "type": "A"
+                        }
+                ]
+            },
+            { "name": "America", "sex": "M", "source": "America", "target": "Lillian" , "type": "A",
+                joints : [
+                    {
+                        "source": {"name" :"part2" ,"CenterMargin":{"x":70,"y":30}},
+                        "target": {"name":"America.Lillian","CenterMargin":{"x":30,"y":30}},
+                        "type": "A"
+                    },
+                    {
+                        "source": {"name" :"part3" ,"CenterMargin":{"x":60,"y":50}},
+                        "target": {"name":"America.Lillian","CenterMargin":{"x":30,"y":40}},
+                        "type": "A"
+                    }
+                ]
+            }
+        ]
+        // nodes_data = hybroChart.bundleChart.leaves;
+        //Sample links data 
+        //type: A for Ally, E for Enemy
+        this.links_data = [
+            { "source": "America", "sourcePoint" : {"x":0,"y":0}, "target": "Gordon", "targetPont" : {"x":0,"y":0}, "type": "A" },
+            { "source": "Gordon", "sourcePoint" : {"x":0,"y":0}, "target": "America", "targetPont" : {"x":0,"y":0}, "type": "A" },
+            { "source": "Lillian", "sourcePoint" : {"x":0,"y":0}, "target": "Lillian", "targetPont" : {"x":0,"y":0}, "type": "A" },
+            { "source": "Lillian", "sourcePoint" : {"x":0,"y":0}, "target": "Gordon", "targetPont" : {"x":0,"y":0}, "type": "E" },
+            { "source": "Lillian", "sourcePoint" : {"x":70,"y":100}, "target": "Gordon", "targetPont" : {"x":-50,"y":105}, "type": "A" },
+            { "source": "Lillian", "sourcePoint" : {"x":70,"y":-100}, "target": "Gordon", "targetPont" : {"x":-50,"y":105}, "type": "A" },
+            { "source": "Lillian", "sourcePoint" : {"x":50,"y":200}, "target": "Gordon", "targetPont" : {"x":-150,"y":15}, "type": "A" }
+        ]
+        // this.links_data = this.nodes_data;
+        // this.links = this.links_data;
+    }
+    get links() : Array<JoinLink> {
+        return this._links;
+    }
+    set links(links_data){
+        for(let joint of links_data){
+            let joinLine = new JoinLink(joint.joints);
+            joinLine.setParent(this);
+            this._links.push(joinLine);
+        }
+    }
     tickActions() {
-        // this.node.attr("transform", function (d:any) {
-        //          return "translate("+d.x+","+d.y+")"; 
-        //         })
+        let positionData= null;
         this.nodeCells.attr("transform", function (d:any) {
-                 return "translate("+d.x+","+d.y+")"; 
-                })
+            positionData = d;
+            return "translate("+d.x+","+d.y+")"; 
+        })
 
         //update link positions 
         this.link
             .attr("x1", function (d:any) { 
-                return d.source.x; 
+                return d.source.x+d.sourcePoint.x; 
             }).attr("y1", function (d:any) { 
-                return d.source.y;
-             })
+                return d.source.y+d.sourcePoint.y;
+            })
             .attr("x2", function (d:any) {
-                 return d.target.x; 
-                })
+                return d.target.x+d.targetPont.x; 
+            })
             .attr("y2", function (d:any) { 
-                return d.target.y; 
-            });
-    }
-    initData(){
-        this.nodes_data = [
-            { "name": "Lillian", "sex": "F","source": "Lillian", "target": "Lillian", "type": "A" },
-            { "name": "Gordon", "sex": "M", "source": "Gordon", "target": "Lillian", "type": "A"},
-            { "name": "America", "sex": "M", "source": "America", "target": "Lillian", "type": "A"}
-        ]
-        
-        // nodes_data = hybroChart.bundleChart.leaves;
-        //Sample links data 
-        //type: A for Ally, E for Enemy
-        // this.links_data = [
-        //     { "source": "Sylvester", "target": "Gordon", "type": "A" },
-        //     { "source": "Gordon", "target": "Sylvester", "type": "A" },
-        //     { "source": "Sylvester", "target": "Lillian", "type": "A" },
-        //     { "source": "Sylvester", "target": "Maria", "type": "E" }
-        // ]
-        this.links_data = this.nodes_data;
+                return d.target.y+d.targetPont.y; 
+            })
+            // console.log(positionData.source.name,positionData.target.name);
+            for(let link of this.links) {
+                // all the lines are added before but now its time to find the source and 
+                if(link.mainSource == positionData.source && link.mainTarget == positionData.target)
+                    link.update(positionData);
+            }
+
+
     }
 
 }

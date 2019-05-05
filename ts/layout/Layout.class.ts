@@ -4,10 +4,12 @@ class Layout {
     zoomInBtn:any;
     showDonutChartBtn:any;
     showBundleChartBtn:any;
+    element: any;
     constructor(hybroChart : HybroChart){
         this.hybroChart = hybroChart;
         this.layoutOption = new LayoutOption();
         // this.init();
+        this.initElement();
         this.addDonutChartButton();
         this.addBundleChartButton();
         this.addZoomInButton();
@@ -18,8 +20,12 @@ class Layout {
         this.initZoom();
 
     }
+
     init(){
         this.manageZoomIn();
+    }
+    initElement(){
+        this.element = d3.select("body").insert("div",":first-child");
     }
     initZoom(){
         let g;
@@ -31,7 +37,7 @@ class Layout {
 //         var parentEl = d3.select("div").node();
 // parentEl.insertBefore(document.createElement("div"), parentEl.childNodes[0]);
         let self = this;
-        this.zoomInBtn =  d3.select("body").insert("button",":first-child");
+        this.zoomInBtn =  this.element.insert("button",":first-child");
         this.zoomInBtn.text("zoomable");
         this.zoomInBtn.on("click",function(){self.manageZoomIn()});
         return this.zoomInBtn;
@@ -39,7 +45,7 @@ class Layout {
     }
     addDonutChartButton(){
         let self = this;
-        this.showDonutChartBtn =  d3.select("body").insert("button",":first-child");
+        this.showDonutChartBtn =  this.element.insert("button",":first-child");
         this.showDonutChartBtn.text("donut");
         this.showDonutChartBtn.on("click",function(){self.toggleDonutChart()});
         this.showDonutChartBtn.classed("selected", this.layoutOption.canShowDonutChart);
@@ -47,7 +53,7 @@ class Layout {
     }
     addBundleChartButton(){
         let self = this;
-        this.showBundleChartBtn =  d3.select("body").insert("button",":first-child");
+        this.showBundleChartBtn =  this.element.insert("button",":first-child");
         this.showBundleChartBtn.text("bundles");
         this.showBundleChartBtn.on("click",function(){self.toggleBundleChart()});
         this.showBundleChartBtn.classed("selected", this.layoutOption.canShowBundleChart);

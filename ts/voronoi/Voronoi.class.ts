@@ -234,7 +234,7 @@ class Voronoi extends Chart {
         }
       }
     canShowHoverer() {
-        return false;
+        return true;
         // throw new Error("Method not implemented.");
     }
       draw(rootData:any){
