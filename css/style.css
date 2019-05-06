@@ -142,3 +142,19 @@
 .link--target {
   stroke: #2ca02c;
 }
+.col {
+  float: left;
+}
+.panel {
+  width: 20%;
+  height: 100vh;
+}
+.panel pre {
+  height: 1500px;
+}
+.panel pre code {
+  height: 100%;
+}
+.view {
+  width: 80%;
+}

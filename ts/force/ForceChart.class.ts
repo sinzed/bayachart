@@ -102,7 +102,6 @@ class ForceChart extends Chart {
         this.node.data(this.nodes_data);
     }
     initNodeCells(){
-        // this.nodeCells = this.getParent().svg.selectAll(".drawingArea .hoverers path");
         this.nodeCells = this.getParent().svg.selectAll(".drawingArea .treemap-container");
         this.nodeCells.data(this.nodes_data);
 
