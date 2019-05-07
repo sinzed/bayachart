@@ -37,11 +37,11 @@ declare class ForceChart extends Chart {
     followToFindleaf(hierarchy: any, target: string): any;
     findSourceMargin(leaf: any): {
         "x": number;
-        "y": number;
+        "y": any;
     };
     findTargetMargin(leaf: any): {
         "x": number;
-        "y": number;
+        "y": any;
     };
     addLink(mainSource: any, sourceMargin: any, mainTarget: any, targetMargin: any): void;
     tickActions(): void;

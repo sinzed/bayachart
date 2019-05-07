@@ -221,14 +221,14 @@ class ForceChart extends Chart {
             return {"x":0,"y":0};
         let x = leaf.polygon.site.x;
         let y = leaf.polygon.site.y;
-        return {"x":x-200,"y":y-200};
+        return {"x":x-200,"y":y+100};
     }
     findTargetMargin(leaf){
         if(leaf.polygon == undefined)
             return {"x":0,"y":0};
         let x = leaf.polygon.site.x;
         let y = leaf.polygon.site.y;
-        return {"x":x-200,"y":y-200};
+        return {"x":x-200,"y":y+100};
     }
     addLink(mainSource: any, sourceMargin: any, mainTarget: any, targetMargin: any) {
         this.links_data.push({"source":mainSource.data.name,"sourcePoint":sourceMargin,"target":mainTarget.name,"targetPoint":targetMargin});

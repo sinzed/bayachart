@@ -147,10 +147,17 @@
 }
 .panel {
   width: 20%;
-  height: 100vh;
+  height: 95vh;
+  width: 20%;
+  /* height: 100%; */
+  resize: both;
+  /* position: absolute; */
+  overflow: auto;
+  z-index: 2;
 }
 .panel pre {
-  height: 1500px;
+  height: 100vh;
+
 }
 .panel pre code {
   height: 100%;
