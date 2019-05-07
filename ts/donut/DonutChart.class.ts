@@ -171,13 +171,15 @@ class DonutChart extends Chart {
             // ===========================================================================================
             // add and colour the donut slices
             var path = svg.select('.slices')
-                .datum(data).selectAll('path')
+                .datum(data)
+                .selectAll('path')
                 .data(pie)
-              .enter().append('path')
-                .attr('fill', function(d:any) {
+                .enter()
+                .append('path')
+                .attr('fill', function (d: any) {
                     //  return colour(d.data[category]);
-                     return self.colorize(d.data.data.name);
-                    })
+                    return self.colorize(d.data.data.name);
+                })
                 .attr('d', arc);
             // ===========================================================================================
 
