@@ -4,6 +4,7 @@ class BayaChart extends Chart {
     jsonData : any;
     nodesData : Array<any>;
     svg : any;
+    highlight : Highlight;
     public layout: Layout;
     constructor(){
         super();
@@ -15,6 +16,8 @@ class BayaChart extends Chart {
 
         this.forceChart = new ForceChart();
         this.forceChart.setParent(this);
+        this.highlight = new Highlight(this);
+        
     }
     init(){
         this.initLayout();
@@ -43,6 +46,7 @@ class BayaChart extends Chart {
         //   hybroChart2.draw(this.jsonData["controllers"]);
           this.forceChart.draw(this.jsonData);
           this.layout.toggleDonutChart();
+          this.highlight.init();
     }
 
 }

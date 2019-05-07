@@ -39,6 +39,8 @@ class Voronoi extends Chart {
     canDrawLegends: boolean = false;
     canDrawTitle: boolean = false;
     canDrawFooter: boolean = false;
+    cells: Array<any>;
+    leaves: any;
     constructor(){
     //begin: constants
         super();
@@ -55,6 +57,7 @@ class Voronoi extends Chart {
         this.treemapCenter = [this.halfWidth, this.halfHeight+5];
         this._voronoiTreemap = d3.voronoiTreemap();
         this.fontScale = d3.scaleLinear();
+        this.cells = [];
     //end: reusable d3Selection
     }
     initData(rootData:any) {
@@ -178,6 +181,7 @@ class Voronoi extends Chart {
     }
     drawTreemap() {
         var leaves=this.hierarchy.leaves();
+        this.leaves=this.hierarchy.leaves();
         
         let self = this;
         
@@ -185,10 +189,10 @@ class Voronoi extends Chart {
        
         var classed = appended.classed('cells', true);
         var attributed = classed.attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")");
-        var selectedAll =    classed.selectAll(".cell");
-        var datalized = selectedAll.data(leaves);
+        let selectedAll =    classed.selectAll(".cell");
+        let datalized = selectedAll.data(leaves);
         var entered = datalized.enter();
-        var appendedPath = entered.append("path");
+        let appendedPath = entered.append("path");
       //   var classedcell = appendedPath.classed("cell", true);
         var attrd = appendedPath.attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; });
         var cells  = attrd.style("fill", function(d: { parent: { data: { color: any; }; }; }){

@@ -75,6 +75,7 @@
     "ts/donut/DonutChart.class.ts",
     "ts/hybro/HybroChart.class.ts",
     "ts/baya/BayaChart.class.ts",
+    "ts/highlight/Highlight.class.ts",
     "ts/run.ts"
 ]
 }

@@ -8,8 +8,9 @@
         "name": "Asia",
         "imports": [],
         "color": "#f58321",
+        "text" :" Asia = new Asia();",
         "children": [
-          {"name": "China", "weight": 14.84, "code": "CN", "imports": [],"targets" : ["controllers.Asia"]},
+          {"name": "China", "weight": 14.84, "code": "CN", "imports": [],"targets" : ["controllers.Asia"],"text" :" China = new China();"},
           {"name": "Japan", "weight": 5.91, "code": "JP"},
           {"name": "India", "weight": 2.83, "code": "IN"},
           {"name": "South Korea", "weight": 1.86, "code": "KR"},
@@ -63,7 +64,7 @@
         "imports": [],
         "color": "#4aaaea",
         "children": [
-          {"name": "Brazil", "weight": 2.39, "code": "BR", "imports":["France"], "source" :" var a = 0,"},
+          {"name": "Brazil", "weight": 2.39, "code": "BR", "imports":["France"], "text" :" var a = 0,"},
           {"name": "Argentina", "weight": 0.79, "code": "AR"},
           {"name": "Venezuela", "weight": 0.5, "code": "VE"},
           {"name": "Colombia", "weight": 0.39, "code": "CO"}

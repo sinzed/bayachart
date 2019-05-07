@@ -130,6 +130,8 @@ declare class Voronoi extends Chart {
     canDrawLegends: boolean;
     canDrawTitle: boolean;
     canDrawFooter: boolean;
+    cells: Array<any>;
+    leaves: any;
     constructor();
     initData(rootData: any): void;
     setMarginLeft(marginLeft: number): void;
@@ -217,11 +219,17 @@ declare class BayaChart extends Chart {
     jsonData: any;
     nodesData: Array<any>;
     svg: any;
+    highlight: Highlight;
     layout: Layout;
     constructor();
     init(): void;
     initLayout(): void;
     draw(): void;
+}
+declare class Highlight {
+    bayaChart: BayaChart;
+    constructor(bayaChart: BayaChart);
+    init(): void;
 }
 declare var diameter: number, radius: number, innerRadius: number;
 declare var cluster: d3.ClusterLayout<any>;
