@@ -186,6 +186,8 @@ declare class DonutChart extends Chart {
     canDrawPipeLables: boolean;
     selection: any;
     element: any;
+    slices: any;
+    slicesObject: any;
     constructor();
     getParent(): HybroChart;
     getWidth(): any;
@@ -206,7 +208,7 @@ declare class DonutChart extends Chart {
     getVariable(value: any): any;
     setCategory(value: any): this;
     getCategory(value: any): any;
-    buildData(leaves: Array<any>): any[];
+    buildData(leaves: Array<any>): any;
     draw(leaves: any): void;
     chart(selection: any): void;
 }

@@ -15,6 +15,8 @@ class DonutChart extends Chart {
     canDrawPipeLables: boolean = false;
     selection: any;
     element : any;
+    slices: any;
+    slicesObject: any;
     constructor(){
         super();
         this._margin = {top: 10, right: 10, bottom: 10, left: 10};
@@ -111,13 +113,30 @@ class DonutChart extends Chart {
         return this._category;
     };
     buildData(leaves : Array<any>){
+        this.slicesObject = {}
+        let self = this;
         leaves.forEach(function(leaf){
-            if(leaf.data.cs){
-                console.log(leaf.data.cs.length);
-            }
+            if(!leaf.data.children)
+                if(leaf.data.cs){
+                    for(let smellIndex in leaf.data.cs){
+
+                        // this.createSlice();
+                        if(!self.slicesObject[smellIndex]) {
+                            self.slicesObject[smellIndex] = {"name":smellIndex};
+                            self.slicesObject[smellIndex]["value"] = 0;
+                        }
+                        
+                        self.slicesObject[smellIndex]["value"]+= leaf.data.cs[smellIndex];
+                    }
+                }
             
         });
-        return leaves;
+        this.slices = [];
+        for(let sliceData in this.slicesObject){
+            this.slices.push(this.slicesObject[sliceData]);
+        }
+        console.log(this.slices);
+        return this.slices;
     }
     draw(leaves:any){
             // d3.select('.drawingArea')
@@ -190,7 +209,7 @@ class DonutChart extends Chart {
                 .append('path')
                 .attr('fill', function (d: any) {
                     //  return colour(d.data[category]);
-                    return self.colorize(d.data.data.name);
+                    return self.colorize(d.data.name);
                 })
                 .attr('d', arc);
             // ===========================================================================================

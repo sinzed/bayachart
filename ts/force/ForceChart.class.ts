@@ -85,7 +85,7 @@ class ForceChart extends Chart {
             .selectAll("path")
             .data(this.links_data)
             .enter().append("svg:path")
-            .attr("stroke-width", function(d) { return 1 });
+            .attr("stroke-width", function(d:any) { return 1 });
       
         this.link.style('fill', 'none')
             // .style('stroke', '#36fffdcf')
@@ -273,7 +273,7 @@ class ForceChart extends Chart {
         //         return d.target.y+d.targetPoint.y; 
         //     })
 
-            this.link.attr("d", function(d) {
+            this.link.attr("d", function(d:any) {
                 var dx = d.target.x - d.targetPoint.x + - d.source.x + d.sourcePoint.x ,
                     dy = d.target.y - d.targetPoint.y - d.source.y + d.sourcePoint.y,
                     dr = Math.sqrt(dx * dx + dy * dy);
