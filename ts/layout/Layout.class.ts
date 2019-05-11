@@ -6,11 +6,13 @@ class Layout {
     showBundleChartBtn:any;
     element: any;
     graphic : any;
+    showForceChartBtn: any;
     constructor(bayaChart : BayaChart){
         this.bayaChart = bayaChart;
         this.layoutOption = new LayoutOption();
         // this.init();
         this.initElement();
+        this.addForceChartButton();
         this.addDonutChartButton();
         this.addBundleChartButton();
         this.addZoomInButton();
@@ -45,6 +47,14 @@ class Layout {
         return this.zoomInBtn;
 
     }
+    addForceChartButton(){
+        let self = this;
+        this.showForceChartBtn =  this.element.insert("button",":first-child");
+        this.showForceChartBtn.text("force");
+        this.showForceChartBtn.on("click",function(){self.toggleForceChart()});
+        this.showForceChartBtn.classed("selected", this.layoutOption.canShowForceChart);
+        return this.showForceChartBtn;
+    }
     addDonutChartButton(){
         let self = this;
         this.showDonutChartBtn =  this.element.insert("button",":first-child");
@@ -76,6 +86,20 @@ class Layout {
         .radius(this.layoutOption.canShowDonutChart?310:210));
         this.bayaChart.forceChart.simulation.force('charge_force',d3.forceManyBody().strength(4000));
         this.bayaChart.forceChart.simulation.force('charge_force',d3.forceManyBody().strength(200));
+    }
+    toggleForceChart(){
+        this.layoutOption.canShowForceChart = !this.layoutOption.canShowForceChart;
+        this.showForceChartBtn.classed("selected", this.layoutOption.canShowForceChart);
+        let enable = this.layoutOption.canShowForceChart;
+        // for(let hybroChart of this.bayaChart.forceChart)
+        if(enable)
+            this.bayaChart.forceChart.run();
+        else
+            this.bayaChart.forceChart.unlink();
+        // this.bayaChart.forceChart.simulation.force('collision', d3.forceCollide()
+        // .radius(this.layoutOption.canShowDonutChart?310:210));
+        // this.bayaChart.forceChart.simulation.force('charge_force',d3.forceManyBody().strength(4000));
+        // this.bayaChart.forceChart.simulation.force('charge_force',d3.forceManyBody().strength(200));
     }
     manageZoomIn(){
         this.layoutOption.canZoomIn = !this.layoutOption.canZoomIn;

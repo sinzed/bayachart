@@ -44,7 +44,7 @@ class Voronoi extends Chart {
     constructor(){
     //begin: constants
         super();
-        this.margin = {top: 300, right: 10, bottom: 10, left: 10};
+        this.margin = {top: 600, right: 300, bottom: 10, left: 600};
         this.height = this.svgHeight - this.margin.top - this.margin.bottom;
         this.width = this.svgWidth - this.margin.left - this.margin.right;
         this.halfWidth = this.width/2;

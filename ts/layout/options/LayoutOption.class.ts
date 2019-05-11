@@ -2,6 +2,7 @@ class LayoutOption {
     private _zoomIn : boolean = false;
     private _donutChart : boolean = true;
     private _bundleChart : boolean = true;
+    canShowForceChart: boolean;
     constructor(){
         this.canZoomIn = false;
     }

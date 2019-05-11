@@ -18,6 +18,28 @@ class ForceChart extends Chart {
     getParent()  : BayaChart {
         return super.getParent();
     }
+    run(){
+                     
+        let link_force = d3.forceLink(this.links_data)
+        .id(function (d:any) { 
+            return d.name;
+         });
+        let charge_force = d3.forceManyBody().strength(100);
+        let center_force = d3.forceCenter(this.width / 2, this.height / 4);
+       
+        this.simulation
+        .force("charge_force", charge_force)
+        .force("center_force", center_force)
+  
+        .force("links", link_force);
+    }
+    unlink(){
+        this.simulation
+        .force("charge_force", null)
+        .force("center_force", null)
+  
+        .force("links", null);
+    }
     draw(rootData:any) {
         if(!this.enable)
         return false;
@@ -29,20 +51,20 @@ class ForceChart extends Chart {
         //set up the simulation and add forces  
         this.simulation = d3.forceSimulation()
             .nodes(this.nodes_data);
-        let link_force = d3.forceLink(this.links_data)
+
+             
+            let link_force = d3.forceLink(this.links_data)
             .id(function (d:any) { 
                 return d.name;
              });
-             
-        let charge_force = d3.forceManyBody().strength(100);
-        let center_force = d3.forceCenter(this.width / 2, this.height / 4);
         // let force_colide = d3.forceCollide();
         this.simulation
-            .force("charge_force", charge_force)
-            .force("center_force", center_force)
-            .force('collision', d3.forceCollide()
-            .radius(this.radius))
+            // .force("charge_force", charge_force)
+            // .force("center_force", center_force)
+            .force('collision', d3.forceCollide().radius(this.radius))
+            // .radius(this.radius))
             .force("links", link_force);
+            this.unlink();
         //add tick instructions: 
         let self = this;
         this.simulation.on("tick", function(){
@@ -57,17 +79,6 @@ class ForceChart extends Chart {
         this.g = this.getParent().layout.graphic.append("g")
             .classed("class", "everything");
 
-        
-
-        // //draw lines for the links 
-        // this.link = this.g.append("g")
-        //     .attr("class", "links")
-        //     .selectAll("line")
-        //     .data(this.links_data)
-        //     .enter()
-        //     .append("line")
-        //     .attr("stroke-width", 6)
-        //     .style("stroke", this.linkColour);
         //draw lines for the links 
         this.link =  this.g.append("g")
             .attr("class", "links")
@@ -221,19 +232,19 @@ class ForceChart extends Chart {
             return this.followToFindleaf(foundLeaf, part2);
     }
     
-    findSourceMargin(leaf){
+    findSourceMargin(leaf : any){
         if(leaf.polygon.site == undefined)
             return {"x":0,"y":0};
-        let x = leaf.polygon.site.x;
-        let y = leaf.polygon.site.y;
-        return {"x":x-200,"y":y+100};
+        let x = leaf.polygon.site.x + this.getParent().hybroCharts[0].voronoiChart.margin.left - 200;
+        let y = leaf.polygon.site.y + this.getParent().hybroCharts[0].voronoiChart.margin.top - 200 ;
+        return {"x":x,"y":y};
     }
-    findTargetMargin(leaf){
+    findTargetMargin(leaf : any){
         if(leaf.polygon == undefined)
             return {"x":0,"y":0};
-        let x = leaf.polygon.site.x;
-        let y = leaf.polygon.site.y;
-        return {"x":x-200,"y":y+100};
+        let x = leaf.polygon.site.x + this.getParent().hybroCharts[0].voronoiChart.margin.left - 200;
+        let y = leaf.polygon.site.y + this.getParent().hybroCharts[0].voronoiChart.margin.top - 200;
+        return {"x":x,"y":y};
     }
     addLink(mainSource: any, sourceMargin: any, mainTarget: any, targetMargin: any) {
         this.links_data.push({"source":mainSource.data.name,"sourcePoint":sourceMargin,"target":mainTarget.name,"targetPoint":targetMargin});

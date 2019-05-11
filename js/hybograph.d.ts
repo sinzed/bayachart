@@ -19,6 +19,8 @@ declare class ForceChart extends Chart {
     nodeCells: any;
     constructor();
     getParent(): BayaChart;
+    run(): void;
+    unlink(): void;
     draw(rootData: any): false | undefined;
     radius(): number;
     initNode(): void;
@@ -37,11 +39,11 @@ declare class ForceChart extends Chart {
     followToFindleaf(hierarchy: any, target: string): any;
     findSourceMargin(leaf: any): {
         "x": number;
-        "y": any;
+        "y": number;
     };
     findTargetMargin(leaf: any): {
         "x": number;
-        "y": any;
+        "y": number;
     };
     addLink(mainSource: any, sourceMargin: any, mainTarget: any, targetMargin: any): void;
     tickActions(): void;
@@ -65,6 +67,7 @@ declare class LayoutOption {
     private _zoomIn;
     private _donutChart;
     private _bundleChart;
+    canShowForceChart: boolean;
     constructor();
     canZoomIn: boolean;
     canShowBundleChart: boolean;
@@ -78,15 +81,18 @@ declare class Layout {
     showBundleChartBtn: any;
     element: any;
     graphic: any;
+    showForceChartBtn: any;
     constructor(bayaChart: BayaChart);
     init(): void;
     initElement(): void;
     initZoom(): void;
     addZoomInButton(): any;
+    addForceChartButton(): any;
     addDonutChartButton(): any;
     addBundleChartButton(): any;
     toggleBundleChart(): void;
     toggleDonutChart(): void;
+    toggleForceChart(): void;
     manageZoomIn(): void;
     zoom_actions(): void;
 }
