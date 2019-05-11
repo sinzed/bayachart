@@ -25,7 +25,7 @@ class ForceChart extends Chart {
             return d.name;
          });
         let charge_force = d3.forceManyBody().strength(100);
-        let center_force = d3.forceCenter(this.width / 2, this.height / 4);
+        let center_force = d3.forceCenter(this.width / 3, this.height / 5);
        
         this.simulation
         .force("charge_force", charge_force)

@@ -165,3 +165,6 @@
 .view {
   width: 80%;
 }
+.labels g text {
+  font-size: 10px;
+}

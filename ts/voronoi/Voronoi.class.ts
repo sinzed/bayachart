@@ -169,7 +169,9 @@ class Voronoi extends Chart {
             .attr("y", -legendHeight)
             .attr("width", colorWidth)
             .attr("height", legendHeight)
-            .style("fill", function(d: { color: any; }){ return d.color; });
+            .style("fill", function(d: { color: any; }){ 
+                return d.color; 
+            });
         legend.append("text")
             .classed("tiny", true)
             .attr("transform", "translate("+[colorWidth+5, -2]+")")
@@ -195,9 +197,11 @@ class Voronoi extends Chart {
         let appendedPath = entered.append("path");
       //   var classedcell = appendedPath.classed("cell", true);
         var attrd = appendedPath.attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; });
-        var cells  = attrd.style("fill", function(d: { parent: { data: { color: any; }; }; }){
-                return d.parent.data.color;
-                  });
+        var cells  = attrd.style("fill", 
+            function(d: { parent: { data: { color: any; }; }; }){
+                    return d.parent.data.color;
+            }
+        );
         
         var labels = this.treemapContainer.append("g")
             .classed('labels', true)
@@ -239,7 +243,7 @@ class Voronoi extends Chart {
         }
       }
     canShowHoverer() {
-        return true;
+        return false;
         // throw new Error("Method not implemented.");
     }
       draw(rootData:any){
