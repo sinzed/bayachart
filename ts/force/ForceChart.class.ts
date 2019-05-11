@@ -34,7 +34,7 @@ class ForceChart extends Chart {
                 return d.name;
              });
              
-        let charge_force = d3.forceManyBody().strength(200);
+        let charge_force = d3.forceManyBody().strength(100);
         let center_force = d3.forceCenter(this.width / 2, this.height / 4);
         // let force_colide = d3.forceCollide();
         this.simulation
@@ -46,7 +46,12 @@ class ForceChart extends Chart {
         //add tick instructions: 
         let self = this;
         this.simulation.on("tick", function(){
-            self.tickActions()}
+            
+        // for (let i = 0; i < 500; i++) {
+        //         self.tickActions()
+        //   }
+          self.tickActions()
+        }
             );
 
         this.g = this.getParent().layout.graphic.append("g")
@@ -235,6 +240,10 @@ class ForceChart extends Chart {
     }
  
     tickActions() {
+        // for (let i = 0; i < 5; i++) {
+        //     this.tickActions();
+        //   }
+        
         this.nodeCells.attr("transform", function (d:any) {
             return "translate("+d.x+","+d.y+")"; 
         })

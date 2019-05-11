@@ -110,10 +110,20 @@ class DonutChart extends Chart {
     getCategory (value: any) {
         return this._category;
     };
+    buildData(leaves : Array<any>){
+        leaves.forEach(function(leaf){
+            if(leaf.data.cs){
+                console.log(leaf.data.cs.length);
+            }
+            
+        });
+        return leaves;
+    }
     draw(leaves:any){
             // d3.select('.drawingArea')
     // this.selection = d3.select('svg g').datum(leaves); // bind data to the div
-    this.selection = this.getParent().voronoiChart.drawingArea.select(".treemap-container").datum(leaves); // bind data to the div
+    let slicesData = this.buildData(leaves)
+    this.selection = this.getParent().voronoiChart.drawingArea.select(".treemap-container").datum(slicesData); // bind data to the div
     this.chart(this.selection);
     
     // .call(donutChart.chart); // draw chart in div
@@ -132,8 +142,10 @@ class DonutChart extends Chart {
 
             // creates a new pie generator
             var pie = d3.pie()
-                .value(function(d: any) { return self.floatFormat(d[self._variable]); })
-                .sort(null);
+            .value(function(d: any) {
+                return self.floatFormat(d[self._variable]);
+                    })
+            .sort(null);
 
             // contructs and arc generator. This will be used for the donut. The difference between outer and inner
             // radius will dictate the thickness of the donut
