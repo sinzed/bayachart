@@ -1,0 +1,170 @@
+      svg {
+        background-color: rgb(250,250,250);
+      }
+      
+      #title {
+        letter-spacing: 4px;
+        font-weight: 700;
+        font-size: x-large;
+      }
+      
+      text.tiny {
+        font-size: 10pt;
+      }
+      text.light {
+        fill: lightgrey
+      }
+      
+      .world {
+        stroke: lightgrey;
+		    stroke-width: 4px;
+      }
+      
+      .cell {
+        stroke: white;
+        stroke-width: 1px;
+      }
+      
+      .label {
+        text-anchor: middle;
+        fill: white;
+      }
+      
+      .label>.name {
+        dominant-baseline: text-after-edge;
+      }
+      
+      .label>.value {
+        dominant-baseline: text-before-edge;
+      }
+      
+      .hoverer,.parents {
+        fill: transparent;
+        stroke: white;
+        stroke-width:0px;
+      }
+      
+      .hoverer:hover,.parents:hover {
+        stroke-width: 3px;
+      }
+      
+      .legend-color {
+        stroke-width: 1px;
+        stroke:darkgrey;
+      }
+
+      
+.node {
+  font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  fill: #bbb;
+}
+
+.node:hover {
+  fill: #000;
+}
+
+.link {
+  stroke: steelblue;
+  stroke-opacity: 0.9;
+  fill: none;
+  pointer-events: none;
+}
+
+.node:hover,
+.node--source,
+.node--target {
+  font-weight: 700;
+}
+
+.node--source {
+  fill: #2ca02c;
+}
+
+.node--target {
+  fill: #d62728;
+}
+
+.link--source,
+.link--target {
+  stroke-opacity: 1;
+  stroke-width: 10px;
+}
+
+.link--source {
+  stroke: #d62728;
+}
+
+.link--target {
+  stroke: #2ca02c;
+}
+
+.node {
+  font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  fill: #bbb;
+}
+
+.node:hover {
+  fill: #000;
+}
+
+.link {
+  stroke: rgb(37, 37, 37);
+  /* stroke: steelblue; */
+  stroke-opacity: 0.8;
+  fill: none;
+  pointer-events: none;
+}
+
+.node:hover,
+.node--source,
+.node--target {
+  font-weight: 700;
+}
+
+.node--source {
+  fill: #2ca02c;
+}
+
+.node--target {
+  fill: #d62728;
+}
+
+.link--source,
+.link--target {
+  stroke-opacity: 1;
+  stroke-width: 2px;
+}
+
+.link--source {
+  stroke: #d62728;
+}
+
+.link--target {
+  stroke: #2ca02c;
+}
+.col {
+  float: left;
+}
+.panel {
+  width: 20%;
+  height: 95vh;
+  width: 20%;
+  /* height: 100%; */
+  resize: both;
+  /* position: absolute; */
+  overflow: auto;
+  z-index: 2;
+}
+.panel pre {
+  height: 100vh;
+
+}
+.panel pre code {
+  height: 100%;
+}
+.view {
+  width: 80%;
+}
+.labels g text {
+  font-size: 10px;
+}

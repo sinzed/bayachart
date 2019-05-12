@@ -41,7 +41,7 @@ class Voronoi extends Chart {
     canDrawFooter: boolean = false;
     cells: Array<any>;
     leaves: any;
-    _canShowHoverer: boolean = true;
+    _canShowHoverer: boolean = false;
     constructor(){
     //begin: constants
         super();
@@ -196,7 +196,7 @@ class Voronoi extends Chart {
         let classed = appended.classed('cells', true);
         let attributed = classed.attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")");
         let selectedAll =    classed.selectAll(".cell");
-        let datalized = selectedAll.data(leaves);
+        let datalized = selectedAll.data(this.leaves);
         let entered = datalized.enter();
         let appendedPath = entered.append("path");
       //   var classedcell = appendedPath.classed("cell", true);
@@ -212,7 +212,7 @@ class Voronoi extends Chart {
             .classed('labels', true)
             .attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")")
             .selectAll(".label")
-            .data(leaves)
+            .data(this.leaves)
             .enter()
             .append("g")
             .classed("label", true)
@@ -232,24 +232,57 @@ class Voronoi extends Chart {
             .classed("value", true)
             .text(function(d: { data: { weight: string; }; }){ return d.data.weight+"%"; });
         if(this.canShowHoverer()){
-
-            var hoverers = this.treemapContainer.append("g")
-            .classed('hoverers', true)
-            .attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")")
-            .selectAll(".hoverer")
-            .data(leaves)
-            .enter()
-            .append("path")
-            .classed("hoverer", true)
-            .attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; });
-            
-            hoverers.append("title")
-            .text(function(d: { data: { name: string; }; value: string; }) { return d.data.name + "\n" + d.value+"%"; });
+            this.drawHoverers();
+        }
+        else {
+            this.drawParents();
         }
       }
     canShowHoverer() {
         return this._canShowHoverer;
         // throw new Error("Method not implemented.");
+    }
+    drawHoverers(){ 
+        let hoverers = this.treemapContainer.append("g")
+        .classed('hoverers', true)
+        .attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")")
+        .selectAll(".hoverer")
+        .data(this.leaves)
+        .enter()
+        .append("path")
+        .classed("hoverer", true)
+        .attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; });
+        hoverers.append("title")
+        .text(function(d: { data: { name: string; }; value: string; }) { return d.data.name + "\n" + d.value+"%"; });
+    }
+    drawParents(){ 
+        // let parentData = this.hierarchy.descendants();
+        let parentData = this.hierarchy.descendants().filter(function (leaf) {
+            if(leaf.children)
+                return leaf;
+        });
+
+        let parents = this.treemapContainer.append("g")
+        .classed('parents', true)
+        .attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")")
+        .selectAll(".parents")
+        .data(parentData)
+        .enter()
+        .append("path")
+        .style("fill",function(d){
+            if(d.parent && d.parent.color)
+                return d.parent.color
+            else
+                return "transparent";
+        })
+        .style("opacity",1)
+        .style("stroke-width",1)
+        .style("stroke","azure")
+        // .attr("transform","scale(0.99) translate(5,5)")
+        .classed("parents", true)
+        .attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; });
+        parents.append("title")
+        .text(function(d: { data: { name: string; }; value: string; }) { return d.data.name + "\n" + d.value+"%"; });
     }
       draw(rootData:any){
           this.initData(rootData);

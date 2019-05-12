@@ -109,7 +109,8 @@
         "imports": [],
         "color": "#f58321",
         "children": [
-          {"name": "China", "code": "CN", "imports": [], "source": "China", "target": "United States", "color": "#f58381", "type":"A",
+          {"name": "China", "code": "CN", "imports": [], "source": "China", "target": "United States", "color": "#f58381", "type":"A"
+            ,
             "children": [
               {"name": "part1", "weight": 2, "code": "CN", "imports": [], "color": "#f58381",  "type":"A"},
               {"name": "part2", "weight": 2, "code": "CN", "imports": [], "color": "#f58381", "type":"A"},
@@ -121,9 +122,17 @@
             ,
             "children": [
               {"name": "part1", "weight": 2, "code": "CN", "imports": [],  "color": "#f58381", "type":"A"},
-              {"name": "part2", "weight": 2, "code": "CN", "imports": [],  "color": "#f58381", "type":"A"}
+          {"name": "part2", "weight": 2, "code": "CN", "imports": [],  "color": "#f58381", "type":"A"  ,
+              "children": [
+                {"name": "part1", "weight": 2, "code": "CN", "imports": [], "color": "#f58381",  "type":"A"},
+                {"name": "part2", "weight": 2, "code": "CN", "imports": [], "color": "#f58381", "type":"A"},
+                {"name": "part3", "weight": 3, "code": "CN", "imports": [], "color": "#f58381", "type":"A"},
+                {"name": "part4", "weight": 1, "code": "CN", "imports": [], "color": "#f58381", "type":"A"}
+              ]
+            }
             ]
           }
+          
         ]
       },
       {
