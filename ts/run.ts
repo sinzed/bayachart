@@ -14,6 +14,7 @@ let bayaChart = new BayaChart();
 d3.json("../voronoi-bundle-donut.json", function(error:any, graphsData:any) {
     if (error) throw error;
     bayaChart.jsonData = graphsData;
+    
     bayaChart.draw();
     // hybroChart3.draw(graphsData[0]);
   });

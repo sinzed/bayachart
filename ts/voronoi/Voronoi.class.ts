@@ -41,6 +41,7 @@ class Voronoi extends Chart {
     canDrawFooter: boolean = false;
     cells: Array<any>;
     leaves: any;
+    _canShowHoverer: boolean = true;
     constructor(){
     //begin: constants
         super();
@@ -119,7 +120,7 @@ class Voronoi extends Chart {
         .attr("id", "title")
         .attr("transform", "translate("+[this.halfWidth, this.titleY]+")")
         .attr("text-anchor", "middle")
-        .text("The Global Economy by GDP (as of 01/2017)")
+        .text("The graph of bad smells codes")
     }
 
      drawFooter() {
@@ -181,42 +182,46 @@ class Voronoi extends Chart {
             .attr("transform", "translate("+[0, -continents.length*(legendHeight+interLegend)-5]+")")
             .text("Continents");
     }
+    buildColors(){
+
+    }
     drawTreemap() {
         var leaves=this.hierarchy.leaves();
         this.leaves=this.hierarchy.leaves();
         
         let self = this;
         
-        var appended = this.treemapContainer.append("g");
+        let appended = this.treemapContainer.append("g");
        
-        var classed = appended.classed('cells', true);
-        var attributed = classed.attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")");
+        let classed = appended.classed('cells', true);
+        let attributed = classed.attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")");
         let selectedAll =    classed.selectAll(".cell");
         let datalized = selectedAll.data(leaves);
-        var entered = datalized.enter();
+        let entered = datalized.enter();
         let appendedPath = entered.append("path");
       //   var classedcell = appendedPath.classed("cell", true);
-        var attrd = appendedPath.attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; });
-        var cells  = attrd.style("fill", 
+        let attrd = appendedPath.attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; });
+        this.buildColors();
+        let cells  = attrd.style("fill", 
             function(d: { parent: { data: { color: any; }; }; }){
                     return d.parent.data.color;
             }
         );
         
-        var labels = this.treemapContainer.append("g")
+        let labels = this.treemapContainer.append("g")
             .classed('labels', true)
             .attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")")
             .selectAll(".label")
             .data(leaves)
             .enter()
-                .append("g")
-                    .classed("label", true)
-                    .attr("transform", function(d: { polygon: { site: { x: any; y: any; }; }; }){
-                      return "translate("+[d.polygon.site.x, d.polygon.site.y]+")";
-              })
-                    .style("font-size", function(d : any){
-                         return self.fontScale(d.data.weight); 
-                        });
+            .append("g")
+            .classed("label", true)
+            .attr("transform", function(d: { polygon: { site: { x: any; y: any; }; }; }){
+                return "translate("+[d.polygon.site.x, d.polygon.site.y]+")";
+            })
+            .style("font-size", function(d : any){
+                return self.fontScale(d.data.weight); 
+            });
         
         labels.append("text")
             .classed("name", true)
@@ -243,7 +248,7 @@ class Voronoi extends Chart {
         }
       }
     canShowHoverer() {
-        return false;
+        return this._canShowHoverer;
         // throw new Error("Method not implemented.");
     }
       draw(rootData:any){

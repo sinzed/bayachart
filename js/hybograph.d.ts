@@ -138,6 +138,7 @@ declare class Voronoi extends Chart {
     canDrawFooter: boolean;
     cells: Array<any>;
     leaves: any;
+    _canShowHoverer: boolean;
     constructor();
     initData(rootData: any): void;
     setMarginLeft(marginLeft: number): void;
@@ -150,6 +151,7 @@ declare class Voronoi extends Chart {
             reverse: () => Array<any>;
         };
     }): true | undefined;
+    buildColors(): void;
     drawTreemap(): void;
     canShowHoverer(): boolean;
     draw(rootData: any): void;
