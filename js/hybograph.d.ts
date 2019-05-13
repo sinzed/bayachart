@@ -155,7 +155,7 @@ declare class Voronoi extends Chart {
     drawTreemap(): void;
     canShowHoverer(): boolean;
     drawHoverers(): void;
-    drawParents(): void;
+    drawParents(): boolean;
     draw(rootData: any): void;
 }
 declare class BundleChart extends Chart {

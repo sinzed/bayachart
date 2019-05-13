@@ -64,52 +64,52 @@ class ForceChart extends Chart {
             .force('collision', d3.forceCollide().radius(this.radius))
             // .radius(this.radius))
             .force("links", link_force);
-            this.unlink();
-        //add tick instructions: 
-        let self = this;
-        this.simulation.on("tick", function(){
-            
-        // for (let i = 0; i < 500; i++) {
-        //         self.tickActions()
-        //   }
-          self.tickActions()
-        }
-            );
-
-        this.g = this.getParent().layout.graphic.append("g")
-            .classed("class", "everything");
-
-        //draw lines for the links 
-        this.link =  this.g.append("g")
-            .attr("class", "links")
-            .selectAll("path")
-            .data(this.links_data)
-            .enter().append("svg:path")
-            .attr("stroke-width", function(d:any) { return 1 });
-      
-        this.link.style('fill', 'none')
-            // .style('stroke', '#36fffdcf')
-            .style('stroke', this.linkColour)
-            .style("stroke-width", '4px');
-
-  
-        //draw circles for the nodes 
-        // this.initNode1();
-        this.initNodeCells();
-     
-        var drag_handler = d3.drag()
-            .on("start", function(d){
+            //add tick instructions: 
+            let self = this;
+            this.simulation.on("tick", function(){
                 
-                self.drag_start(d)
-            
-            })
-            .on("drag", function(d){self.drag_drag(d)})
-            .on("end", function(d){self.drag_end(d)});
-
-        // drag_handler(this.node);
-        drag_handler(this.nodeCells);
-
-    }
+                // for (let i = 0; i < 500; i++) {
+                    //         self.tickActions()
+                    //   }
+                    self.tickActions()
+                }
+                );
+                
+                this.g = this.getParent().layout.graphic.append("g")
+                .classed("class", "everything");
+                
+                //draw lines for the links 
+                this.link =  this.g.append("g")
+                .attr("class", "links")
+                .selectAll("path")
+                .data(this.links_data)
+                .enter().append("svg:path")
+                .attr("stroke-width", function(d:any) { return 1 });
+                
+                this.link.style('fill', 'none')
+                // .style('stroke', '#36fffdcf')
+                .style('stroke', this.linkColour)
+                .style("stroke-width", '4px');
+                
+                
+                //draw circles for the nodes 
+                // this.initNode1();
+                this.initNodeCells();
+                
+                var drag_handler = d3.drag()
+                .on("start", function(d){
+                    
+                    self.drag_start(d)
+                    
+                })
+                .on("drag", function(d){self.drag_drag(d)})
+                .on("end", function(d){self.drag_end(d)});
+                
+                // drag_handler(this.node);
+                drag_handler(this.nodeCells);
+                
+                this.unlink();
+            }
     radius(){
         return 210;
     }

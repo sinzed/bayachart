@@ -198,7 +198,38 @@ class Voronoi extends Chart {
         let selectedAll =    classed.selectAll(".cell");
         let datalized = selectedAll.data(this.leaves);
         let entered = datalized.enter();
-        let appendedPath = entered.append("path");
+        let appendedPath = entered.append("path")
+        .on("mouseover", function(){
+            // d3.select(this).style("display","none");
+            let element  = d3.select(this);
+
+            // let translate = element.attr("trans")
+            // element.attr("transform","scale(1.3) translate(-30,-39)");
+            element.style("stroke-width","3px");
+            element.style("stroke","white");
+            element.style("stroke-dasharray","0");;
+
+        })
+        .on("mouseout", function(){
+            // d3.select(this).style("display","block");
+            let element  = d3.select(this);
+            element.style("stroke-width","0px");
+            element.style("stroke","black");
+            element.style("stroke-dasharray","9");;
+        })
+        .on("click", function(){
+            // d3.select(this).style("filter","url(#dropshadow)");
+            let element  = d3.select(this);
+            // let translate = element.attr("trans")
+            // element.attr("transform","scale(1.3) translate(-30,-39)");
+        })
+        .on("mousedown", function(){
+            // d3.select(this).style("filter","url(#dropshadow)");
+            let element  = d3.select(this);
+            
+            // let translate = element.attr("trans")
+            // element.attr("transform","scale(1.3) translate(-30,-39)");
+        });
       //   var classedcell = appendedPath.classed("cell", true);
         let attrd = appendedPath.attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; });
         this.buildColors();
@@ -256,6 +287,7 @@ class Voronoi extends Chart {
         .text(function(d: { data: { name: string; }; value: string; }) { return d.data.name + "\n" + d.value+"%"; });
     }
     drawParents(){ 
+        return false;
         // let parentData = this.hierarchy.descendants();
         let parentData = this.hierarchy.descendants().filter(function (leaf) {
             if(leaf.children)
