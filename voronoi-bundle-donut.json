@@ -7,7 +7,7 @@
       {
         "name": "Asia",
         "imports": [],
-        "color": "#f58321",
+        
         "text" :" Asia = new Asia();",
         "children": [
           {"name": "China", "weight": 14.84, "code": "CN", "imports": [],"targets" : ["controllers.Asia"],"text" :" China = new China();"},
@@ -31,7 +31,7 @@
       {
         "name": "North America",
         "imports": ["Asia"],
-        "color": "#ef1621",
+        
         "children": [
           {"name": "United States", "weight": 24.32, "code": "US", "cs": 
             {"GodClass": 33, "UnusedImport": 3, "warnings": 3, "errors": 3}},
@@ -42,7 +42,7 @@
       {
         "name": "Europe",
         "imports": [],
-        "color": "#77bc45",
+        
         "children": [
           {"name": "Germany", "weight": 4.54, "code": "DE"},
           {"name": "United Kingdom", "weight": 3.85, "code": "UK"},
@@ -63,7 +63,7 @@
       {
         "name": "South America",
         "imports": [],
-        "color": "#4aaaea",
+        
         "children": [
           {"name": "Brazil", "weight": 2.39, "code": "BR", "imports":["France"], "text" :" var a = 0,"},
           {"name": "Argentina", "weight": 0.79, "code": "AR"},
@@ -74,7 +74,7 @@
       {
         "name": "Australia",
         "imports": ["Netherlands","South Africa"],
-        "color": "#00acad",
+        
         "children": [
           {"name": "Australia", "weight": 1.81, "code": "AU", "imports":[]}
         ]
@@ -82,7 +82,7 @@
       {
         "name": "Africa",
         "imports": [],
-        "color": "#f575a3",
+        
         "children": [
           {"name": "Nigeria", "weight": 0.65, "code": "NG"},
           {"name": "Egypt", "weight": 0.45, "code": "EG"},
@@ -92,7 +92,7 @@
       {
         "name": "Rest of the World",
         "imports": [],
-        "color": "#592c94",
+        
         "children": [
           {"name": "Rest of the World", "weight": 9.41, "code": "RotW"}
         ]
@@ -107,7 +107,7 @@
       {
         "name": "Asia",
         "imports": [],
-        "color": "#f58321",
+        
         "children": [
           {"name": "China", "code": "CN", "imports": [], "source": "China", "target": "United States", "color": "#f58381", "type":"A"
             ,
@@ -137,8 +137,8 @@
       },
       {
         "name": "North America",
-        "imports": ["Asia"],
-        "color": "#ef1621",
+        "imports": ["Asia"]
+        ,
         "children": [
           {"name": "United States", "weight": 10, "code": "US", "cs": {"GodClass": 5, "UnusedImport": 3}, "type":"A"}
         ]
@@ -154,7 +154,7 @@
         "name": "Asia",
         "imports": [],
         "targets": ["controllers.Asia"],
-        "color": "#f58321",
+        
         "children": [
           {"name": "China", "weight": 14.84, "code": "CN", "imports": [], "type":"A"}
         ]
@@ -162,7 +162,7 @@
       {
         "name": "North America",
         "imports": ["Asia"],
-        "color": "#ef1621",
+        
         "children": [
           {"name": "United States", "weight": 24.32, "code": "US", "cs": {"GodClass": 5, "UnusedImport": 3}, "type":"A"}
         ]
@@ -170,7 +170,7 @@
       {
         "name": "Europe",
         "imports": [],
-        "color": "#77bc45",
+        
         "children": [
           {"name": "United Kingdom", "weight": 3.85, "code": "UK"},
           {"name": "France", "weight": 3.26, "code": "FR"},

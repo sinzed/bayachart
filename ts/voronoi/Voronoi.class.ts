@@ -62,6 +62,7 @@ class Voronoi extends Chart {
     //end: reusable d3Selection
     }
     initData(rootData:any) {
+
         this.circlingPolygon = this.computeCirclingPolygon(this.treemapRadius);
         this.fontScale.domain([3, 20]).range([8, 20]).clamp(true);
         this.initLayout(rootData);
@@ -181,9 +182,6 @@ class Voronoi extends Chart {
         legendContainer.append("text")
             .attr("transform", "translate("+[0, -continents.length*(legendHeight+interLegend)-5]+")")
             .text("Continents");
-    }
-    buildColors(){
-
     }
     drawTreemap() {
         var leaves=this.hierarchy.leaves();
@@ -316,7 +314,30 @@ class Voronoi extends Chart {
         parents.append("title")
         .text(function(d: { data: { name: string; }; value: string; }) { return d.data.name + "\n" + d.value+"%"; });
     }
+    buildColors(rootData : any,parentColor?:number){
+        let colors : Array<Color> =[];
+        // colors.push("hsla(120,100%,0%,1)");
+        for(let i = 0;i<rootData.children.length;i++){
+            let color :Color;
+            if(!parentColor)
+                 color = new Color((360/rootData.children.length)*i,"100%","40%");
+            else
+              color= new Color(parentColor,"100%","40%");
+            
+            colors.push(color);
+        }
+        for ( let leaf of rootData.children){
+            let color  : any = colors.pop();
+            leaf.color = color.value;
+            if(leaf.children){
+                this.buildColors(leaf,color.h);
+            }
+        }
+
+        return rootData;
+    }
       draw(rootData:any){
+          let rootDataColorized = this.buildColors(rootData);
           this.initData(rootData);
           this.drawTreemap();
       }
