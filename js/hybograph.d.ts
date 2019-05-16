@@ -76,6 +76,7 @@ declare class LayoutOption {
     private _donutChart;
     private _bundleChart;
     canShowForceChart: boolean;
+    canShowTreeMap: boolean;
     constructor();
     canZoomIn: boolean;
     canShowBundleChart: boolean;
@@ -90,14 +91,17 @@ declare class Layout {
     element: any;
     graphic: any;
     showForceChartBtn: any;
+    treemapBtn: any;
     constructor(bayaChart: BayaChart);
     init(): void;
     initElement(): void;
     initZoom(): void;
+    addTreemap(): any;
     addZoomInButton(): any;
     addForceChartButton(): any;
     addDonutChartButton(): any;
     addBundleChartButton(): any;
+    toggleTreeMap(): void;
     toggleBundleChart(): void;
     toggleDonutChart(): void;
     toggleForceChart(): void;
@@ -162,6 +166,7 @@ declare class Voronoi extends Chart {
     drawTreemap(): void;
     canShowHoverer(): boolean;
     drawHoverers(): void;
+    showTreeMapBorders(enable: boolean): void;
     drawParents(): void;
     getColorByDepth(leaf: any): string;
     getWidthByDepth(leaf: any): string;

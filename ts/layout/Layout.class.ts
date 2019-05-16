@@ -7,6 +7,7 @@ class Layout {
     element: any;
     graphic : any;
     showForceChartBtn: any;
+    treemapBtn: any;
     constructor(bayaChart : BayaChart){
         this.bayaChart = bayaChart;
         this.layoutOption = new LayoutOption();
@@ -15,6 +16,7 @@ class Layout {
         this.addDonutChartButton();
         this.addBundleChartButton();
         this.addZoomInButton();
+        this.addTreemap();
         this.init();
         
 
@@ -27,6 +29,7 @@ class Layout {
 
     init(){
         this.manageZoomIn();
+        this.toggleTreeMap();
     }
     initElement(){
         this.element = d3.select("body").insert("div",":first-child");
@@ -37,10 +40,15 @@ class Layout {
         g = this.bayaChart.svg.selectAll(".zoomable");
         g.attr("transform", "scale(0.6)");
     }
+    addTreemap(){
+        let self = this;
+        this.treemapBtn =  this.element.insert("button",":first-child");
+        this.treemapBtn.text("treemap");
+        this.treemapBtn.on("click",function(){self.toggleTreeMap()});
+        return this.treemapBtn;
+
+    }
     addZoomInButton(){
-        //alternative way
-//         var parentEl = d3.select("div").node();
-// parentEl.insertBefore(document.createElement("div"), parentEl.childNodes[0]);
         let self = this;
         this.zoomInBtn =  this.element.insert("button",":first-child");
         this.zoomInBtn.text("zoomable");
@@ -71,6 +79,12 @@ class Layout {
         this.showBundleChartBtn.on("click",function(){self.toggleBundleChart()});
         this.showBundleChartBtn.classed("selected", this.layoutOption.canShowBundleChart);
         return this.showBundleChartBtn;
+    }
+    toggleTreeMap(){
+        this.layoutOption.canShowTreeMap = !this.layoutOption.canShowTreeMap;
+        this.treemapBtn.classed("selected", this.layoutOption.canShowTreeMap);
+        for(let hybroChart of this.bayaChart.hybroCharts)
+            hybroChart.voronoiChart.showTreeMapBorders(this.layoutOption.canShowTreeMap);
     }
     toggleBundleChart(){
         this.layoutOption.canShowBundleChart = !this.layoutOption.canShowBundleChart;

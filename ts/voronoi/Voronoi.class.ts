@@ -205,7 +205,7 @@ class Voronoi extends Chart {
             // element.attr("transform","scale(1.3) translate(-30,-39)");
             element.style("stroke-width","3px");
             element.style("stroke","white");
-            element.style("stroke-dasharray","0");;
+            element.style("stroke-dasharray","0");
 
         })
         .on("mouseout", function(){
@@ -282,6 +282,9 @@ class Voronoi extends Chart {
         .attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; });
         hoverers.append("title")
         .text(function(d: { data: { name: string; }; value: string; }) { return d.data.name + "\n" + d.value+"%"; });
+    }
+    showTreeMapBorders(enable:boolean){
+            d3.selectAll(".parents").style("display",enable?"block":"none");
     }
     drawParents(){ 
         // return false;
