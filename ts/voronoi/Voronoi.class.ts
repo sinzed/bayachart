@@ -41,7 +41,7 @@ class Voronoi extends Chart {
     canDrawFooter: boolean = false;
     cells: Array<any>;
     leaves: any;
-    _canShowHoverer: boolean = false;
+    _canShowHoverer: boolean = true;
     constructor(){
     //begin: constants
         super();
@@ -230,7 +230,6 @@ class Voronoi extends Chart {
         });
       //   var classedcell = appendedPath.classed("cell", true);
         let attrd = appendedPath.attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; });
-        this.buildColors();
         let cells  = attrd.style("fill", 
             function(d: { parent: { data: { color: any; }; }; }){
                     return d.parent.data.color;
@@ -260,12 +259,12 @@ class Voronoi extends Chart {
         labels.append("text")
             .classed("value", true)
             .text(function(d: { data: { weight: string; }; }){ return d.data.weight+"%"; });
+        this.drawParents();
         if(this.canShowHoverer()){
             this.drawHoverers();
         }
-        else {
-            this.drawParents();
-        }
+        // else {
+        // }
       }
     canShowHoverer() {
         return this._canShowHoverer;
@@ -285,7 +284,8 @@ class Voronoi extends Chart {
         .text(function(d: { data: { name: string; }; value: string; }) { return d.data.name + "\n" + d.value+"%"; });
     }
     drawParents(){ 
-        return false;
+        // return false;
+        let self = this;
         // let parentData = this.hierarchy.descendants();
         let parentData = this.hierarchy.descendants().filter(function (leaf) {
             if(leaf.children)
@@ -306,23 +306,59 @@ class Voronoi extends Chart {
                 return "transparent";
         })
         .style("opacity",1)
-        .style("stroke-width",1)
-        .style("stroke","azure")
+        .style("stroke-width",function(d){
+            return self.getWidthByDepth(d);
+        })
+        .style("stroke",function(d){
+            return self.getColorByDepth(d);
+        })
+        // .on("mouseover", function(){
+        //     let element  = d3.select(this);
+        //     element.style("stroke-width","3px");
+        //     element.style("stroke","white");
+
+        // })
+        // .on("mouseout", function(d){
+        //     let element  = d3.select(this);
+        //     element.style("stroke-width",self.getWidthByDepth(d));
+        //     element.style("stroke",self.getColorByDepth(d));
+        // })
         // .attr("transform","scale(0.99) translate(5,5)")
         .classed("parents", true)
         .attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; });
         parents.append("title")
         .text(function(d: { data: { name: string; }; value: string; }) { return d.data.name + "\n" + d.value+"%"; });
     }
-    buildColors(rootData : any,parentColor?:number){
+    getColorByDepth(leaf:any){
+        let parent : HybroChart = this.getParent();
+        let depth = 0;
+        while(leaf.parent != null){
+            leaf = leaf.parent;      
+            depth++;
+        }
+        let color = new Color(306/depth,100,40);
+        return color.value;
+    }
+    getWidthByDepth(leaf:any){
+        let parent : HybroChart = this.getParent();
+        let max = 10;
+        let depth = 0;
+        while(leaf.parent != null){
+            leaf = leaf.parent;      
+            depth++;
+            depth++;
+        }
+        return max-depth+"px";
+    }
+    buildColors(rootData : any,parentColor?:Color){
         let colors : Array<Color> =[];
         // colors.push("hsla(120,100%,0%,1)");
         for(let i = 0;i<rootData.children.length;i++){
             let color :Color;
             if(!parentColor)
-                 color = new Color((360/rootData.children.length)*i,"100%","40%");
+                 color = new Color((360/rootData.children.length)*i,100,45);
             else
-              color= new Color(parentColor,"100%","40%");
+              color= new Color(parentColor.h,parentColor.s-Math.random()*60,parentColor.l+10);
             
             colors.push(color);
         }
@@ -330,7 +366,7 @@ class Voronoi extends Chart {
             let color  : any = colors.pop();
             leaf.color = color.value;
             if(leaf.children){
-                this.buildColors(leaf,color.h);
+                this.buildColors(leaf,color);
             }
         }
 

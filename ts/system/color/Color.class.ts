@@ -1,10 +1,11 @@
 class Color {
     public value : string;
     h: number;
-    s : string;
-    l: string;
-    constructor(h : number, s:string,l:string){
-        this.value = "hsla("+h+",100%,40%,1)";
+    s : number;
+    l: number;
+    a: number;
+    constructor(h : number, s:number,l:number, a=1){
+        this.value = "hsla("+h+","+s+"%,"+l+"%,"+a+")";
         this.h = h;
         this.s = s;
         this.l = l;

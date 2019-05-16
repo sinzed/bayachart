@@ -1,3 +1,11 @@
+declare class Color {
+    value: string;
+    h: number;
+    s: number;
+    l: number;
+    a: number;
+    constructor(h: number, s: number, l: number, a?: number);
+}
 declare class Chart {
     parent: any;
     enable: boolean;
@@ -151,11 +159,13 @@ declare class Voronoi extends Chart {
             reverse: () => Array<any>;
         };
     }): true | undefined;
-    buildColors(): void;
     drawTreemap(): void;
     canShowHoverer(): boolean;
     drawHoverers(): void;
-    drawParents(): boolean;
+    drawParents(): void;
+    getColorByDepth(leaf: any): string;
+    getWidthByDepth(leaf: any): string;
+    buildColors(rootData: any, parentColor?: Color): any;
     draw(rootData: any): void;
 }
 declare class BundleChart extends Chart {
@@ -167,10 +177,13 @@ declare class BundleChart extends Chart {
     transTop: number;
     transLeft: number;
     element: any;
+    colors: Array<Color>;
     constructor();
     init(): void;
     getParnet(): HybroChart;
     draw(rootData: any): void;
+    buildColors(): void;
+    getColor(): any;
     drawNodeNames(): void;
     lineFunction(): void;
 }

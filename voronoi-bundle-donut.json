@@ -112,24 +112,29 @@
           {"name": "China", "code": "CN", "imports": [], "source": "China", "target": "United States", "color": "#f58381", "type":"A"
             ,
             "children": [
-              {"name": "part1", "weight": 2, "code": "CN", "imports": [], "color": "#f58381",  "type":"A"},
-              {"name": "part2", "weight": 2, "code": "CN", "imports": [], "color": "#f58381", "type":"A"},
-              {"name": "part3", "weight": 3, "code": "CN", "imports": [], "color": "#f58381", "type":"A"},
-              {"name": "part4", "weight": 1, "code": "CN", "imports": [], "color": "#f58381", "type":"A"}
+              {"name": "part1china", "weight": 2, "code": "CN", "imports": [], "color": "#f58381",  "type":"A"},
+              {"name": "part2china", "weight": 2, "code": "CN", "imports": [], "color": "#f58381", "type":"A"}
             ]
           },
           {"name": "Iran", "code": "Ir", "weight": 4, "imports": [], "color": "#f58361", "type":"A"
             ,
             "children": [
-              {"name": "part1", "weight": 2, "code": "CN", "imports": [],  "color": "#f58381", "type":"A"},
-          {"name": "part2", "weight": 2, "code": "CN", "imports": [],  "color": "#f58381", "type":"A"  ,
-              "children": [
-                {"name": "part1", "weight": 2, "code": "CN", "imports": [], "color": "#f58381",  "type":"A"},
-                {"name": "part2", "weight": 2, "code": "CN", "imports": [], "color": "#f58381", "type":"A"},
-                {"name": "part3", "weight": 3, "code": "CN", "imports": [], "color": "#f58381", "type":"A"},
-                {"name": "part4", "weight": 1, "code": "CN", "imports": [], "color": "#f58381", "type":"A"}
-              ]
-            }
+              {"name": "part1Iran", "weight": 2, "code": "IR", "imports": [],  "color": "#f58381", "type":"A"},
+              {"name": "part2", "weight": 2, "code": "IR", "imports": [],  "color": "#f58381", "type":"A"  
+                ,"children": [
+                    {"name": "Ap2part2Iran", "weight": 2, "code": "IR", "imports": [], "color": "#f58381",  "type":"A"},
+                    {"name": "Ap2part2Iran", "weight": 2, "code": "IR", "imports": [], "color": "#f58381",  "type":"A" ,"children": [
+                      {"name": "Ap2part2IranA", "weight": 2, "code": "IR", "imports": [], "color": "#f58381",  "type":"A","children": [
+                        {"name": "Ap2part2IranA1", "weight": 0.5, "code": "IR", "imports": [], "color": "#f58381",  "type":"A"},
+                        {"name": "Ap2part2IranA1", "weight": 0.5, "code": "IR", "imports": [], "color": "#f58381",  "type":"A"},
+                        {"name": "Ap2part2IranA1", "weight": 0.5, "code": "IR", "imports": [], "color": "#f58381",  "type":"A"},
+                        {"name": "Bp2Part2iranB1", "weight": 0.5, "code": "IR", "imports": [], "color": "#f58381", "type":"A"}
+                      ]},
+                      {"name": "Bp2Part2iranB", "weight": 2, "code": "IR", "imports": [], "color": "#f58381", "type":"A"}
+                    ]},
+                    {"name": "Bp2Part3iran", "weight": 2, "code": "IR", "imports": [], "color": "#f58381", "type":"A"}
+                  ]
+              }       
             ]
           }
           

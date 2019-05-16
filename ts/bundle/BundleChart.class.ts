@@ -8,11 +8,13 @@ class BundleChart extends Chart {
     transTop : number;
     transLeft : number;
     element: any;
+    colors: Array<Color>;
     constructor(){
         super();
         this.init();
         this.transTop = 203;
         this.transLeft = 273;
+        this.colors = [];
     }
     init(){
         this.lineFunction();
@@ -31,10 +33,13 @@ class BundleChart extends Chart {
         
         var root =  this.getParent().tools.packageHierarchy(rootData.children)
         .sum(function(d: any) { return d.size; });
+        let self = this;
 
         cluster(root);
         // cluster(rootDeb);
         this.leaves = this.getParent().voronoiChart.hierarchy.descendants();
+        this.buildColors();
+
         // var leaves = root.descendants();
         var data =  this.getParent().tools.packageImports(this.leaves);
         let link = this.linkElement
@@ -47,8 +52,20 @@ class BundleChart extends Chart {
         .attr("d", this.line)
         .attr("stroke-width", 2)
         .attr("stroke-dasharray",4)
-        .style("stroke", "#000000")
+        .style("stroke", this.getColor())
+        // .style("stroke", 
+        //      this.getColor(); 
+        // )
         .style('color', 'darkOrange')
+        // let self = this;
+        d3.selectAll(".link").each(function(d,i){
+            console.log(d);
+            d3.select(this).style("stroke",self.getColor());
+            d3.select(this).append("circle").attr("cx",d.source.polygon.site.x).attr("cy",d.source.polygon.site.y).attr("r","20px");
+
+            // d.style("stroke","red");
+            //
+        })
         .on("mouseover", function(){
             alert("fde");
         })
@@ -56,8 +73,20 @@ class BundleChart extends Chart {
             alert("wirklich");
         })
 
-
+        // this.linkElement.style("stroke", self.getColor());
+        
         // this.drawNodeNames();
+    }
+    buildColors(){
+        this.colors = [];
+        for(let i=0; i<this.leaves.length;i++){
+            let color =  new Color((360/(i%7)),100,20);
+            this.colors.push(color);
+        }
+    }
+    getColor(){
+        let color : any= this.colors.pop();
+        return color.value;
     }
     drawNodeNames(){
         let node = this.nodeElement
@@ -106,18 +135,19 @@ class BundleChart extends Chart {
         let self = this;
         this.line = d3.line().curve(d3.curveBundle.beta(0.25)).x(
             function(d : any) {
-                var x = d.polygon[0][0];
+                let x = d.polygon[0][0];
                 x =   self.getParent().tools.compute2DPolygonCentroid(d.polygon);
-                if(d.data && d.data.name == "Netherlands"){
-                    x =   self.getParent().tools.compute2DPolygonCentroidDebug(d.polygon);
-                }
+                
+                // if(d.data && d.data.name == "Netherlands"){
+                //     x =   self.getParent().tools.compute2DPolygonCentroidDebug(d.polygon);
+                // }
                 return x.x ;
             })
             .y(function(d: any) {
-                var y =  d.polygon[0][1];     
-                        y =  self.getParent().tools.compute2DPolygonCentroid(d.polygon);
-                        return y.y;
+                let y =  d.polygon[0][1];     
+                y =  self.getParent().tools.compute2DPolygonCentroid(d.polygon);
+                return y.y;
                 }    
-            );
+            )
         }
     }

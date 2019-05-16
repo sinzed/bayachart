@@ -10,12 +10,13 @@ class Layout {
     constructor(bayaChart : BayaChart){
         this.bayaChart = bayaChart;
         this.layoutOption = new LayoutOption();
-        // this.init();
         this.initElement();
         this.addForceChartButton();
         this.addDonutChartButton();
         this.addBundleChartButton();
         this.addZoomInButton();
+        this.init();
+        
 
 
 
