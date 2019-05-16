@@ -31,14 +31,6 @@ text.light {
   fill: white;
 }
 
-.label > .name {
-  dominant-baseline: text-after-edge;
-}
-
-.label > .value {
-  dominant-baseline: text-before-edge;
-}
-
 .legend-color {
   stroke-width: 1px;
   stroke: darkgrey;
@@ -150,6 +142,10 @@ text.light {
 
 .panel pre {
   height: 100vh;
+}
+
+.dialog pre {
+  height: 100%;
 }
 
 .panel pre code {

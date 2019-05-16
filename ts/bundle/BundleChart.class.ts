@@ -61,7 +61,7 @@ class BundleChart extends Chart {
         d3.selectAll(".link").each(function(d,i){
             console.log(d);
             d3.select(this).style("stroke",self.getColor());
-            d3.select(this).append("circle").attr("cx",d.source.polygon.site.x).attr("cy",d.source.polygon.site.y).attr("r","20px");
+            // d3.select(this).append("circle").attr("cx",d.source.polygon.site.x).attr("cy",d.source.polygon.site.y).attr("r","20px");
 
             // d.style("stroke","red");
             //
