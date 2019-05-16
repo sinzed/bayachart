@@ -339,7 +339,7 @@ class Voronoi extends Chart {
             leaf = leaf.parent;      
             depth++;
         }
-        let color = new Color(306/depth,100,40);
+        let color = new Color(320/(depth%3),100,30,1);
         return color.value;
     }
     getWidthByDepth(leaf:any){
@@ -348,8 +348,7 @@ class Voronoi extends Chart {
         let depth = 0;
         while(leaf.parent != null){
             leaf = leaf.parent;      
-            depth++;
-            depth++;
+            depth+=2;
         }
         return max-depth+"px";
     }

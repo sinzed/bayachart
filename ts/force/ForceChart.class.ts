@@ -84,6 +84,7 @@ class ForceChart extends Chart {
                 .selectAll("path")
                 .data(this.links_data)
                 .enter().append("svg:path")
+        .style("filter","url(#dropshadow)")
                 .attr("stroke-width", function(d:any) { return 1 });
                 
                 this.link.style('fill', 'none')
