@@ -29,7 +29,12 @@ svg {
     text-anchor: middle;
     fill: white;
   }
-  
+  .dialog code {
+    height: 100%;
+  }
+  .headnav {
+    margin-left : 30px;
+  }
   // .label>.name {
     // dominant-baseline: text-after-edge;
   // }

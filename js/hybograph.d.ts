@@ -1,3 +1,259 @@
+declare var graphsData: {
+    "hybrograph": {
+        "name": string;
+        "imports": never[];
+        "children": ({
+            "name": string;
+            "imports": never[];
+            "text": string;
+            "children": ({
+                "name": string;
+                "weight": number;
+                "code": string;
+                "imports": never[];
+                "targets": string[];
+                "text": string;
+            } | {
+                "name": string;
+                "weight": number;
+                "code": string;
+                "imports"?: undefined;
+                "targets"?: undefined;
+                "text"?: undefined;
+            } | {
+                "name": string;
+                "weight": number;
+                "code": string;
+                "imports": never[];
+                "targets"?: undefined;
+                "text"?: undefined;
+            })[];
+        } | {
+            "name": string;
+            "imports": string[];
+            "children": ({
+                "name": string;
+                "weight": number;
+                "code": string;
+                "cs": {
+                    "GodClass": number;
+                    "UnusedImport": number;
+                    "warnings": number;
+                    "errors": number;
+                };
+                "imports"?: undefined;
+            } | {
+                "name": string;
+                "weight": number;
+                "code": string;
+                "imports": string[];
+                "cs"?: undefined;
+            } | {
+                "name": string;
+                "weight": number;
+                "code": string;
+                "cs"?: undefined;
+                "imports"?: undefined;
+            })[];
+            "text"?: undefined;
+        } | {
+            "name": string;
+            "imports": never[];
+            "children": ({
+                "name": string;
+                "weight": number;
+                "code": string;
+                "imports": string[];
+                "text": string;
+            } | {
+                "name": string;
+                "weight": number;
+                "code": string;
+                "imports"?: undefined;
+                "text"?: undefined;
+            })[];
+            "text"?: undefined;
+        } | {
+            "name": string;
+            "imports": never[];
+            "children": ({
+                "name": string;
+                "weight": number;
+                "code": string;
+                "targets"?: undefined;
+            } | {
+                "name": string;
+                "weight": number;
+                "code": string;
+                "targets": string[];
+            })[];
+            "text"?: undefined;
+        })[];
+    };
+    "controllers": {
+        "name": string;
+        "imports": never[];
+        "children": ({
+            "name": string;
+            "imports": never[];
+            "children": ({
+                "name": string;
+                "code": string;
+                "imports": never[];
+                "source": string;
+                "target": string;
+                "color": string;
+                "type": string;
+                "children": {
+                    "name": string;
+                    "weight": number;
+                    "code": string;
+                    "imports": never[];
+                    "color": string;
+                    "type": string;
+                }[];
+                "weight"?: undefined;
+            } | {
+                "name": string;
+                "code": string;
+                "weight": number;
+                "imports": never[];
+                "color": string;
+                "type": string;
+                "children": ({
+                    "name": string;
+                    "weight": number;
+                    "code": string;
+                    "imports": never[];
+                    "color": string;
+                    "type": string;
+                    "children"?: undefined;
+                } | {
+                    "name": string;
+                    "weight": number;
+                    "code": string;
+                    "imports": never[];
+                    "color": string;
+                    "type": string;
+                    "children": ({
+                        "name": string;
+                        "weight": number;
+                        "code": string;
+                        "imports": never[];
+                        "color": string;
+                        "type": string;
+                        "children"?: undefined;
+                    } | {
+                        "name": string;
+                        "weight": number;
+                        "code": string;
+                        "imports": never[];
+                        "color": string;
+                        "type": string;
+                        "children": ({
+                            "name": string;
+                            "weight": number;
+                            "code": string;
+                            "imports": never[];
+                            "color": string;
+                            "type": string;
+                            "children": {
+                                "name": string;
+                                "weight": number;
+                                "code": string;
+                                "imports": never[];
+                                "color": string;
+                                "type": string;
+                            }[];
+                        } | {
+                            "name": string;
+                            "weight": number;
+                            "code": string;
+                            "imports": never[];
+                            "color": string;
+                            "type": string;
+                            "children"?: undefined;
+                        })[];
+                    })[];
+                })[];
+                "source"?: undefined;
+                "target"?: undefined;
+            })[];
+        } | {
+            "name": string;
+            "imports": string[];
+            "children": {
+                "name": string;
+                "weight": number;
+                "code": string;
+                "cs": {
+                    "GodClass": number;
+                    "UnusedImport": number;
+                };
+                "type": string;
+            }[];
+        })[];
+    };
+    "providers": {
+        "name": string;
+        "imports": never[];
+        "children": ({
+            "name": string;
+            "imports": never[];
+            "targets": string[];
+            "children": {
+                "name": string;
+                "weight": number;
+                "code": string;
+                "imports": never[];
+                "type": string;
+            }[];
+        } | {
+            "name": string;
+            "imports": string[];
+            "children": {
+                "name": string;
+                "weight": number;
+                "code": string;
+                "cs": {
+                    "GodClass": number;
+                    "UnusedImport": number;
+                };
+                "type": string;
+            }[];
+            "targets"?: undefined;
+        } | {
+            "name": string;
+            "imports": never[];
+            "children": ({
+                "name": string;
+                "weight": number;
+                "code": string;
+                "cs"?: undefined;
+                "imports"?: undefined;
+            } | {
+                "name": string;
+                "weight": number;
+                "code": string;
+                "cs": {
+                    "GodClass": number;
+                    "UnusedImport": number;
+                    "warnings": number;
+                    "features": number;
+                    "points": number;
+                };
+                "imports"?: undefined;
+            } | {
+                "name": string;
+                "weight": number;
+                "code": string;
+                "imports": string[];
+                "cs"?: undefined;
+            })[];
+            "targets"?: undefined;
+        })[];
+    };
+};
 declare class Color {
     value: string;
     h: number;
@@ -92,11 +348,14 @@ declare class Layout {
     graphic: any;
     showForceChartBtn: any;
     treemapBtn: any;
+    sourceBtn: any;
     constructor(bayaChart: BayaChart);
     init(): void;
     initElement(): void;
     initZoom(): void;
     addTreemap(): any;
+    addSourceBtn(): any;
+    showSourceDialog(): void;
     addZoomInButton(): any;
     addForceChartButton(): any;
     addDonutChartButton(): any;
@@ -255,6 +514,7 @@ declare class BayaChart extends Chart {
     constructor();
     init(): void;
     initLayout(): void;
+    delete(): void;
     draw(): void;
 }
 declare class Highlight {

@@ -64,6 +64,7 @@
       "dist"
   ],
   "files": [
+    "ts/input.ts",
     "ts/system/color/Color.class.ts",
     "ts/chart/Chart.class.ts",
     "ts/force/ForceChart.class.ts",

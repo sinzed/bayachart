@@ -8,6 +8,7 @@ class Layout {
     graphic : any;
     showForceChartBtn: any;
     treemapBtn: any;
+    sourceBtn: any;
     constructor(bayaChart : BayaChart){
         this.bayaChart = bayaChart;
         this.layoutOption = new LayoutOption();
@@ -17,6 +18,7 @@ class Layout {
         this.addBundleChartButton();
         this.addZoomInButton();
         this.addTreemap();
+        this.addSourceBtn();
         this.init();
         
 
@@ -32,7 +34,9 @@ class Layout {
         this.toggleTreeMap();
     }
     initElement(){
-        this.element = d3.select("body").insert("div",":first-child");
+        this.element = d3.select("body")
+        .insert("div",":first-child")
+        this.element.style("margin-left","20px");
         this.graphic = d3.select(".layout");
     }
     initZoom(){
@@ -47,6 +51,22 @@ class Layout {
         this.treemapBtn.on("click",function(){self.toggleTreeMap()});
         return this.treemapBtn;
 
+    }
+    addSourceBtn(){
+        let self = this;
+        this.sourceBtn =  this.element.insert("button",":first-child");
+        this.sourceBtn.text("source");
+        this.sourceBtn.on("click",()=>{this.showSourceDialog()});
+        return this.sourceBtn;
+
+    }
+    showSourceDialog(){
+
+        // let showDialog = function show () {
+           _showDialog();
+        // };
+        // showDialog();
+        this.treemapBtn.classed("selected", this.layoutOption.canShowSource);
     }
     addZoomInButton(){
         let self = this;
