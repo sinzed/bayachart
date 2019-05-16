@@ -44,10 +44,10 @@ public static void main(String arr[]) throws FileNotFoundException
     <div class="col view">
       <svg>
       <filter id="dropshadow" height="30%%">
-        <feGaussianBlur in="SourceAlpha" stdDeviation="4"/> <!-- stdDeviation is how much to blur -->
-        <feOffset dx="3" dy="3" result="offsetblur"/> <!-- how much to offset -->
+        <feGaussianBlur in="SourceAlpha" stdDeviation="2"/> <!-- stdDeviation is how much to blur -->
+        <feOffset dx="2" dy="2" result="offsetblur"/> <!-- how much to offset -->
         <feComponentTransfer>
-          <feFuncA type="linear" slope="0.4"/> <!-- slope is the opacity of the shadow -->
+          <feFuncA type="linear" slope="0.3"/> <!-- slope is the opacity of the shadow -->
         </feComponentTransfer>
         <feMerge> 
           <feMergeNode/> <!-- this contains the offset blurred image -->
