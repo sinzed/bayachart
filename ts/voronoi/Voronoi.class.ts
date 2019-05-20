@@ -339,7 +339,8 @@ class Voronoi extends Chart {
             leaf = leaf.parent;      
             depth++;
         }
-        let color = new Color(320/(depth%3),100,30,1);
+        // let color = new Color(320/(depth%3),100,30,1);
+        let color = new Color(0,0,0,1);
         return color.value;
     }
     getWidthByDepth(leaf:any){
@@ -359,8 +360,10 @@ class Voronoi extends Chart {
             let color :Color;
             if(!parentColor)
                  color = new Color((360/rootData.children.length)*i,100,45);
+                //  color = new Color(360,100,100);
             else
               color= new Color(parentColor.h,parentColor.s-Math.random()*60,parentColor.l+10);
+            // color = new Color(360,100,100);
             
             colors.push(color);
         }

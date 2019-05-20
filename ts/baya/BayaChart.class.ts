@@ -29,7 +29,7 @@ class BayaChart extends Chart {
         .style("display","block");
     }
     delete(){
-        this.layout.element.selectAll("g").remove();
+        this.layout.graphic.selectAll("g").remove();
     }
     draw(){
         // let hybroChart2 = new HybroChart();

@@ -35,13 +35,13 @@ svg {
   .headnav {
     margin-left : 30px;
   }
-  // .label>.name {
-    // dominant-baseline: text-after-edge;
-  // }
+  .label>.name {
+    dominant-baseline: text-after-edge;
+  }
   
-  // .label>.value {
-    // dominant-baseline: text-before-edge;
-  // }
+  .label>.value {
+    dominant-baseline: text-before-edge;
+  }
   
 
   

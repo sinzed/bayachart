@@ -4,6 +4,7 @@ class LayoutOption {
     private _bundleChart : boolean = true;
     canShowForceChart: boolean = false;
     canShowTreeMap: boolean = false;
+    canShowSource: any;
     constructor(){
         this.canZoomIn = false;
     }

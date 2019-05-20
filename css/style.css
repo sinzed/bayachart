@@ -39,6 +39,14 @@ text.light {
   margin-left: 30px;
 }
 
+.label > .name {
+  dominant-baseline: text-after-edge;
+}
+
+.label > .value {
+  dominant-baseline: text-before-edge;
+}
+
 .legend-color {
   stroke-width: 1px;
   stroke: darkgrey;

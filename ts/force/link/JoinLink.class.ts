@@ -27,14 +27,14 @@ class JoinLink {
             .style("stroke", "green"); 
     }
     update(positionData : any){
-        return true;
-        if(positionData.source != this.mainSource || positionData.target != this.mainTarget)
-            return false;
-        this.element
-        .attr("x1", positionData.source + this.centerMargin.x)
-        .attr("y1", positionData.source + this.centerMargin.y)
-        .attr("x2", positionData.target + this.centerMarginTarget.x)
-        .attr("y2", positionData.target + this.centerMarginTarget.y);
+        // return true;
+        // if(positionData.source != this.mainSource || positionData.target != this.mainTarget)
+        //     return false;
+        // this.element
+        // .attr("x1", positionData.source + this.centerMargin.x)
+        // .attr("y1", positionData.source + this.centerMargin.y)
+        // .attr("x2", positionData.target + this.centerMarginTarget.x)
+        // .attr("y2", positionData.target + this.centerMarginTarget.y);
 
     }
 }

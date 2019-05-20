@@ -325,7 +325,7 @@ declare class JoinLink {
     getParent(): any;
     setParent(parent: any): void;
     draw(): void;
-    update(positionData: any): boolean;
+    update(positionData: any): void;
 }
 declare class LayoutOption {
     private _zoomIn;
@@ -333,6 +333,7 @@ declare class LayoutOption {
     private _bundleChart;
     canShowForceChart: boolean;
     canShowTreeMap: boolean;
+    canShowSource: any;
     constructor();
     canZoomIn: boolean;
     canShowBundleChart: boolean;
@@ -525,3 +526,4 @@ declare class Highlight {
 declare var diameter: number, radius: number, innerRadius: number;
 declare var cluster: d3.ClusterLayout<any>;
 declare let bayaChart: BayaChart;
+declare var textArea: HTMLElement | null;
