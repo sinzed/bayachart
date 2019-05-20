@@ -42,6 +42,7 @@ class Voronoi extends Chart {
     cells: Array<any>;
     leaves: any;
     _canShowHoverer: boolean = true;
+    canDrawlables: boolean = false;
     constructor(){
     //begin: constants
         super();
@@ -54,7 +55,7 @@ class Voronoi extends Chart {
         this.quarterHeight = this.height/4;
         this.titleY = 20;
         this.legendsMinY = this.height - 20;
-        this.treemapRadius = 205;
+        this.treemapRadius = 1005;
         this.treemapCenter = [this.halfWidth, this.halfHeight+5];
         this._voronoiTreemap = d3.voronoiTreemap();
         this.fontScale = d3.scaleLinear();
@@ -235,8 +236,8 @@ class Voronoi extends Chart {
                     return d.parent.data.color;
             }
         );
-        
-        let labels = this.treemapContainer.append("g")
+        if(this.canDrawlables){
+            let labels = this.treemapContainer.append("g")
             .classed('labels', true)
             .attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")")
             .selectAll(".label")
@@ -250,16 +251,17 @@ class Voronoi extends Chart {
             .style("font-size", function(d : any){
                 return self.fontScale(d.data.weight); 
             });
-        
-        labels.append("text")
+            
+            labels.append("text")
             .classed("name", true)
             .html(function(d: { data: { weight: number; code: any; name: any; }; }){
-              return (d.data.weight<1)? d.data.code : d.data.name;
+                return (d.data.weight<1)? d.data.code : d.data.name;
             });
-        labels.append("text")
+            labels.append("text")
             .classed("value", true)
             .text(function(d: { data: { weight: string; }; }){ return d.data.weight+"%"; });
-        this.drawParents();
+        }
+            this.drawParents();
         if(this.canShowHoverer()){
             this.drawHoverers();
         }
