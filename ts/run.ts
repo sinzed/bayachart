@@ -29,3 +29,11 @@ textArea.addEventListener('keyup',function(){
     // hybroChart3.draw(graphsData[0]);
   // });
   
+  // let myWorker = new Worker('worker/worker.js');
+  //   myWorker.postMessage("please help me");
+  //   console.log('Message posted to worker');
+  
+  // myWorker.onmessage = function(e) {
+  //    e.data;
+  //   console.log('Message received from worker', e.data);
+  // }

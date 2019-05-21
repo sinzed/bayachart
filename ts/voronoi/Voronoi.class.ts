@@ -110,8 +110,26 @@ class Voronoi extends Chart {
       this.drawFooter();
       this.drawLegends(rootData);
 
-      this.hierarchy = d3.hierarchy(rootData).sum(function(d){ return d.weight; });
-      this._voronoiTreemap.clip(this.circlingPolygon)(this.hierarchy);
+
+
+    //   this._voronoiTreemap.clip(this.circlingPolygon)(this.hierarchy);
+    this.handleWorker(rootData);
+}
+handleWorker(rootData : any){
+    let self = this;
+    this.hierarchy = d3.hierarchy(rootData).sum(function(d){ return d.weight; });
+    // this._voronoiTreemap.clip(this.circlingPolygon)(this.hierarchy);
+    let myWorker = new Worker('worker/worker.js');
+    myWorker.postMessage([this.circlingPolygon,this.hierarchy]);
+    
+    console.log('Message posted to worker');
+    
+    myWorker.onmessage = function(e) {
+      console.log('Message received from worker', e.data);
+    //   self.hierarchy = e.data;
+      self.hierarchy = d3.hierarchy(e.data);
+      self.drawTreemap();
+    }
 }
 
      drawTitle() {
@@ -380,6 +398,6 @@ class Voronoi extends Chart {
       draw(rootData:any){
           let rootDataColorized = this.buildColors(rootData);
           this.initData(rootData);
-          this.drawTreemap();
+        //   this.drawTreemap();
       }
 }

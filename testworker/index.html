@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    div#fps,svg { position: fixed; top:0; left:0; color: white; }
+  </style>
+</head>
+
+<body>
+  <canvas width=960 height=500 />
+  <script> 
+const canvas = d3.select("canvas"),
+      width = canvas.attr('width'),
+      height = canvas.attr('height'),
+      context = canvas.node().getContext("2d"),
+      color = d3.scaleLinear().range(["yellow", "green"]);
+
+// const tracker = d3.select("body")
+// .append("svg")
+// .attr("width", width)
+// .attr("height", height)
+// .attr("pointer-events", "none")
+// .append('circle')
+// .attr("r", 15)
+// .attr("stroke", "white")
+// .attr("fill", "none");
+
+
+    
+const fpsdiv = d3.select('body').append('div').attr('id','fps'); 
+let data = d3.range(10)
+    .map(d => [Math.random()*width, Math.random()*height, Math.random()]);
+
+let voronoi, workervoronoi;
+
+let fps = [0,0,0],
+    last = performance.now();
+    
+// setInterval(() => {
+//   fps[2]++;
+//   let now = performance.now();
+//   fps = fps.map(d => d * Math.pow(0.9, (now-last)/1000));
+//   //fpsdiv.html('fps: ' + fps.map(d => Math.round(d * 10 * 5 / fps[2])/10));
+//   fpsdiv.html('FPS<br>data: ' + Math.round(fps[0] * 10 * 5 / fps[2])/10 + '<br>' +  'image: ' + Math.round(fps[1] * 10 * 5 / fps[2])/10);
+//   last = now;
+// }, 200);
+
+    
+d3.interval(() => {
+  data.forEach((d,i) => {
+    if (i===0) return;
+    data[i][0] += Math.random();
+    data[i][1] += Math.random();
+    // data[i][0] += Math.random() - Math.random();
+    // data[i][1] += Math.random() - Math.random();
+  });
+  fps[0]++;
+}, 100);
+
+// canvas.on('mousemove', function() {
+//    data[0] = d3.mouse(this);
+//   tracker
+//     .attr('cx', data[0][0])
+//     .attr('cy', data[0][1]);
+// });
+
+d3.interval(draw, 10);
+
+let radius = 10;
+
+function draw() {
+  if (typeof workervoronoi == 'function' && !workervoronoi.busy) {
+    workervoronoi.busy = true;
+    workervoronoi(data, function(polygons){
+      polygons.forEach( (d) => {
+        var c = d.data[2] ? color(d.data[2]) : 'white';
+        
+        context.beginPath();
+        context.fillStyle = c;
+
+        drawCell(d);
+
+        context.fill();
+      });
+      workervoronoi.busy = false;
+      fps[1]++;
+    });
+  }
+
+}
+
+    
+createWorker('worker.js', (worker) => {
+  workervoronoi = function(data, callback){
+     worker.postMessage({
+           data: data,
+           extent: [[-1,-1], [width+1, height+1]],
+        });
+
+     worker.onmessage = function (e) {
+        if (e.data.polygons) {
+           callback(e.data.polygons);
+        }
+     }
+  }
+});
+
+
+    
+function drawCell(cell) {
+  if (!cell) return false;
+  context.moveTo(cell[0][0], cell[0][1]);
+  for (var j = 1, m = cell.length; j < m; ++j) {
+    context.lineTo(cell[j][0], cell[j][1]);
+  }
+  context.closePath();
+  return true;
+}
+
+// this is for blockbuilder
+function createWorker(s, cb) {
+  d3.queue()
+  .defer(d3.text, s)
+  .awaitAll(function (err, scripts) {
+
+  const worker = new Worker(window.URL.createObjectURL(new Blob(scripts, {
+     type: "text/javascript"
+  })));
+  if (typeof cb == 'function') {
+    cb(worker);
+  }
+
+  });
+}
+
+  
+  </script>
+</body>
