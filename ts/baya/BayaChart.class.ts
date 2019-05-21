@@ -34,21 +34,29 @@ class BayaChart extends Chart {
     draw(){
         // let hybroChart2 = new HybroChart();
         // this.hybroCharts.push(hybroChart2);
+        let promiseList = [];
         for(let nodeGraphData in this.jsonData){
 
             let hybroChart = new HybroChart();
             this.nodesData.push(this.jsonData[nodeGraphData]);
             hybroChart.setParent(this);
             this.hybroCharts.push(hybroChart);
-            hybroChart.draw(this.jsonData[nodeGraphData]);
+            let promise = hybroChart.draw(this.jsonData[nodeGraphData]).then(()=>{
+                    hybroChart.donutChart.toggle();
+            });
+            promiseList.push(promise);
+
             // this.layout.toggleDonutChart();
           }
+          this.forceChart.draw(this.jsonData);
+          Promise.all(promiseList).then(() => {
+            this.forceChart.draw(this.jsonData);
+            // this.layout.toggleDonutChart();
+          });
           // hybroChart2.voronoiChart.setMarginLeft(Math.random()*-500);
           // hybroChart2.forceChart.disable();
         //   hybroChart2.setParent(this);
         //   hybroChart2.draw(this.jsonData["controllers"]);
-          this.forceChart.draw(this.jsonData);
-          this.layout.toggleDonutChart();
           this.highlight.init();
     }
 

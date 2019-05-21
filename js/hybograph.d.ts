@@ -411,6 +411,7 @@ declare class Voronoi extends Chart {
     cells: Array<any>;
     leaves: any;
     _canShowHoverer: boolean;
+    resolve: (value?: boolean | PromiseLike<boolean> | undefined) => void;
     constructor();
     initData(rootData: any): void;
     setMarginLeft(marginLeft: number): void;
@@ -433,7 +434,7 @@ declare class Voronoi extends Chart {
     getColorByDepth(leaf: any): string;
     getWidthByDepth(leaf: any): string;
     buildColors(rootData: any, parentColor?: Color): any;
-    draw(rootData: any): void;
+    draw(rootData: any): Promise<boolean>;
 }
 declare class BundleChart extends Chart {
     svg: any;
@@ -472,6 +473,7 @@ declare class DonutChart extends Chart {
     element: any;
     slices: any;
     slicesObject: any;
+    visible: boolean;
     constructor();
     getParent(): HybroChart;
     getWidth(): any;
@@ -492,6 +494,7 @@ declare class DonutChart extends Chart {
     getVariable(value: any): any;
     setCategory(value: any): this;
     getCategory(value: any): any;
+    toggle(): void;
     buildData(leaves: Array<any>): any;
     draw(leaves: any): void;
     chart(selection: any): void;
@@ -504,7 +507,7 @@ declare class HybroChart extends Chart {
     svg: any;
     forceChart: ForceChart;
     constructor();
-    draw(rootData: any): boolean;
+    draw(rootData: any): Promise<{}>;
 }
 declare class BayaChart extends Chart {
     hybroCharts: Array<HybroChart>;

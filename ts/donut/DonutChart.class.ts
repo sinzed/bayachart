@@ -17,6 +17,7 @@ class DonutChart extends Chart {
     element : any;
     slices: any;
     slicesObject: any;
+    visible: boolean = true;
     constructor(){
         super();
         this._margin = {top: 10, right: 10, bottom: 10, left: 10};
@@ -112,6 +113,17 @@ class DonutChart extends Chart {
     getCategory (value: any) {
         return this._category;
     };
+    toggle(){
+        this.visible = !this.visible;
+        if(this.visible){
+
+            this.element.attr("display","block");
+        }
+        else {
+            
+            this.element.attr("display","none");
+        }
+    }
     buildData(leaves : Array<any>){
         this.slicesObject = {}
         let self = this;

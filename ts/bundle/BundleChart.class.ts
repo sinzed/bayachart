@@ -24,13 +24,9 @@ class BundleChart extends Chart {
     }
     draw(rootData:any){
         this.element = this.getParent().voronoiChart.drawingArea.select(".treemap-container")
-        // .attr("width", diameter)
-        // .attr("height", diameter)
         .insert('g', '#first + *');
         this.linkElement = this.element.append("g").attr("id","bundleElements").attr("transform","translate(-480,-405)").selectAll(".link");
         this.nodeElement = this.element.append("g").attr("id","bundleNodes").selectAll(".node");
-
-        
         var root =  this.getParent().tools.packageHierarchy(rootData.children)
         .sum(function(d: any) { return d.size; });
         let self = this;

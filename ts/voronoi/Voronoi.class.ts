@@ -42,6 +42,7 @@ class Voronoi extends Chart {
     cells: Array<any>;
     leaves: any;
     _canShowHoverer: boolean = true;
+    resolve: (value?: boolean | PromiseLike<boolean> | undefined) => void;
     constructor(){
     //begin: constants
         super();
@@ -118,21 +119,12 @@ class Voronoi extends Chart {
 handleWorker(rootData : any){
     let self = this;
     this.hierarchy = d3.hierarchy(rootData).sum(function(d){ return d.weight; });
-    // this._voronoiTreemap.clip(this.circlingPolygon)(this.hierarchy);
     let myWorker = new Worker('worker/worker.js');
     myWorker.postMessage([this.circlingPolygon,this.hierarchy]);
-    
-    console.log('Message posted to worker');
-    
     myWorker.onmessage = function(e) {
-      console.log('Message received from worker', e.data);
-    //   self.hierarchy = e.data;
-    //   self.hierarchy =
-       e.data;
-    //   self.hierarchy()
-    //   self.hierarchy = d3.hierarchy(e.data);
     self.rebuildHierarchy(e.data, self.hierarchy);
     self.drawTreemap();
+    self.resolve(true);
     }
 }
 rebuildHierarchy(data, hierarchy){
@@ -407,9 +399,12 @@ rebuildHierarchy(data, hierarchy){
 
         return rootData;
     }
-      draw(rootData:any){
-          let rootDataColorized = this.buildColors(rootData);
-          this.initData(rootData);
-        //   this.drawTreemap();
+      draw(rootData:any) : Promise<boolean>{
+          return new Promise((resolve, reject)=>{
+              let rootDataColorized = this.buildColors(rootData);
+              this.initData(rootData);
+              this.resolve = resolve;
+              //   this.drawTreemap();
+            });
       }
 }
