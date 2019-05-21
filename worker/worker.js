@@ -11,6 +11,7 @@ onmessage = function(e) {
     let circlingPolygon = e.data[0];
     let hierarchy = e.data[1];
     let result = voronoiTreemap.clip(circlingPolygon)(hierarchy);
+    
     postMessage(hierarchy);
   }
 

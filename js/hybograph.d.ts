@@ -416,6 +416,8 @@ declare class Voronoi extends Chart {
     setMarginLeft(marginLeft: number): void;
     computeCirclingPolygon(radius: number): number[][];
     initLayout(rootData: any): void;
+    handleWorker(rootData: any): void;
+    rebuildHierarchy(data: any, hierarchy: any): void;
     drawTitle(): true | undefined;
     drawFooter(): true | undefined;
     drawLegends(rootData: {
@@ -502,7 +504,7 @@ declare class HybroChart extends Chart {
     svg: any;
     forceChart: ForceChart;
     constructor();
-    draw(rootData: any): false | undefined;
+    draw(rootData: any): boolean;
 }
 declare class BayaChart extends Chart {
     hybroCharts: Array<HybroChart>;

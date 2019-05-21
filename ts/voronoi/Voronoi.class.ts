@@ -127,9 +127,21 @@ handleWorker(rootData : any){
     myWorker.onmessage = function(e) {
       console.log('Message received from worker', e.data);
     //   self.hierarchy = e.data;
-      self.hierarchy = d3.hierarchy(e.data);
-      self.drawTreemap();
+    //   self.hierarchy =
+       e.data;
+    //   self.hierarchy()
+    //   self.hierarchy = d3.hierarchy(e.data);
+    self.rebuildHierarchy(e.data, self.hierarchy);
+    self.drawTreemap();
     }
+}
+rebuildHierarchy(data, hierarchy){
+        if(hierarchy.children){
+            for(let childIndex in hierarchy.children){
+                this.rebuildHierarchy(data.children[childIndex], hierarchy.children[childIndex])
+            }
+        }
+        hierarchy.polygon = data.polygon;
 }
 
      drawTitle() {
@@ -211,7 +223,7 @@ handleWorker(rootData : any){
        
         let classed = appended.classed('cells', true);
         let attributed = classed.attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")");
-        let selectedAll =    classed.selectAll(".cell");
+        let selectedAll = classed.selectAll(".cell");
         let datalized = selectedAll.data(this.leaves);
         let entered = datalized.enter();
         let appendedPath = entered.append("path")
