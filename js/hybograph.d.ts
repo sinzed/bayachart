@@ -1,3 +1,25 @@
+declare var spoonDataDependencies: {
+    "name": string;
+    "children": {
+        "name": string;
+        "children": {
+            "name": string;
+            "weight": number;
+            "text": string;
+        }[];
+    }[];
+};
+declare var spoonDataDependencies: {
+    "name": string;
+    "children": {
+        "name": string;
+        "children": {
+            "name": string;
+            "weight": number;
+            "text": string;
+        }[];
+    }[];
+};
 declare var graphsData: {
     "hybrograph": {
         "name": string;
@@ -412,6 +434,7 @@ declare class Voronoi extends Chart {
     leaves: any;
     _canShowHoverer: boolean;
     resolve: (value?: boolean | PromiseLike<boolean> | undefined) => void;
+    canDrawlables: boolean;
     constructor();
     initData(rootData: any): void;
     setMarginLeft(marginLeft: number): void;
@@ -529,6 +552,7 @@ declare class Highlight {
     init(): void;
 }
 declare var diameter: number, radius: number, innerRadius: number;
+declare let readDataByD3: boolean;
 declare var cluster: d3.ClusterLayout<any>;
 declare let bayaChart: BayaChart;
 declare var textArea: HTMLElement | null;

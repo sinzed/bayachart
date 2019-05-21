@@ -64,6 +64,8 @@
       "dist"
   ],
   "files": [
+    "ts/inputs/SpoonData.ts",
+    "ts/inputs/SpoonDependencies.ts",
     "ts/input.ts",
     "ts/system/color/Color.class.ts",
     "ts/chart/Chart.class.ts",

@@ -43,6 +43,7 @@ class Voronoi extends Chart {
     leaves: any;
     _canShowHoverer: boolean = true;
     resolve: (value?: boolean | PromiseLike<boolean> | undefined) => void;
+    canDrawlables: boolean = true;
     constructor(){
     //begin: constants
         super();
@@ -55,7 +56,7 @@ class Voronoi extends Chart {
         this.quarterHeight = this.height/4;
         this.titleY = 20;
         this.legendsMinY = this.height - 20;
-        this.treemapRadius = 205;
+        this.treemapRadius = 10;
         this.treemapCenter = [this.halfWidth, this.halfHeight+5];
         this._voronoiTreemap = d3.voronoiTreemap();
         this.fontScale = d3.scaleLinear();
@@ -63,7 +64,9 @@ class Voronoi extends Chart {
     //end: reusable d3Selection
     }
     initData(rootData:any) {
-
+        // this.leaves=this.hierarchy.leaves();
+        this.hierarchy = d3.hierarchy(rootData).sum(function(d){ return d.weight; });
+        this.treemapRadius = 400;
         this.circlingPolygon = this.computeCirclingPolygon(this.treemapRadius);
         this.fontScale.domain([3, 20]).range([8, 20]).clamp(true);
         this.initLayout(rootData);
@@ -122,9 +125,11 @@ handleWorker(rootData : any){
     let myWorker = new Worker('worker/worker.js');
     myWorker.postMessage([this.circlingPolygon,this.hierarchy]);
     myWorker.onmessage = function(e) {
-    self.rebuildHierarchy(e.data, self.hierarchy);
-    self.drawTreemap();
-    self.resolve(true);
+        self.rebuildHierarchy(e.data, self.hierarchy);
+        let rootDataColorized = self.buildColors( self.hierarchy);
+
+        self.drawTreemap();
+        self.resolve(true);
     }
 }
 rebuildHierarchy(data, hierarchy){
@@ -134,6 +139,7 @@ rebuildHierarchy(data, hierarchy){
             }
         }
         hierarchy.polygon = data.polygon;
+        hierarchy.color = data.color;
 }
 
      drawTitle() {
@@ -206,11 +212,10 @@ rebuildHierarchy(data, hierarchy){
             .text("Continents");
     }
     drawTreemap() {
-        var leaves=this.hierarchy.leaves();
         this.leaves=this.hierarchy.leaves();
         
         let self = this;
-        
+
         let appended = this.treemapContainer.append("g");
        
         let classed = appended.classed('cells', true);
@@ -254,11 +259,12 @@ rebuildHierarchy(data, hierarchy){
         let attrd = appendedPath.attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; });
         let cells  = attrd.style("fill", 
             function(d: { parent: { data: { color: any; }; }; }){
-                    return d.parent.data.color;
+                    // return d.parent.data.color;
+                    return d.color;
             }
         );
-        
-        let labels = this.treemapContainer.append("g")
+        if(this.canDrawlables){
+            let labels = this.treemapContainer.append("g")
             .classed('labels', true)
             .attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")")
             .selectAll(".label")
@@ -272,16 +278,18 @@ rebuildHierarchy(data, hierarchy){
             .style("font-size", function(d : any){
                 return self.fontScale(d.data.weight); 
             });
-        
-        labels.append("text")
+            
+            labels.append("text")
             .classed("name", true)
             .html(function(d: { data: { weight: number; code: any; name: any; }; }){
-              return (d.data.weight<1)? d.data.code : d.data.name;
+                return (d.data.weight<1)? d.data.code : d.data.name.slice(0, 1);
             });
-        labels.append("text")
+            labels.append("text")
             .classed("value", true)
-            .text(function(d: { data: { weight: string; }; }){ return d.data.weight+"%"; });
-        this.drawParents();
+            .text(function(d: { data: { weight: string; }; }){ return d.data.weight; });
+            // .text(function(d: { data: { weight: string; }; }){ return d.data.weight+"%"; });
+        }
+            this.drawParents();
         if(this.canShowHoverer()){
             this.drawHoverers();
         }
@@ -378,6 +386,7 @@ rebuildHierarchy(data, hierarchy){
     buildColors(rootData : any,parentColor?:Color){
         let colors : Array<Color> =[];
         // colors.push("hsla(120,100%,0%,1)");
+        // for(let i = 0;i<rootData.children.length;i++){
         for(let i = 0;i<rootData.children.length;i++){
             let color :Color;
             if(!parentColor)
@@ -401,7 +410,6 @@ rebuildHierarchy(data, hierarchy){
     }
       draw(rootData:any) : Promise<boolean>{
           return new Promise((resolve, reject)=>{
-              let rootDataColorized = this.buildColors(rootData);
               this.initData(rootData);
               this.resolve = resolve;
               //   this.drawTreemap();

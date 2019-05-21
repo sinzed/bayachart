@@ -260,6 +260,11 @@ line.link {
   stroke-width: 3px;
 }
 
+.cells path {
+  stroke: black;
+  stroke-width: 1px;
+}
+
 path {
   color: red;
 }
