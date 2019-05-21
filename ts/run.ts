@@ -12,8 +12,8 @@ let bayaChart = new BayaChart();
 
 if(!readDataByD3){
   // bayaChart.jsonData = graphsData;
-  bayaChart.jsonData = spoonData;
-  d3.select("textarea").text(JSON.stringify( graphsData, null, 2));
+  bayaChart.jsonData = spoonDataDependencies;
+  d3.select("textarea").text(JSON.stringify( spoonDataDependencies, null, 2));
   bayaChart.draw();
 }
 else {

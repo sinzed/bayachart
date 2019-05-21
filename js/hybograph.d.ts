@@ -1,15 +1,24 @@
-declare var spoonData: {
-    "hybrograph": {
+declare var spoonDataDependencies: {
+    "name": string;
+    "children": {
         "name": string;
         "children": {
             "name": string;
-            "children": {
-                "name": string;
-                "weight": number;
-                "text": string;
-            }[];
+            "weight": number;
+            "text": string;
         }[];
-    };
+    }[];
+};
+declare var spoonDataDependencies: {
+    "name": string;
+    "children": {
+        "name": string;
+        "children": {
+            "name": string;
+            "weight": number;
+            "text": string;
+        }[];
+    }[];
 };
 declare var graphsData: {
     "hybrograph": {

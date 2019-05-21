@@ -1,8 +1,5 @@
 {
-  "hybrograph" :
-  {
-      "name" : "Spoon",
-      "children" : [ {
+      "name" : "Spoon" {
         "name" : "compiler",
         "children" : [ {
           "name" : "compiler/package-info.java",

@@ -34,13 +34,15 @@ class BayaChart extends Chart {
     draw(){
         // let hybroChart2 = new HybroChart();
         // this.hybroCharts.push(hybroChart2);
-        for(let nodeGraphData in this.jsonData){
+        for(let nodeGraphData of this.jsonData.children){
 
             let hybroChart = new HybroChart();
-            this.nodesData.push(this.jsonData[nodeGraphData]);
+            // this.nodesData.push(this.jsonData[nodeGraphData]);
+            this.nodesData.push(nodeGraphData);
             hybroChart.setParent(this);
             this.hybroCharts.push(hybroChart);
-            hybroChart.draw(this.jsonData[nodeGraphData]);
+            hybroChart.draw(nodeGraphData);
+            // hybroChart.draw(this.jsonData[nodeGraphData]);
             // this.layout.toggleDonutChart();
           }
           // hybroChart2.voronoiChart.setMarginLeft(Math.random()*-500);

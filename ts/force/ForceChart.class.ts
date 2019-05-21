@@ -112,7 +112,7 @@ class ForceChart extends Chart {
                 this.unlink();
             }
     radius(){
-        return 210;
+        return 610;
     }
     initNode(){
         this.node = d3.selectAll(".drawingArea .treemap-container");
@@ -188,7 +188,10 @@ class ForceChart extends Chart {
             if(hybroChart.bundleChart == undefined || hybroChart.bundleChart.leaves == undefined )
                 continue;
             for(let leaf of hybroChart.bundleChart.leaves){
-                if(leaf.data.targets){
+                if(leaf && leaf.data.dependencies && !leaf.data.targets){
+                    leaf.data.targets = leaf.data.dependencies;
+                }
+                if(leaf.data.targets && leaf.data.targets.length > 0){
                     let link = {};
                     for(let target of leaf.data.targets){
                         let mainSource = this.findMainSource(leaf);

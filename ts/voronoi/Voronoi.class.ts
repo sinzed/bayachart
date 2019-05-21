@@ -42,7 +42,7 @@ class Voronoi extends Chart {
     cells: Array<any>;
     leaves: any;
     _canShowHoverer: boolean = true;
-    canDrawlables: boolean = false;
+    canDrawlables: boolean = true;
     constructor(){
     //begin: constants
         super();
@@ -55,7 +55,7 @@ class Voronoi extends Chart {
         this.quarterHeight = this.height/4;
         this.titleY = 20;
         this.legendsMinY = this.height - 20;
-        this.treemapRadius = 1005;
+        this.treemapRadius = 10;
         this.treemapCenter = [this.halfWidth, this.halfHeight+5];
         this._voronoiTreemap = d3.voronoiTreemap();
         this.fontScale = d3.scaleLinear();
@@ -63,7 +63,10 @@ class Voronoi extends Chart {
     //end: reusable d3Selection
     }
     initData(rootData:any) {
-
+        // this.leaves=this.hierarchy.leaves();
+        this.hierarchy = d3.hierarchy(rootData).sum(function(d){ return d.weight; });
+        this.leaves=this.hierarchy.leaves();
+        this.treemapRadius = 400;
         this.circlingPolygon = this.computeCirclingPolygon(this.treemapRadius);
         this.fontScale.domain([3, 20]).range([8, 20]).clamp(true);
         this.initLayout(rootData);
@@ -111,7 +114,7 @@ class Voronoi extends Chart {
       this.drawFooter();
       this.drawLegends(rootData);
 
-      this.hierarchy = d3.hierarchy(rootData).sum(function(d){ return d.weight; });
+
       this._voronoiTreemap.clip(this.circlingPolygon)(this.hierarchy);
 }
 
@@ -185,11 +188,9 @@ class Voronoi extends Chart {
             .text("Continents");
     }
     drawTreemap() {
-        var leaves=this.hierarchy.leaves();
-        this.leaves=this.hierarchy.leaves();
         
         let self = this;
-        
+
         let appended = this.treemapContainer.append("g");
        
         let classed = appended.classed('cells', true);
@@ -233,7 +234,8 @@ class Voronoi extends Chart {
         let attrd = appendedPath.attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; });
         let cells  = attrd.style("fill", 
             function(d: { parent: { data: { color: any; }; }; }){
-                    return d.parent.data.color;
+                    // return d.parent.data.color;
+                    return d.data.color;
             }
         );
         if(this.canDrawlables){
@@ -255,11 +257,12 @@ class Voronoi extends Chart {
             labels.append("text")
             .classed("name", true)
             .html(function(d: { data: { weight: number; code: any; name: any; }; }){
-                return (d.data.weight<1)? d.data.code : d.data.name;
+                return (d.data.weight<1)? d.data.code : d.data.name.slice(0, 1);
             });
             labels.append("text")
             .classed("value", true)
-            .text(function(d: { data: { weight: string; }; }){ return d.data.weight+"%"; });
+            .text(function(d: { data: { weight: string; }; }){ return d.data.weight; });
+            // .text(function(d: { data: { weight: string; }; }){ return d.data.weight+"%"; });
         }
             this.drawParents();
         if(this.canShowHoverer()){
