@@ -435,12 +435,13 @@ declare class Voronoi extends Chart {
     _canShowHoverer: boolean;
     resolve: (value?: boolean | PromiseLike<boolean> | undefined) => void;
     canDrawlables: boolean;
+    rootData: any;
     constructor();
     initData(rootData: any): void;
     setMarginLeft(marginLeft: number): void;
     computeCirclingPolygon(radius: number): number[][];
     initLayout(rootData: any): void;
-    handleWorker(rootData: any): void;
+    handleWorker(): void;
     rebuildHierarchy(data: any, hierarchy: any): void;
     drawTitle(): true | undefined;
     drawFooter(): true | undefined;

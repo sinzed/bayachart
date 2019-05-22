@@ -42,7 +42,7 @@ class Layout {
     initZoom(){
         let g;
         g = this.bayaChart.svg.selectAll(".zoomable");
-        g.attr("transform", "scale(0.16) translate(200, 0)");
+        g.attr("transform", "translate(380,232)  scale(0.16)");
         // g.attr("transform", "translate(0.16)");
     }
     addTreemap(){
@@ -142,7 +142,7 @@ class Layout {
         this.zoomInBtn.classed("selected", this.layoutOption.canZoomIn);
         let self = this;
         //add zoom capabilities 
-        let transform = d3.zoomIdentity.translate(200, 0).scale(0.16);
+        let transform = d3.zoomIdentity.translate(380, 230).scale(0.16);
         var zoom_handler = d3.zoom().on("zoom", function(){self.zoom_actions()}).filter(function() {
             // Exclude wheel event unless zoomKey is set
 
