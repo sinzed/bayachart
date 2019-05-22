@@ -52,12 +52,13 @@ class BayaChart extends Chart {
             // this.layout.toggleDonutChart();
           }
           this.forceChart.draw(this.jsonData);
-          for ( let hybroChart of this.hybroCharts ){
-              hybroChart.voronoiChart.handleWorker();
-          }
+        //   for ( let hybroChart of this.hybroCharts ){
+        //       hybroChart.voronoiChart.handleWorker();
+        //   }
           Promise.all(promiseList).then(() => {
             // this.forceChart.draw(this.jsonData);
             // this.layout.toggleDonutChart();
+            this.forceChart.draw(this.jsonData);
             this.highlight.init();
           });
           // hybroChart2.voronoiChart.setMarginLeft(Math.random()*-500);

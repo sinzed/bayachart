@@ -112,7 +112,7 @@ class Voronoi extends Chart {
       .attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")")
       .attr("d", "M"+this.circlingPolygon.join(",")+"Z");
 
-    // this.handleWorker(rootData);
+    this.handleWorker();
 }
 handleWorker(){
     return new Promise((resolve,reject)=>{
@@ -402,7 +402,7 @@ rebuildHierarchy(data, hierarchy){
           return new Promise((resolve, reject)=>{
               this.initData(rootData);
               this.resolve = resolve;
-              //   this.drawTreemap();
+                // this.drawTreemap();
             });
       }
 }

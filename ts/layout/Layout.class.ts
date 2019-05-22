@@ -42,7 +42,8 @@ class Layout {
     initZoom(){
         let g;
         g = this.bayaChart.svg.selectAll(".zoomable");
-        g.attr("transform", "scale(0.16)");
+        g.attr("transform", "scale(0.16) translate(200, 0)");
+        // g.attr("transform", "translate(0.16)");
     }
     addTreemap(){
         let self = this;
@@ -141,11 +142,17 @@ class Layout {
         this.zoomInBtn.classed("selected", this.layoutOption.canZoomIn);
         let self = this;
         //add zoom capabilities 
+        let transform = d3.zoomIdentity.translate(200, 0).scale(0.16);
         var zoom_handler = d3.zoom().on("zoom", function(){self.zoom_actions()}).filter(function() {
             // Exclude wheel event unless zoomKey is set
+
             return self.layoutOption.canZoomIn || !(d3.event.type === "wheel");
         });
         zoom_handler(this.bayaChart.svg);
+        this.bayaChart.svg.call(zoom_handler.transform,transform)
+
+
+   
     }
     //Zoom functions 
     zoom_actions() {
