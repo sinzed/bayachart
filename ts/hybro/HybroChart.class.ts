@@ -28,20 +28,20 @@ class HybroChart extends Chart {
 
             this.svg = this.getParent().svg;
             
-        if(!this.enable)
-        return false;
-        
-        this.voronoiChart.draw(rootData).then(()=>{
-            this.bundleChart.draw(rootData);
-            this.donutChart.setWidth(940)
-            .setHeight(790)
-            .setCornerRadius(3) // sets how rounded the corners are on each slice
-            .setPadAngle(0.015) // effectively dictates the gap between slices
-            .setVariable('value')
-            .setCategory('data.data.name');
-            this.donutChart.draw(this.bundleChart.leaves);
-            resolve(true);
-        });
+            if(!this.enable)
+            return false;
+            
+            this.voronoiChart.draw(rootData).then(()=>{
+                this.bundleChart.draw(rootData);
+                this.donutChart.setWidth(940)
+                .setHeight(790)
+                .setCornerRadius(3) // sets how rounded the corners are on each slice
+                .setPadAngle(0.015) // effectively dictates the gap between slices
+                .setVariable('value')
+                .setCategory('data.data.name');
+                this.donutChart.draw(this.bundleChart.leaves);
+                resolve(true);
+            });
         // this.forceChart.draw(rootData);
         
     })

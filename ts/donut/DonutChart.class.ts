@@ -153,8 +153,10 @@ class DonutChart extends Chart {
     draw(leaves:any){
             // d3.select('.drawingArea')
     // this.selection = d3.select('svg g').datum(leaves); // bind data to the div
-    let slicesData = this.buildData(leaves)
-    this.selection = this.getParent().voronoiChart.drawingArea.select(".treemap-container").datum(slicesData); // bind data to the div
+    let slicesData = this.buildData(leaves);
+    this.selection = this.getParent().voronoiChart.drawingArea.select(".treemap-container"); // bind data to the div
+    this.element = this.selection.append('g').classed("donut",true);
+     this.selection.select(".donut g").datum(slicesData); // bind data to the div
     this.chart(this.selection);
     
     // .call(donutChart.chart); // draw chart in div
@@ -163,7 +165,7 @@ class DonutChart extends Chart {
     }
     chart(selection: any){
         let self =this;
-        self.element = selection.append('g').classed("donut",true);
+
         selection.each(function(data:any) {
             // generate chart
 

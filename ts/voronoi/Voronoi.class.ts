@@ -44,6 +44,7 @@ class Voronoi extends Chart {
     _canShowHoverer: boolean = true;
     resolve: (value?: boolean | PromiseLike<boolean> | undefined) => void;
     canDrawlables: boolean = true;
+    rootData: any;
     constructor(){
     //begin: constants
         super();
@@ -91,6 +92,7 @@ class Voronoi extends Chart {
 
  initLayout(rootData: any) {
     // this.svg = d3.select("svg")
+    this.rootData = rootData;
     this.svg = this.getParent().svg
     .attr("width", this.svgWidth)
     .style("background-color",this.backgroundColor)
@@ -109,28 +111,25 @@ class Voronoi extends Chart {
       .attr("fill","transparent")
       .attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")")
       .attr("d", "M"+this.circlingPolygon.join(",")+"Z");
-  
-      this.drawTitle();
-      this.drawFooter();
-      this.drawLegends(rootData);
 
-
-
-    //   this._voronoiTreemap.clip(this.circlingPolygon)(this.hierarchy);
-    this.handleWorker(rootData);
+    // this.handleWorker(rootData);
 }
-handleWorker(rootData : any){
-    let self = this;
-    this.hierarchy = d3.hierarchy(rootData).sum(function(d){ return d.weight; });
-    let myWorker = new Worker('worker/worker.js');
-    myWorker.postMessage([this.circlingPolygon,this.hierarchy]);
-    myWorker.onmessage = function(e) {
-        self.rebuildHierarchy(e.data, self.hierarchy);
-        let rootDataColorized = self.buildColors( self.hierarchy);
+handleWorker(){
+    return new Promise((resolve,reject)=>{
 
-        self.drawTreemap();
-        self.resolve(true);
-    }
+        let self = this;
+        this.hierarchy = d3.hierarchy(this.rootData).sum(function(d){ return d.weight; });
+        let myWorker = new Worker('worker/worker.js');
+        myWorker.postMessage([this.circlingPolygon,this.hierarchy]);
+        myWorker.onmessage = function(e) {
+            self.rebuildHierarchy(e.data, self.hierarchy);
+            let rootDataColorized = self.buildColors( self.hierarchy);
+            
+            self.drawTreemap();
+            self.resolve(true);
+            resolve(true);
+        }
+    });
 }
 rebuildHierarchy(data, hierarchy){
         if(hierarchy.children){
@@ -224,38 +223,29 @@ rebuildHierarchy(data, hierarchy){
         let datalized = selectedAll.data(this.leaves);
         let entered = datalized.enter();
         let appendedPath = entered.append("path")
-        .on("mouseover", function(){
-            // d3.select(this).style("display","none");
-            let element  = d3.select(this);
+        // .on("mouseover", function(){
+        //     // d3.select(this).style("display","none");
+        //     let element  = d3.select(this);
 
-            // let translate = element.attr("trans")
-            // element.attr("transform","scale(1.3) translate(-30,-39)");
-            element.style("stroke-width","3px");
-            element.style("stroke","white");
-            element.style("stroke-dasharray","0");
+        //     // let translate = element.attr("trans")
+        //     // element.attr("transform","scale(1.3) translate(-30,-39)");
+        //     element.style("stroke-width","3px");
+        //     element.style("stroke","white");
+        //     element.style("stroke-dasharray","0");
 
-        })
-        .on("mouseout", function(){
-            // d3.select(this).style("display","block");
-            let element  = d3.select(this);
-            element.style("stroke-width","0px");
-            element.style("stroke","black");
-            element.style("stroke-dasharray","9");;
-        })
-        .on("click", function(){
-            // d3.select(this).style("filter","url(#dropshadow)");
-            let element  = d3.select(this);
-            // let translate = element.attr("trans")
-            // element.attr("transform","scale(1.3) translate(-30,-39)");
-        })
-        .on("mousedown", function(){
-            // d3.select(this).style("filter","url(#dropshadow)");
-            let element  = d3.select(this);
-            
-            // let translate = element.attr("trans")
-            // element.attr("transform","scale(1.3) translate(-30,-39)");
-        });
-      //   var classedcell = appendedPath.classed("cell", true);
+        // })
+        // .on("mouseout", function(){
+        //     let element  = d3.select(this);
+        //     element.style("stroke-width","0px");
+        //     element.style("stroke","black");
+        //     element.style("stroke-dasharray","9");;
+        // })
+        // .on("click", function(){
+        //     let element  = d3.select(this);
+        // })
+        // .on("mousedown", function(){
+        //     let element  = d3.select(this);
+        // });
         let attrd = appendedPath.attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; });
         let cells  = attrd.style("fill", 
             function(d: { parent: { data: { color: any; }; }; }){

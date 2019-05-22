@@ -42,7 +42,7 @@ class Layout {
     initZoom(){
         let g;
         g = this.bayaChart.svg.selectAll(".zoomable");
-        g.attr("transform", "scale(0.6)");
+        g.attr("transform", "scale(0.16)");
     }
     addTreemap(){
         let self = this;

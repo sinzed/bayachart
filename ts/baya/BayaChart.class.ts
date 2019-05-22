@@ -52,8 +52,11 @@ class BayaChart extends Chart {
             // this.layout.toggleDonutChart();
           }
           this.forceChart.draw(this.jsonData);
+          for ( let hybroChart of this.hybroCharts ){
+              hybroChart.voronoiChart.handleWorker();
+          }
           Promise.all(promiseList).then(() => {
-            this.forceChart.draw(this.jsonData);
+            // this.forceChart.draw(this.jsonData);
             // this.layout.toggleDonutChart();
             this.highlight.init();
           });
