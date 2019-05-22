@@ -9,17 +9,6 @@ declare var spoonDataDependencies: {
         }[];
     }[];
 };
-declare var spoonDataDependencies: {
-    "name": string;
-    "children": {
-        "name": string;
-        "children": {
-            "name": string;
-            "weight": number;
-            "text": string;
-        }[];
-    }[];
-};
 declare var graphsData: {
     "hybrograph": {
         "name": string;
