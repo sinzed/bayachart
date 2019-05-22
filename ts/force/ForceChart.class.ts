@@ -112,7 +112,7 @@ class ForceChart extends Chart {
         this.unlink();
     }
     radius(){
-        return 610;
+        return 430;
     }
     initNode(){
         this.node = d3.selectAll(".drawingArea .treemap-container");
@@ -207,7 +207,7 @@ class ForceChart extends Chart {
             if(hybridChart.voronoiChart.hierarchy == undefined)
                 continue;
             if(hybridChart.voronoiChart.hierarchy.data.name == target.split(">")[0] )
-            return this.followToFindleaf(hybridChart.voronoiChart.hierarchy, target)
+                return this.followToFindleaf(hybridChart.voronoiChart.hierarchy, target)
         }
     }
     followToFindleaf(hierarchy : any, target: string) :any {

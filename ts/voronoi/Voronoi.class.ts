@@ -115,9 +115,9 @@ class Voronoi extends Chart {
     this.handleWorker();
 }
 handleWorker(){
-    return new Promise((resolve,reject)=>{
+    let self = this;
+    // return new Promise((resolve,reject)=>{
 
-        let self = this;
         this.hierarchy = d3.hierarchy(this.rootData).sum(function(d){ return d.weight; });
         let myWorker = new Worker('worker/worker.js');
         myWorker.postMessage([this.circlingPolygon,this.hierarchy]);
@@ -127,9 +127,9 @@ handleWorker(){
             
             self.drawTreemap();
             self.resolve(true);
-            resolve(true);
+            // resolve(true);
         }
-    });
+    // });
 }
 rebuildHierarchy(data, hierarchy){
         if(hierarchy.children){
@@ -399,9 +399,10 @@ rebuildHierarchy(data, hierarchy){
         return rootData;
     }
       draw(rootData:any) : Promise<boolean>{
+          let self = this;
           return new Promise((resolve, reject)=>{
               this.initData(rootData);
-              this.resolve = resolve;
+              self.resolve = resolve;
                 // this.drawTreemap();
             });
       }

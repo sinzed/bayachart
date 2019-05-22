@@ -44,8 +44,10 @@ class BayaChart extends Chart {
             this.nodesData.push(nodeGraphData);
             hybroChart.setParent(this);
             this.hybroCharts.push(hybroChart);
-            let promise = hybroChart.draw(nodeGraphData).then(()=>{
-                    hybroChart.donutChart.toggle();
+            let promise = hybroChart.draw(nodeGraphData);
+            promise.then(()=>{
+                hybroChart.donutChart.toggle();
+                
             });
             promiseList.push(promise);
 
@@ -56,8 +58,6 @@ class BayaChart extends Chart {
         //       hybroChart.voronoiChart.handleWorker();
         //   }
           Promise.all(promiseList).then(() => {
-            // this.forceChart.draw(this.jsonData);
-            // this.layout.toggleDonutChart();
             this.forceChart.draw(this.jsonData);
             this.highlight.init();
           });
