@@ -24,6 +24,8 @@ class HybroChart extends Chart {
 
 
     draw(rootData:any){
+        let before  = performance.now();
+
         return new Promise((resolve,reject)=>{
 
             this.svg = this.getParent().svg;
@@ -41,8 +43,15 @@ class HybroChart extends Chart {
                     .setVariable('value')
                     .setCategory('data.data.name');
                     
+                    // this.donutChart.draw(this.bundleChart.leaves);
+                    let after = performance.now();
+                    let time = after - before;
+                    console.log("performance",time);
+                    this.voronoiChart.treemapContainer.append("g").append("text")
+                    .classed("performance", true)
+                    .attr("text-anchor", "middle")
+                    .text("performance: "+Math.round(time)+"ms")
                     resolve(true);
-                    this.donutChart.draw(this.bundleChart.leaves);
                     
             });
         // this.forceChart.draw(rootData);
