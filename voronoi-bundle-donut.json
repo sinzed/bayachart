@@ -1,15 +1,16 @@
 {
-  "hybrograph" :
-  {
-    "name": "hybrograph",
-    "imports": [],
-    "children": [
-      {
-        "name": "Asia",
-        "imports": [],
-        
-        "text" :" Asia = new Asia();",
-        "children": [
+  "name" : "bayachart",
+  "children" : [
+    {
+      "name": "hybrograph",
+      "imports": [],
+      "children": [
+        {
+          "name": "Asia",
+          "imports": [],
+          
+          "text" :" Asia = new Asia();",
+          "children": [
           {"name": "China", "weight": 14.84, "code": "CN", "imports": [],"targets" : ["controllers.Asia"],"text" :" China = new China();"},
           {"name": "Japan", "weight": 5.91, "code": "JP"},
           {"name": "India", "weight": 2.83, "code": "IN"},
@@ -35,7 +36,7 @@
         "children": [
           {"name": "United States", "weight": 24.32, "code": "US", "cs": 
             {"GodClass": 33, "UnusedImport": 3, "warnings": 3, "errors": 3}},
-          {"name": "Canada", "weight": 2.09, "code": "CA", "imports":["Germany"]},
+            {"name": "Canada", "weight": 2.09, "code": "CA", "imports":["Germany"]},
           {"name": "Mexico", "weight": 1.54, "code": "MX"}
         ]
       },
@@ -98,8 +99,7 @@
         ]
       }
     ]
-  },
-  "controllers" :
+},
   {
     "name": "controllers",
     "imports": [],
@@ -122,15 +122,15 @@
               {"name": "part1Iran", "weight": 2, "code": "IR", "imports": [],  "color": "#f58381", "type":"A"},
               {"name": "part2", "weight": 2, "code": "IR", "imports": [],  "color": "#f58381", "type":"A"  
                 ,"children": [
-                    {"name": "Ap2part2Iran", "weight": 2, "code": "IR", "imports": [], "color": "#f58381",  "type":"A"},
+                  {"name": "Ap2part2Iran", "weight": 2, "code": "IR", "imports": [], "color": "#f58381",  "type":"A"},
                     {"name": "Ap2part2Iran", "weight": 2, "code": "IR", "imports": [], "color": "#f58381",  "type":"A" ,"children": [
                       {"name": "Ap2part2IranA", "weight": 2, "code": "IR", "imports": [], "color": "#f58381",  "type":"A","children": [
                         {"name": "Ap2part2IranA1", "weight": 0.5, "code": "IR", "imports": [], "color": "#f58381",  "type":"A"},
                         {"name": "Ap2part2IranA1", "weight": 0.5, "code": "IR", "imports": [], "color": "#f58381",  "type":"A"},
                         {"name": "Ap2part2IranA1", "weight": 0.5, "code": "IR", "imports": [], "color": "#f58381",  "type":"A"},
                         {"name": "Bp2Part2iranB1", "weight": 0.5, "code": "IR", "imports": [], "color": "#f58381", "type":"A"}
-                      ]},
-                      {"name": "Bp2Part2iranB", "weight": 2, "code": "IR", "imports": [], "color": "#f58381", "type":"A"}
+                        ]},
+                        {"name": "Bp2Part2iranB", "weight": 2, "code": "IR", "imports": [], "color": "#f58381", "type":"A"}
                     ]},
                     {"name": "Bp2Part3iran", "weight": 2, "code": "IR", "imports": [], "color": "#f58381", "type":"A"}
                   ]
@@ -150,7 +150,6 @@
       }
     ]
   },
-  "providers" :
   {
     "name": "providers",
     "imports": [],
@@ -195,5 +194,7 @@
         ]
       }
     ]
+  
   }
+]
 }

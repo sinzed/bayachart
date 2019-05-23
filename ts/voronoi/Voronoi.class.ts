@@ -76,11 +76,14 @@ class Voronoi extends Chart {
     }
     calculateTreemapRadius() {
         let sumWeight = 0;
+        const length = this.hierarchy.leaves().length;
         for( let leaf of this.hierarchy.leaves()){
             if(leaf.value)
             sumWeight+= leaf.value;
         }
-        this.treemapRadius = sumWeight;
+        this.treemapRadius = Math.sqrt(sumWeight*100);
+        
+        // this.treemapRadius = 400;
     }
     setMarginLeft(marginLeft : number){
         this.margin.left = marginLeft;
@@ -121,6 +124,7 @@ class Voronoi extends Chart {
       .attr("fill","transparent")
       .attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")")
       .attr("d", "M"+this.circlingPolygon.join(",")+"Z");
+      this.rootData.radius = this.treemapRadius;
 
     this.handleWorker();
 }
@@ -362,7 +366,12 @@ rebuildHierarchy(data, hierarchy){
   
 
         this.hoverers.append("title")
-        .text(function(d: { data: { name: string; }; value: string; }) { return d.data.name + "\n" + d.value+"%"; });
+        .text((d:any)=>{
+            const area = this.treemapRadius * this.treemapRadius * 3.14;
+            const title= d.data.name + "\n" + d.value+"%"+"\n"+ area;
+            return title; 
+            
+            });
     }
     showTreeMapBorders(enable:boolean){
             d3.selectAll(".parents").style("display",enable?"block":"none");

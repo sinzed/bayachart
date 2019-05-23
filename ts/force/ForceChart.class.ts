@@ -24,20 +24,22 @@ class ForceChart extends Chart {
         .id(function (d:any) { 
             return d.name;
          });
-        let charge_force = d3.forceManyBody().strength(100);
+        let charge_force = d3.forceManyBody().strength(-20000);
         let center_force = d3.forceCenter(this.width / 3, this.height / 5);
        
         this.simulation
         .force("charge_force", charge_force)
         .force("center_force", center_force)
-  
+        .force("forceX", d3.forceX().strength(0.01))
+        .force("forceY", d3.forceY().strength(0.01))
         .force("links", link_force);
     }
     unlink(){
         this.simulation
         .force("charge_force", null)
         .force("center_force", null)
-  
+        // .force("forceX", null)
+        // .force("forceY", null)
         .force("links", null);
     }
     draw(rootData:any) {
@@ -48,20 +50,31 @@ class ForceChart extends Chart {
         this.width = +this.svg.attr("width");
         this.height = +this.svg.attr("height");
 
+        let charge_force = d3.forceManyBody().strength(-109);
+        let center_force = d3.forceCenter(this.width / 3, this.height / 5);
+       
+
+
         //set up the simulation and add forces  
         this.simulation = d3.forceSimulation()
             .nodes(this.nodes_data);
 
-             
-            let link_force = d3.forceLink(this.links_data)
-            .id(function (d:any) { 
-                return d.name;
-             });
+            this.simulation
+            .force("charge_force", charge_force)
+            .force("center_force", center_force)
+            .force("forceX", d3.forceX().strength(0.05))
+            .force("forceY", d3.forceY().strength(0.05));
+        let link_force = d3.forceLink(this.links_data)
+        .id(function (d:any) { 
+            return d.name;
+            });
         // let force_colide = d3.forceCollide();
         this.simulation
             // .force("charge_force", charge_force)
             // .force("center_force", center_force)
-        .force('collision', d3.forceCollide().radius(this.radius))
+        .force('collision', d3.forceCollide().radius(function(d) {
+            return d.radius;
+          }))
         // .radius(this.radius))
         .force("links", link_force);
         //add tick instructions: 
@@ -111,8 +124,10 @@ class ForceChart extends Chart {
         
         this.unlink();
     }
-    radius(){
-        return 430;
+    radius(d){
+        const world = d3.select(d);
+        const radius = world.attr("treemapradius");
+        return radius;
     }
     initNode(){
         this.node = d3.selectAll(".drawingArea .treemap-container");
@@ -244,9 +259,6 @@ class ForceChart extends Chart {
     }
  
     tickActions() {
-        // for (let i = 0; i < 5; i++) {
-        //     this.tickActions();
-        //   }
         this.nodeCells.attr("transform", function (d:any) {
 
             // if(d.x == undefined || d.y == undefined ){

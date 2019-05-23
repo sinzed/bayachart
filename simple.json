@@ -1,0 +1,32 @@
+{
+  "name" : "bayachart",
+  "children" : [
+  {
+    "name": "providers",
+    "imports": [],
+    "children": [
+      {
+        "name": "Asia",
+        "weight" : "1000"
+      }
+    ]
+  
+  },
+  {
+    "name": "controllers",
+    "imports": [],
+    "children": [
+      {
+        "name": "Bamerica",
+        "weight" : "10000"
+      },
+      {
+        "name": "Camerica",
+        "weight" : "1000"
+      
+      }
+    ]
+  
+  }
+]
+}

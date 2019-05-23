@@ -25,7 +25,8 @@ if(!readDataByD3){
 }
 else {
 
-   d3.json("../inputs/spoon.json", function(error:any, graphsData:any) {
+  //  d3.json("simple.json", function(error:any, graphsData:any) {
+   d3.json("voronoi-bundle-donut.json", function(error:any, graphsData:any) {
          if (error) throw error;
     // });
     bayaChart.jsonData = graphsData;

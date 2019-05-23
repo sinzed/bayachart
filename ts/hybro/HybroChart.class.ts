@@ -8,6 +8,7 @@ class HybroChart extends Chart {
     rootData : any;
     copyRootOFData : any;
     stringData: string;
+    showPerformance: boolean = false;
     
 
 
@@ -49,13 +50,16 @@ class HybroChart extends Chart {
                     .setCategory('data.data.name');
                     
                     // this.donutChart.draw(this.bundleChart.leaves);
-                    let after = performance.now();
-                    let time = after - before;
-                    console.log("performance",time);
-                    this.voronoiChart.treemapContainer.append("g").append("text")
-                    .classed("performance", true)
-                    .attr("text-anchor", "middle")
-                    .text("performance: "+Math.round(time)+"ms")
+                    if(this.showPerformance){
+
+                        let after = performance.now();
+                        let time = after - before;
+                        console.log("performance",time);
+                        this.voronoiChart.treemapContainer.append("g").append("text")
+                        .classed("performance", true)
+                        .attr("text-anchor", "middle")
+                        .text("performance: "+Math.round(time)+"ms")
+                    }
                     this.addDbClickHandler();
                     // localStorage.clear();
                     resolve(true);

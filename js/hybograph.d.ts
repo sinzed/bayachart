@@ -30,7 +30,7 @@ declare class ForceChart extends Chart {
     run(): void;
     unlink(): void;
     draw(rootData: any): false | undefined;
-    radius(): number;
+    radius(d: any): string;
     initNode(): void;
     initNodeCells(): void;
     circleColour(d: any): "blue" | "pink";
@@ -243,7 +243,7 @@ declare class DonutChart extends Chart {
     getVariable(value: any): any;
     setCategory(value: any): this;
     getCategory(value: any): any;
-    toggle(): void;
+    toggle(): false | undefined;
     buildData(leaves: Array<any>): any;
     draw(leaves: any): void;
     chart(selection: any): void;
@@ -258,6 +258,7 @@ declare class HybroChart extends Chart {
     rootData: any;
     copyRootOFData: any;
     stringData: string;
+    showPerformance: boolean;
     constructor();
     draw(rootData: any): Promise<{}>;
     addDbClickHandler(): void;
