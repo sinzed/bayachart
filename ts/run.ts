@@ -12,7 +12,14 @@ let bayaChart = new BayaChart();
 
 if(!readDataByD3){
   // bayaChart.jsonData = graphsData;
-  bayaChart.jsonData = spoonDataDependencies;
+  if(localStorage.getItem("jsonData") == null){
+
+    bayaChart.jsonData = spoonDataDependencies;
+  }
+  else {
+    bayaChart.jsonData = JSON.parse(<string>localStorage.getItem("jsonData"));
+    localStorage.clear();
+  }
   // d3.select("textarea").text(JSON.stringify( spoonDataDependencies, null, 2));
   bayaChart.draw();
 }
@@ -32,3 +39,12 @@ else {
    bayaChart.delete();
    bayaChart.draw();
   });
+
+  function IsJson(str : string) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return true;
+    }
+    return false;
+}

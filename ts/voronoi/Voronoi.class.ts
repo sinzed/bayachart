@@ -45,6 +45,7 @@ class Voronoi extends Chart {
     resolve: (value?: boolean | PromiseLike<boolean> | undefined) => void;
     canDrawlables: boolean = true;
     rootData: any;
+    hoverers: any;
     constructor(){
     //begin: constants
         super();
@@ -124,7 +125,7 @@ handleWorker(){
         myWorker.onmessage = function(e) {
             self.rebuildHierarchy(e.data, self.hierarchy);
             let rootDataColorized = self.buildColors( self.hierarchy);
-            
+            console.log("data are ready",e,"draw treemap");
             self.drawTreemap();
             self.resolve(true);
             // resolve(true);
@@ -250,7 +251,10 @@ rebuildHierarchy(data, hierarchy){
         let cells  = attrd.style("fill", 
             function(d: { parent: { data: { color: any; }; }; }){
                     // return d.parent.data.color;
-                    return d.color;
+                    if(d.color)
+                        return d.color;
+                    else
+                        return new Color(Math.random()*360,100,40).value;
             }
         );
         if(this.canDrawlables){
@@ -263,7 +267,11 @@ rebuildHierarchy(data, hierarchy){
             .append("g")
             .classed("label", true)
             .attr("transform", function(d: { polygon: { site: { x: any; y: any; }; }; }){
+                if(d.polygon.site)
                 return "translate("+[d.polygon.site.x, d.polygon.site.y]+")";
+                else {
+                    return "translate(400,400)"
+                }
             })
             .style("font-size", function(d : any){
                 return self.fontScale(d.data.weight); 
@@ -291,7 +299,7 @@ rebuildHierarchy(data, hierarchy){
         // throw new Error("Method not implemented.");
     }
     drawHoverers(){ 
-        let hoverers = this.treemapContainer.append("g")
+        this.hoverers = this.treemapContainer.append("g")
         .classed('hoverers', true)
         .attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")")
         .selectAll(".hoverer")
@@ -300,7 +308,10 @@ rebuildHierarchy(data, hierarchy){
         .append("path")
         .classed("hoverer", true)
         .attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; });
-        hoverers.append("title")
+        
+  
+
+        this.hoverers.append("title")
         .text(function(d: { data: { name: string; }; value: string; }) { return d.data.name + "\n" + d.value+"%"; });
     }
     showTreeMapBorders(enable:boolean){
@@ -377,6 +388,10 @@ rebuildHierarchy(data, hierarchy){
         let colors : Array<Color> =[];
         // colors.push("hsla(120,100%,0%,1)");
         // for(let i = 0;i<rootData.children.length;i++){
+        if(!rootData.children){
+            rootData.children
+            return false;
+        }
         for(let i = 0;i<rootData.children.length;i++){
             let color :Color;
             if(!parentColor)

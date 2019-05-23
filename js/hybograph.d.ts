@@ -1,270 +1,3 @@
-declare var spoonDataDependencies: {
-    "name": string;
-    "children": {
-        "name": string;
-        "children": {
-            "name": string;
-            "weight": number;
-            "text": string;
-        }[];
-    }[];
-};
-declare var graphsData: {
-    "hybrograph": {
-        "name": string;
-        "imports": never[];
-        "children": ({
-            "name": string;
-            "imports": never[];
-            "text": string;
-            "children": ({
-                "name": string;
-                "weight": number;
-                "code": string;
-                "imports": never[];
-                "targets": string[];
-                "text": string;
-            } | {
-                "name": string;
-                "weight": number;
-                "code": string;
-                "imports"?: undefined;
-                "targets"?: undefined;
-                "text"?: undefined;
-            } | {
-                "name": string;
-                "weight": number;
-                "code": string;
-                "imports": never[];
-                "targets"?: undefined;
-                "text"?: undefined;
-            })[];
-        } | {
-            "name": string;
-            "imports": string[];
-            "children": ({
-                "name": string;
-                "weight": number;
-                "code": string;
-                "cs": {
-                    "GodClass": number;
-                    "UnusedImport": number;
-                    "warnings": number;
-                    "errors": number;
-                };
-                "imports"?: undefined;
-            } | {
-                "name": string;
-                "weight": number;
-                "code": string;
-                "imports": string[];
-                "cs"?: undefined;
-            } | {
-                "name": string;
-                "weight": number;
-                "code": string;
-                "cs"?: undefined;
-                "imports"?: undefined;
-            })[];
-            "text"?: undefined;
-        } | {
-            "name": string;
-            "imports": never[];
-            "children": ({
-                "name": string;
-                "weight": number;
-                "code": string;
-                "imports": string[];
-                "text": string;
-            } | {
-                "name": string;
-                "weight": number;
-                "code": string;
-                "imports"?: undefined;
-                "text"?: undefined;
-            })[];
-            "text"?: undefined;
-        } | {
-            "name": string;
-            "imports": never[];
-            "children": ({
-                "name": string;
-                "weight": number;
-                "code": string;
-                "targets"?: undefined;
-            } | {
-                "name": string;
-                "weight": number;
-                "code": string;
-                "targets": string[];
-            })[];
-            "text"?: undefined;
-        })[];
-    };
-    "controllers": {
-        "name": string;
-        "imports": never[];
-        "children": ({
-            "name": string;
-            "imports": never[];
-            "children": ({
-                "name": string;
-                "code": string;
-                "imports": never[];
-                "source": string;
-                "target": string;
-                "color": string;
-                "type": string;
-                "children": {
-                    "name": string;
-                    "weight": number;
-                    "code": string;
-                    "imports": never[];
-                    "color": string;
-                    "type": string;
-                }[];
-                "weight"?: undefined;
-            } | {
-                "name": string;
-                "code": string;
-                "weight": number;
-                "imports": never[];
-                "color": string;
-                "type": string;
-                "children": ({
-                    "name": string;
-                    "weight": number;
-                    "code": string;
-                    "imports": never[];
-                    "color": string;
-                    "type": string;
-                    "children"?: undefined;
-                } | {
-                    "name": string;
-                    "weight": number;
-                    "code": string;
-                    "imports": never[];
-                    "color": string;
-                    "type": string;
-                    "children": ({
-                        "name": string;
-                        "weight": number;
-                        "code": string;
-                        "imports": never[];
-                        "color": string;
-                        "type": string;
-                        "children"?: undefined;
-                    } | {
-                        "name": string;
-                        "weight": number;
-                        "code": string;
-                        "imports": never[];
-                        "color": string;
-                        "type": string;
-                        "children": ({
-                            "name": string;
-                            "weight": number;
-                            "code": string;
-                            "imports": never[];
-                            "color": string;
-                            "type": string;
-                            "children": {
-                                "name": string;
-                                "weight": number;
-                                "code": string;
-                                "imports": never[];
-                                "color": string;
-                                "type": string;
-                            }[];
-                        } | {
-                            "name": string;
-                            "weight": number;
-                            "code": string;
-                            "imports": never[];
-                            "color": string;
-                            "type": string;
-                            "children"?: undefined;
-                        })[];
-                    })[];
-                })[];
-                "source"?: undefined;
-                "target"?: undefined;
-            })[];
-        } | {
-            "name": string;
-            "imports": string[];
-            "children": {
-                "name": string;
-                "weight": number;
-                "code": string;
-                "cs": {
-                    "GodClass": number;
-                    "UnusedImport": number;
-                };
-                "type": string;
-            }[];
-        })[];
-    };
-    "providers": {
-        "name": string;
-        "imports": never[];
-        "children": ({
-            "name": string;
-            "imports": never[];
-            "targets": string[];
-            "children": {
-                "name": string;
-                "weight": number;
-                "code": string;
-                "imports": never[];
-                "type": string;
-            }[];
-        } | {
-            "name": string;
-            "imports": string[];
-            "children": {
-                "name": string;
-                "weight": number;
-                "code": string;
-                "cs": {
-                    "GodClass": number;
-                    "UnusedImport": number;
-                };
-                "type": string;
-            }[];
-            "targets"?: undefined;
-        } | {
-            "name": string;
-            "imports": never[];
-            "children": ({
-                "name": string;
-                "weight": number;
-                "code": string;
-                "cs"?: undefined;
-                "imports"?: undefined;
-            } | {
-                "name": string;
-                "weight": number;
-                "code": string;
-                "cs": {
-                    "GodClass": number;
-                    "UnusedImport": number;
-                    "warnings": number;
-                    "features": number;
-                    "points": number;
-                };
-                "imports"?: undefined;
-            } | {
-                "name": string;
-                "weight": number;
-                "code": string;
-                "imports": string[];
-                "cs"?: undefined;
-            })[];
-            "targets"?: undefined;
-        })[];
-    };
-};
 declare class Color {
     value: string;
     h: number;
@@ -425,6 +158,7 @@ declare class Voronoi extends Chart {
     resolve: (value?: boolean | PromiseLike<boolean> | undefined) => void;
     canDrawlables: boolean;
     rootData: any;
+    hoverers: any;
     constructor();
     initData(rootData: any): void;
     setMarginLeft(marginLeft: number): void;
@@ -462,7 +196,7 @@ declare class BundleChart extends Chart {
     constructor();
     init(): void;
     getParnet(): HybroChart;
-    draw(rootData: any): void;
+    draw(rootData: any): true | undefined;
     buildColors(): void;
     getColor(): any;
     drawNodeNames(): void;
@@ -519,8 +253,13 @@ declare class HybroChart extends Chart {
     bundleChart: BundleChart;
     svg: any;
     forceChart: ForceChart;
+    rootData: any;
+    copyRootOFData: any;
+    stringData: string;
     constructor();
     draw(rootData: any): Promise<{}>;
+    addDbClickHandler(): void;
+    findJsonDataSource(source: any): any;
 }
 declare class BayaChart extends Chart {
     hybroCharts: Array<HybroChart>;
@@ -541,8 +280,18 @@ declare class Highlight {
     constructor(bayaChart: BayaChart);
     init(): void;
 }
+declare class HtmlManager {
+    part2Html: string;
+    part1Html: string;
+    middlePartHtml: string;
+    constructor();
+    addScript(script: string): this;
+    getHtml(): string;
+    init(): void;
+}
 declare var diameter: number, radius: number, innerRadius: number;
 declare let readDataByD3: boolean;
 declare var cluster: d3.ClusterLayout<any>;
 declare let bayaChart: BayaChart;
 declare var textArea: HTMLElement | null;
+declare function IsJson(str: string): boolean;

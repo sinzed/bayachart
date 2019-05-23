@@ -64,9 +64,6 @@
       "dist"
   ],
   "files": [
-    "ts/inputs/SpoonData.ts",
-    "ts/inputs/SpoonDependencies.ts",
-    "ts/input.ts",
     "ts/system/color/Color.class.ts",
     "ts/chart/Chart.class.ts",
     "ts/force/ForceChart.class.ts",
@@ -80,6 +77,7 @@
     "ts/hybro/HybroChart.class.ts",
     "ts/baya/BayaChart.class.ts",
     "ts/highlight/Highlight.class.ts",
+    "ts/system/rebuild/html/HtmlManager.class.ts",
     "ts/run.ts"
 ]
 }

@@ -5,6 +5,10 @@ class HybroChart extends Chart {
     bundleChart: BundleChart;
     svg: any;
     forceChart: ForceChart;
+    rootData : any;
+    copyRootOFData : any;
+    stringData: string;
+    
 
 
     constructor(){
@@ -24,12 +28,13 @@ class HybroChart extends Chart {
 
 
     draw(rootData:any){
+        this.rootData = rootData;
+        this.copyRootOFData = [...[this.rootData]];
+        this.stringData = JSON.stringify(rootData);
         let before  = performance.now();
 
         return new Promise((resolve,reject)=>{
-
             this.svg = this.getParent().svg;
-            
             if(!this.enable)
             return false;
             
@@ -51,15 +56,59 @@ class HybroChart extends Chart {
                     .classed("performance", true)
                     .attr("text-anchor", "middle")
                     .text("performance: "+Math.round(time)+"ms")
+                    this.addDbClickHandler();
+                    // localStorage.clear();
                     resolve(true);
                     
             });
         // this.forceChart.draw(rootData);
-        
     })
         
         
-        
+    }
+    addDbClickHandler(){
+        this.voronoiChart.hoverers.on("dblclick", (d)=>{
+            // let win = window.open("", "Title", "toolbar=yes,location=yes,directories=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
+            // win.document.body.innerHTML = "HTML";
+            var win = window.open("", '_blank');
+            // win.focus();
+            let htmlManager = new HtmlManager();
+            let mainSource = this.forceChart.findMainSource(d);
+            const data = this.findJsonDataSource(mainSource.data);
+            // const getCircularReplacer = () => {
+            //     const seen = new WeakSet();
+            //     return (key, value) => {
+            //       if (typeof value === "object" && value !== null) {
+            //         if (seen.has(value)) {
+            //           return;
+            //         }
+            //         seen.add(value);
+            //       }
+            //       return value;
+            //     };
+            //   };
+              
+            // let jsonString = JSON.stringify((this.rootData, getCircularReplacer());
+            // let newGrahData = {name: 'newtab', children : mainSource.data};
+            
+            // localStorage.setItem("jsonData",JSON.stringify(this.copyRootOFData[0] ));
+            localStorage.setItem("jsonData",this.stringData);
+            // let newData = "var spoonDataDependencies = '"+jsonString+"';";
+            // htmlManager.addScript(newData);
+            const html = htmlManager.getHtml();
+            // let body = "<script>alert('hello')</script><div class='drawingarea'>graph is here</div>";
+            // // win.document.body.innerHTML =body ;
+            win.document.write( html);
+
+    
+            })
+    }
+    findJsonDataSource(source){
+        for ( let data of this.rootData.children) {
+            if (data.name == source.name){
+                return data;
+            }
+        }
     }
 
 }
