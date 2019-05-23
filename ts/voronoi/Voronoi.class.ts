@@ -69,10 +69,18 @@ class Voronoi extends Chart {
     initData(rootData:any) {
         // this.leaves=this.hierarchy.leaves();
         this.hierarchy = d3.hierarchy(rootData).sum(function(d){ return d.weight; });
-        this.treemapRadius = 400;
+        this.calculateTreemapRadius();
         this.circlingPolygon = this.computeCirclingPolygon(this.treemapRadius);
         this.fontScale.domain([3, 20]).range([8, 20]).clamp(true);
         this.initLayout(rootData);
+    }
+    calculateTreemapRadius() {
+        let sumWeight = 0;
+        for( let leaf of this.hierarchy.leaves()){
+            if(leaf.value)
+            sumWeight+= leaf.value;
+        }
+        this.treemapRadius = sumWeight;
     }
     setMarginLeft(marginLeft : number){
         this.margin.left = marginLeft;

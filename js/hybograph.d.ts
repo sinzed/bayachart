@@ -161,6 +161,7 @@ declare class Voronoi extends Chart {
     hoverers: any;
     constructor();
     initData(rootData: any): void;
+    calculateTreemapRadius(): void;
     setMarginLeft(marginLeft: number): void;
     computeCirclingPolygon(radius: number): number[][];
     initLayout(rootData: any): void;
@@ -279,6 +280,15 @@ declare class BayaChart extends Chart {
 declare class Highlight {
     bayaChart: BayaChart;
     constructor(bayaChart: BayaChart);
+    init(): void;
+}
+declare class HtmlManager {
+    part2Html: string;
+    part1Html: string;
+    middlePartHtml: string;
+    constructor();
+    addScript(script: string): this;
+    getHtml(): string;
     init(): void;
 }
 declare var diameter: number, radius: number, innerRadius: number;
