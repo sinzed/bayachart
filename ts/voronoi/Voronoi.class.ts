@@ -1,3 +1,4 @@
+
 // import * as d3 from 'd3' ;
 
 class Voronoi extends Chart {
@@ -274,15 +275,44 @@ rebuildHierarchy(data, hierarchy){
                 }
             })
             .style("font-size", function(d : any){
-                return self.fontScale(d.data.weight); 
+                // return self.fontScale(d.data.weight); 
+                // return "50px"; 
+                return self.fontScale(self.treemapRadius); 
             });
             
             labels.append("text")
+            .style("font-size", function(d : any){
+                // return self.fontScale(d.data.weight); 
+                // d.polygon. 
+                let width ;
+                if(d.polygon.site && d.polygon.site.width)
+                 width =  d.polygon.site.width;
+                else
+                 width = self.findWidth(d.polygon);
+
+                return  width/17+"px";
+                // return self.fontScale(self.treemapRadius); 
+            })
+           
+
             .classed("name", true)
             .html(function(d: { data: { weight: number; code: any; name: any; }; }){
                 return (d.data.weight<1)? d.data.code : d.data.name.slice(0, 1);
             });
             labels.append("text")
+            .style("font-size", function(d : any){
+                // return self.fontScale(d.data.weight); 
+                // d.polygon. 
+                let width ;
+                if(d.polygon.site && d.polygon.site.width){
+                    width =  d.polygon.site.width;
+                    return  width/17+"px";
+                    
+                }
+                else
+                return "15px";
+                // return self.fontScale(self.treemapRadius); 
+            })
             .classed("value", true)
             .text(function(d: { data: { weight: string; }; }){ return d.data.weight; });
             // .text(function(d: { data: { weight: string; }; }){ return d.data.weight+"%"; });
@@ -294,6 +324,18 @@ rebuildHierarchy(data, hierarchy){
         // else {
         // }
       }
+    findWidth(polygon : any) : number{
+        var modifiedArray = polygon.map(function(convArray:Array<number>){ 
+            return convArray[0];
+        });
+
+        const max = Math.max.apply(Math, modifiedArray);
+        const min =Math.min.apply(Math, modifiedArray);
+        let width : number =  max - min;
+        if(polygon.site)
+            polygon.site.width = width;
+        return width;
+    }
     canShowHoverer() {
         return this._canShowHoverer;
         // throw new Error("Method not implemented.");
