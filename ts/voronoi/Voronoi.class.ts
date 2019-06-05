@@ -81,9 +81,9 @@ class Voronoi extends Chart {
             if(leaf.value)
             sumWeight+= leaf.value;
         }
-        this.treemapRadius = Math.sqrt(sumWeight*100);
+        // this.treemapRadius = Math.sqrt(sumWeight*100);
         
-        // this.treemapRadius = 400;
+        this.treemapRadius = 600;
     }
     setMarginLeft(marginLeft : number){
         this.margin.left = marginLeft;
@@ -138,7 +138,6 @@ handleWorker(){
         myWorker.onmessage = function(e) {
             self.rebuildHierarchy(e.data, self.hierarchy);
             let rootDataColorized = self.buildColors( self.hierarchy);
-            console.log("data are ready",e,"draw treemap");
             self.drawTreemap();
             self.resolve(true);
             // resolve(true);
@@ -283,7 +282,7 @@ rebuildHierarchy(data, hierarchy){
                 if(d.polygon.site)
                 return "translate("+[d.polygon.site.x, d.polygon.site.y]+")";
                 else {
-                    return "translate(400,400)"
+                    return "translate("+self.treemapRadius+","+self.treemapRadius+")"
                 }
             })
             .style("font-size", function(d : any){

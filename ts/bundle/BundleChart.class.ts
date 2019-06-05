@@ -28,7 +28,6 @@ class BundleChart extends Chart {
         this.linkElement = this.element.append("g").attr("id","bundleElements").attr("transform","translate(-480,-405)").selectAll(".link");
         this.nodeElement = this.element.append("g").attr("id","bundleNodes").selectAll(".node");
         if(!rootData.children){
-            console.log("no children found?");
             return true;
         }
         var root =  this.getParent().tools.packageHierarchy(rootData.children)
