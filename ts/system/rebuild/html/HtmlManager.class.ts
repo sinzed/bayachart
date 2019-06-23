@@ -1,3 +1,4 @@
+// if you double click on a graph a new webpage will open and rebuild the sub graph
 class HtmlManager {
     part2Html: string;
     part1Html: string;

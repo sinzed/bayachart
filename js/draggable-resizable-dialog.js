@@ -41,14 +41,14 @@ var _minW = 200,
 	},
 	
 	_returnEvent = function(evt) {
-		if (evt.stopPropagation)
-			evt.stopPropagation();
-		if (evt.preventDefault)
-			evt.preventDefault();
-		else {
-			evt.returnValue = false;
-			return false;
-		}
+		// if (evt.stopPropagation)
+		// 	evt.stopPropagation();
+		// if (evt.preventDefault)
+		// 	evt.preventDefault();
+		// else {
+			evt.returnValue = true;
+			return true;
+		// }
 	},
 	
 	_returnTrueEvent = function(evt) {
@@ -460,4 +460,4 @@ var _minW = 200,
 		_status = document.getElementById('dialog-status');
 	};
 
-_init();
+// _init();

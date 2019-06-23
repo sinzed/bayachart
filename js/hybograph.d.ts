@@ -6,6 +6,29 @@ declare class Color {
     a: number;
     constructor(h: number, s: number, l: number, a?: number);
 }
+declare class Dialog {
+    layout: Layout;
+    element: any;
+    contentHtml: string;
+    contentDiv: any;
+    title: any;
+    constructor(layout: Layout);
+    setContent(contentHtml: string): void;
+    init(): void;
+}
+declare class InputDialog extends Dialog {
+    preElement: any;
+    codeElement: any;
+    constructor(layout: Layout);
+    init(): void;
+    setInputJson(jsonString: string): void;
+}
+declare class SourceDialog extends Dialog {
+    preElement: any;
+    codeElement: any;
+    constructor(layout: Layout);
+    init(): void;
+}
 declare class Chart {
     parent: any;
     enable: boolean;
@@ -94,12 +117,14 @@ declare class Layout {
     showForceChartBtn: any;
     treemapBtn: any;
     sourceBtn: any;
+    editBtn: any;
     constructor(bayaChart: BayaChart);
     init(): void;
     initElement(): void;
     initZoom(): void;
     addTreemap(): any;
     addSourceBtn(): any;
+    addEditBtn(): any;
     showSourceDialog(): void;
     addZoomInButton(): any;
     addForceChartButton(): any;

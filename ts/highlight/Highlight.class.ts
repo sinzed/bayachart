@@ -13,7 +13,7 @@ class Highlight {
                 hybroChart.voronoiChart.treemapContainer
                 .selectAll(".hoverers path")
                 .data(hybroChart.voronoiChart.leaves).on("click",function(target:any){
-                    document.querySelectorAll('pre code').forEach((block) => {
+                    document.querySelectorAll('pre code.sourceCode').forEach((block) => {
                         if(target.data.text) {
                               block.textContent = target.data.text;
                               hljs.highlightBlock(block);

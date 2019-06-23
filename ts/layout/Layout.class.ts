@@ -9,6 +9,7 @@ class Layout {
     showForceChartBtn: any;
     treemapBtn: any;
     sourceBtn: any;
+    editBtn: any;
     constructor(bayaChart : BayaChart){
         this.bayaChart = bayaChart;
         this.layoutOption = new LayoutOption();
@@ -19,6 +20,7 @@ class Layout {
         this.addZoomInButton();
         this.addTreemap();
         this.addSourceBtn();
+        this.addEditBtn();
         this.init();
         
 
@@ -57,13 +59,35 @@ class Layout {
         let self = this;
         this.sourceBtn =  this.element.insert("button",":first-child");
         this.sourceBtn.text("source");
-        this.sourceBtn.on("click",()=>{this.showSourceDialog()});
+        this.sourceBtn.on("click",()=>{
+            
+            let dialog = new SourceDialog(this);
+            dialog.init();
+            // dialog.setInputJson("{sdfsdf}");
+            this.showSourceDialog();
+        
+        });
+        return this.sourceBtn;
+
+    }
+    addEditBtn(){
+        let self = this;
+        this.editBtn =  this.element.insert("button",":first-child");
+        this.editBtn.text("edit");
+        this.editBtn.on("click",()=>{
+            let dialog = new InputDialog(this);
+            dialog.init();
+            dialog.setInputJson("{sdfsdf}");
+            this.showSourceDialog();
+        
+        });
         return this.sourceBtn;
 
     }
     showSourceDialog(){
 
         // let showDialog = function show () {
+            _init();
            _showDialog();
         // };
         // showDialog();

@@ -65,6 +65,9 @@
   ],
   "files": [
     "ts/system/color/Color.class.ts",
+    "ts/system/ui/dialog/Dialog.class.ts",
+    "ts/system/ui/dialog/InputDialog.class.ts",
+    "ts/system/ui/dialog/SourceDialog.class.ts",
     "ts/chart/Chart.class.ts",
     "ts/force/ForceChart.class.ts",
     "ts/force/link/JoinLink.class.ts",
