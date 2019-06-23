@@ -12,34 +12,36 @@ let bayaChart = new BayaChart();
 
 if(!readDataByD3){
   // bayaChart.jsonData = graphsData;
-  if(localStorage.getItem("jsonData") == null){
-
-    bayaChart.jsonData = spoonDataDependencies;
+      if(localStorage.getItem("jsonData") == null){
+        bayaChart.setJsonData(spoonDataDependencies);
+        // bayaChart.jsonData = spoonDataDependencies;
+      }
+      else {
+        bayaChart.setJsonData(JSON.parse(<string>localStorage.getItem("jsonData")));
+        // bayaChart.jsonData = JSON.parse(<string>localStorage.getItem("jsonData"));
+        localStorage.clear();
+      }
+      // d3.select("textarea").text(JSON.stringify( spoonDataDependencies, null, 2));
+      bayaChart.draw();
   }
-  else {
-    bayaChart.jsonData = JSON.parse(<string>localStorage.getItem("jsonData"));
-    localStorage.clear();
-  }
-  // d3.select("textarea").text(JSON.stringify( spoonDataDependencies, null, 2));
-  bayaChart.draw();
-}
 else {
 
-  //  d3.json("simple.json", function(error:any, graphsData:any) {
-   d3.json("voronoi-bundle-donut.json", function(error:any, graphsData:any) {
-         if (error) throw error;
-    // });
-    bayaChart.jsonData = graphsData;
-    bayaChart.draw();
-     });
-  }
+    //  d3.json("simple.json", function(error:any, graphsData:any) {
+    d3.json("voronoi-bundle-donut.json", function(error:any, graphsData:any) {
+          if (error) throw error;
+      // });
+      bayaChart.setJsonData(graphsData);
+      // bayaChart.jsonData = graphsData;
+      bayaChart.draw();
+      });
+    }
   
-  var textArea = document.getElementById("graphsData");
-  textArea.addEventListener('keyup',function(){
-    bayaChart.jsonData = JSON.parse(textArea.value);
-   bayaChart.delete();
-   bayaChart.draw();
-  });
+  // var textArea = document.getElementById("graphsData");
+  // textArea.addEventListener('keyup',function(){
+  //   bayaChart.jsonData = JSON.parse(textArea.value);
+  //  bayaChart.delete();
+  //  bayaChart.draw();
+  // });
 
   function IsJson(str : string) {
     try {

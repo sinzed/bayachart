@@ -12,6 +12,8 @@ declare class Dialog {
     contentHtml: string;
     contentDiv: any;
     title: any;
+    hasOkBtn: boolean;
+    divButtonSet: any;
     constructor(layout: Layout);
     setContent(contentHtml: string): void;
     init(): void;
@@ -21,6 +23,7 @@ declare class InputDialog extends Dialog {
     codeElement: any;
     constructor(layout: Layout);
     init(): void;
+    redraw(): void;
     setInputJson(jsonString: string): void;
 }
 declare class SourceDialog extends Dialog {
@@ -52,6 +55,7 @@ declare class ForceChart extends Chart {
     getParent(): BayaChart;
     run(): void;
     unlink(): void;
+    destroy(): void;
     draw(rootData: any): false | undefined;
     radius(d: any): string;
     initNode(): void;
@@ -118,6 +122,9 @@ declare class Layout {
     treemapBtn: any;
     sourceBtn: any;
     editBtn: any;
+    scale: number;
+    xTranslate: number;
+    yTranslate: number;
     constructor(bayaChart: BayaChart);
     init(): void;
     initElement(): void;
@@ -293,6 +300,7 @@ declare class BayaChart extends Chart {
     hybroCharts: Array<HybroChart>;
     forceChart: ForceChart;
     jsonData: any;
+    rawdata: any;
     nodesData: Array<any>;
     svg: any;
     highlight: Highlight;
@@ -301,6 +309,8 @@ declare class BayaChart extends Chart {
     init(): void;
     initLayout(): void;
     delete(): void;
+    setJsonData(jsonData: any): void;
+    getMaxTreemapRadius(): number;
     draw(): void;
 }
 declare class Highlight {
@@ -321,5 +331,4 @@ declare var diameter: number, radius: number, innerRadius: number;
 declare let readDataByD3: boolean;
 declare var cluster: d3.ClusterLayout<any>;
 declare let bayaChart: BayaChart;
-declare var textArea: HTMLElement | null;
 declare function IsJson(str: string): boolean;

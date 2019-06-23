@@ -116,7 +116,7 @@ class DonutChart extends Chart {
     toggle(){
         this.visible = !this.visible;
         if(!this.element)
-        return false;
+            return false;
         if(this.visible){
 
             this.element.attr("display","block");

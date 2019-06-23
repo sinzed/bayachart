@@ -4,6 +4,8 @@ class Dialog {
     contentHtml: string;
     contentDiv: any;
     title: any;
+    hasOkBtn : boolean = true;
+    divButtonSet: any;
     constructor(layout : Layout){
         this.layout = layout;
         this.contentHtml = "";
@@ -41,15 +43,16 @@ class Dialog {
         this.setContent(this.contentHtml);
         let subPane = div.insert("div");
         subPane.classed("buttonpane", true);
-        let divButtonSet = subPane.insert("div");
-        divButtonSet.classed("buttonset",true);
-
-        let okBtn = divButtonSet.insert("button");
-        okBtn.text("ok");
-        okBtn.on("click",()=>{
-            this.element.remove()
-        });
-        let cancelBtn = divButtonSet.insert("button");
+        this.divButtonSet = subPane.insert("div");
+        this.divButtonSet.classed("buttonset",true);
+        if(this.hasOkBtn) {
+            let okBtn = this.divButtonSet.insert("button");
+            okBtn.text("ok");
+            okBtn.on("click",()=>{
+                this.element.remove()
+            });
+        }
+            let cancelBtn = this.divButtonSet.insert("button");
         cancelBtn.text("cancel");
         cancelBtn.on("click",()=>{
             this.element.remove()

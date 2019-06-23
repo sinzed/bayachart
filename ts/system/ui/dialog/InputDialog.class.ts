@@ -16,6 +16,18 @@ class InputDialog extends Dialog {
         // this.codeElement = this.preElement.insert("textarea");
         this.codeElement.attr("contenteditable",true);
         this.codeElement.classed("json",true);
+        let rebuild = this.divButtonSet.insert("button");
+        rebuild.text("rebuild");
+        rebuild.on("click",()=>{
+            this.redraw();
+            this.element.remove()
+        });
+    }
+    redraw(){
+        let jsonString = this.codeElement.text();
+        this.layout.bayaChart.delete();
+        this.layout.bayaChart.setJsonData(JSON.parse(jsonString));
+        this.layout.bayaChart.draw();
     }
     setInputJson(jsonString : string){
         this.codeElement.text(jsonString);

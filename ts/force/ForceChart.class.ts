@@ -42,6 +42,26 @@ class ForceChart extends Chart {
         // .force("forceY", null)
         .force("links", null);
     }
+    destroy(){
+        this.unlink();
+        // return true;
+        // let link_force = d3.forceLink([])
+        // .id(function (d:any) { 
+        //     return d.name;
+        //  });
+        //  this.simulation = d3.forceSimulation()
+        //  .nodes([]);
+        //  this.simulation
+        //  .force("forceX", d3.forceX().strength(0.01))
+        //  .force("forceY", d3.forceY().strength(0.01))
+        //  .force("links", []);
+        // this.simulation
+        // .force("charge_force", charge_force)
+        // .force("center_force", center_force)
+        // .force("forceX", d3.forceX().strength(0.01))
+        // .force("forceY", d3.forceY().strength(0.01))
+        // .force("links", link_force);
+    }
     draw(rootData:any) {
         if(!this.enable)
         return false;

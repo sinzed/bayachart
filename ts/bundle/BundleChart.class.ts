@@ -25,7 +25,10 @@ class BundleChart extends Chart {
     draw(rootData:any){
         this.element = this.getParent().voronoiChart.drawingArea.select(".treemap-container")
         .insert('g', '#first + *');
-        this.linkElement = this.element.append("g").attr("id","bundleElements").attr("transform","translate(-480,-405)").selectAll(".link");
+        let treemapRadius = this.getParent().voronoiChart.treemapRadius;
+        let xTranslae =-273 - treemapRadius;
+        let yTranslate = -205 - treemapRadius;
+        this.linkElement = this.element.append("g").attr("id","bundleElements").attr("transform","translate("+xTranslae+","+yTranslate+")").selectAll(".link");
         this.nodeElement = this.element.append("g").attr("id","bundleNodes").selectAll(".node");
         if(!rootData.children){
             console.log("no children found?");

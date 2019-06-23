@@ -10,6 +10,9 @@ class Layout {
     treemapBtn: any;
     sourceBtn: any;
     editBtn: any;
+    scale: number;
+    xTranslate: number;
+    yTranslate: number;
     constructor(bayaChart : BayaChart){
         this.bayaChart = bayaChart;
         this.layoutOption = new LayoutOption();
@@ -27,12 +30,12 @@ class Layout {
 
 
 
-        this.initZoom();
+        // this.initZoom();
 
     }
 
     init(){
-        this.manageZoomIn();
+        // this.manageZoomIn();
         this.toggleTreeMap();
     }
     initElement(){
@@ -44,7 +47,14 @@ class Layout {
     initZoom(){
         let g;
         g = this.bayaChart.svg.selectAll(".zoomable");
-        g.attr("transform", "translate(380,232)  scale(0.16)");
+        let maxRadius = this.bayaChart.getMaxTreemapRadius();
+        this.scale = 150/maxRadius;
+        // this.xTranslate  =  maxRadius/10+this.scale* 150;
+        // this.yTranslate  =  maxRadius/10+ this.scale* 50;
+        this.xTranslate  =  -500 + maxRadius/2;
+        this.yTranslate  =  -600 + maxRadius/2;
+        g.attr("transform", "translate("+this.xTranslate+","+this.xTranslate+")  scale("+this.scale+")");
+        this.manageZoomIn();
         // g.attr("transform", "translate(0.16)");
     }
     addTreemap(){
@@ -77,7 +87,7 @@ class Layout {
         this.editBtn.on("click",()=>{
             let dialog = new InputDialog(this);
             dialog.init();
-            dialog.setInputJson("{sdfsdf}");
+            dialog.setInputJson(this.bayaChart.rawdata);
             this.showSourceDialog();
         
         });
@@ -166,7 +176,8 @@ class Layout {
         this.zoomInBtn.classed("selected", this.layoutOption.canZoomIn);
         let self = this;
         //add zoom capabilities 
-        let transform = d3.zoomIdentity.translate(380, 230).scale(0.16);
+
+        let transform = d3.zoomIdentity.translate(this.xTranslate, this.yTranslate).scale(this.scale);
         var zoom_handler = d3.zoom().on("zoom", function(){self.zoom_actions()}).filter(function() {
             // Exclude wheel event unless zoomKey is set
 

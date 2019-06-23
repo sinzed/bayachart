@@ -2,6 +2,7 @@ class BayaChart extends Chart {
     hybroCharts : Array<HybroChart>;
     forceChart : ForceChart;
     jsonData : any;
+    rawdata : any;
     nodesData : Array<any>;
     svg : any;
     highlight : Highlight;
@@ -29,12 +30,26 @@ class BayaChart extends Chart {
         .style("display","block");
     }
     delete(){
+        this.layout.bayaChart.forceChart.destroy();
         this.layout.graphic.selectAll("g").remove();
+    }
+    setJsonData(jsonData : any){
+        this.jsonData = jsonData;
+        this.rawdata = JSON.stringify(jsonData, null, 2);
+    }
+    getMaxTreemapRadius(){
+        let maxRadius = 0;
+        for (let hybroChart of this.hybroCharts ){
+            if(hybroChart.voronoiChart.treemapRadius> maxRadius)
+                maxRadius =  hybroChart.voronoiChart.treemapRadius
+        }
+        return maxRadius;
     }
     draw(){
         // let hybroChart2 = new HybroChart();
         // this.hybroCharts.push(hybroChart2);
-
+        this.nodesData = [];
+        this.hybroCharts = [];
         let promiseList = [];
         for(let nodeGraphData of this.jsonData.children){
             let hybroChart = new HybroChart();
@@ -48,12 +63,14 @@ class BayaChart extends Chart {
             promiseList.push(promise);
           }
           this.forceChart.draw(this.jsonData);
+          this.layout.initZoom();
         //   for ( let hybroChart of this.hybroCharts ){
         //       hybroChart.voronoiChart.handleWorker();
         //   }
           Promise.all(promiseList).then(() => {
             this.forceChart.draw(this.jsonData);
             this.highlight.init();
+            
           });
           // hybroChart2.voronoiChart.setMarginLeft(Math.random()*-500);
           // hybroChart2.forceChart.disable();
