@@ -2,7 +2,7 @@
 var diameter = 1260,
 radius = diameter / 2,
 innerRadius = radius - 120;
-let readDataByD3 = false;
+let readDataByD3 = true;
 var cluster : d3.ClusterLayout<any>;
 cluster = d3.cluster().size([360, innerRadius]);
 

@@ -150,10 +150,15 @@ class Layout {
     toggleDonutChart(){
         this.layoutOption.canShowDonutChart = !this.layoutOption.canShowDonutChart;
         this.showDonutChartBtn.classed("selected", this.layoutOption.canShowDonutChart);
+        let exteraRadius = this.layoutOption.canShowDonutChart?true:false;
         for(let hybroChart of this.bayaChart.hybroCharts)
             hybroChart.donutChart.element.attr("display",this.layoutOption.canShowDonutChart?"block":"none");
-        this.bayaChart.forceChart.simulation.force('collision', d3.forceCollide()
-        .radius(this.layoutOption.canShowDonutChart?310:210));
+        // this.bayaChart.forceChart.simulation.force('collision', d3.forceCollide()
+        this.bayaChart.forceChart.simulation.force('collision', d3.forceCollide().radius(function(d) {
+            if(exteraRadius)
+            return d.radius*1.6;
+        }))
+        // .radius(this.layoutOption.canShowDonutChart?310:210));
         this.bayaChart.forceChart.simulation.force('charge_force',d3.forceManyBody().strength(4000));
         this.bayaChart.forceChart.simulation.force('charge_force',d3.forceManyBody().strength(200));
     }

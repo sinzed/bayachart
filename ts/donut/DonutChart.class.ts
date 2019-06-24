@@ -158,7 +158,7 @@ class DonutChart extends Chart {
     let slicesData = this.buildData(leaves);
     this.selection = this.getParent().voronoiChart.drawingArea.select(".treemap-container"); // bind data to the div
     this.element = this.selection.append('g').classed("donut",true);
-     this.selection.select(".donut g").datum(slicesData); // bind data to the div
+    this.selection = this.selection.select(".donut").datum(slicesData); // bind data to the div
     this.chart(this.selection);
     
     // .call(donutChart.chart); // draw chart in div
@@ -173,7 +173,8 @@ class DonutChart extends Chart {
 
             // ===========================================================================================
             // Set up constructors for making donut. See https://github.com/d3/d3-shape/blob/master/README.md
-            var radius = Math.min(self._width, self._height) / 2;
+            // var radius = Math.min(self._width, self._height) / 2;
+            var radius = self.getParent().voronoiChart.treemapRadius*2;
 
             // creates a new pie generator
             var pie = d3.pie()
