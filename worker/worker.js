@@ -4,9 +4,7 @@ importScripts("../js/d3-vornoi-map-build.js");
 importScripts("../js/d3-voronoi-treemap.js");
 
 onmessage = function(e) {
-    console.log('Message received from main script');
     // var workerResult = 'Result: ' + (e.data[0] * e.data[1],e);
-    console.log(e);
     let voronoiTreemap = d3.voronoiTreemap();
     let circlingPolygon = e.data[0];
     let hierarchy = e.data[1];
