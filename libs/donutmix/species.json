@@ -1,0 +1,60 @@
+[
+    {
+      "Species": "Halobacillus halophilus",
+      "Probability": 0.07214855298991701,
+      "Error": 0.045296463390387814
+    }, 
+    {
+      "Species": "Staphylococcus epidermidis",
+      "Probability": 0.07214855298991701,
+      "Error": 0.045296463390387814
+    }
+    , 
+    {
+      "Species": "Chromobacterium violaceum",
+      "Probability": 0.07214855298991701,
+      "Error": 0.045296463390387814
+    }
+    , 
+    {
+      "Species": "Pseudomonas TKP",
+      "Probability": 0.07214855298991701,
+      "Error": 0.045296463390387814
+    }
+    , 
+    {
+      "Species": "Bacillus subtilis",
+      "Probability": 0.07214855298991701,
+      "Error": 0.045296463390387814
+    }
+    , 
+    {
+      "Species": "Pseudomonas fluorescens",
+      "Probability": 0.07214855298991701,
+      "color": 0.045296463390387814
+    }
+    , 
+    {
+      "Species": "Micrococcus luteus",
+      "Probability": 0.07214855298991701,
+      "Error": 0.045296463390387814
+    }
+    , 
+    {
+      "Species": "Pseudoalteromonas SM9913",
+      "Probability": 0.07214855298991701,
+      "Error": 0.045296463390387814
+    }
+    , 
+    {
+      "Species": "Enterococcus faecalis",
+      "Probability": 0.07214855298991701,
+      "Error": 0.045296463390387814
+    }
+    , 
+    {
+      "Species": "Escherichia coli",
+      "Probability": 0.2014657031774047,
+      "Error": 0.045296463390387814
+    }
+  ]

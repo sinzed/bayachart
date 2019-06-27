@@ -7,9 +7,7 @@ class Highlight {
         init(){
             let self = this;            
             this.bayaChart.hybroCharts.forEach(hybroChart=>{
-                // hybroChart.voronoiChart.cells.enter().on("click",function(){
-                //     alert("hi");
-                // })
+                self.colorizeSmells(hybroChart);
                 hybroChart.voronoiChart.treemapContainer
                 .selectAll(".hoverers path")
                 .data(hybroChart.voronoiChart.leaves).on("click",function(target:any){
@@ -31,6 +29,18 @@ class Highlight {
                     
                 // }
             })
+        }
+        private colorizeSmells(hybroChart : HybroChart){
+            for(let leaf of hybroChart.bundleChart.leaves){
+                if(leaf.data.cs != undefined){
+                    for(let smell of leaf){
+                        // let firstParts = leaf.text.split(smell.boffset);
+                        // let secondParts = firstParts[1].split(smell.eoffset);
+                        let finalText = leaf.text.slice(0, smell.boffset) + "<span class='smell'>" + leaf.text.slice(smell.boffset,smell.eoffset)+"</span>"+ leaf.text.slice(smell.eoffset);
+
+                    }
+                }
+            }
         }
 
 

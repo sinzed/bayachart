@@ -255,6 +255,7 @@ declare class DonutChart extends Chart {
     slices: any;
     slicesObject: any;
     visible: boolean;
+    codeSmells: Array<Object>;
     constructor();
     getParent(): HybroChart;
     getWidth(): any;
@@ -276,6 +277,7 @@ declare class DonutChart extends Chart {
     setCategory(value: any): this;
     getCategory(value: any): any;
     toggle(): false | undefined;
+    buildDataOld(leaves: Array<any>): any;
     buildData(leaves: Array<any>): any;
     draw(leaves: any): void;
     chart(selection: any): void;
@@ -317,6 +319,7 @@ declare class Highlight {
     bayaChart: BayaChart;
     constructor(bayaChart: BayaChart);
     init(): void;
+    private colorizeSmells;
 }
 declare class HtmlManager {
     part2Html: string;

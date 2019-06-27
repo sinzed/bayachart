@@ -36,7 +36,9 @@ class Layout {
 
     init(){
         // this.manageZoomIn();
-        this.toggleTreeMap();
+        // this.toggleTreeMap();
+        // this.toggleTreeMap();
+        // this.toggleTreeMap();
     }
     initElement(){
         this.element = d3.select("body")
@@ -101,7 +103,7 @@ class Layout {
            _showDialog();
         // };
         // showDialog();
-        this.treemapBtn.classed("selected", this.layoutOption.canShowSource);
+        this.sourceBtn.classed("selected", this.layoutOption.canShowSource);
     }
     addZoomInButton(){
         let self = this;

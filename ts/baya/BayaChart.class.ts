@@ -59,6 +59,8 @@ class BayaChart extends Chart {
             let promise = hybroChart.draw(nodeGraphData);
             promise.then(()=>{
                 hybroChart.donutChart.toggle();
+                this.layout.toggleTreeMap();
+
             });
             promiseList.push(promise);
           }

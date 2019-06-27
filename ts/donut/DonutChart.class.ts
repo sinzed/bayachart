@@ -18,6 +18,7 @@ class DonutChart extends Chart {
     slices: any;
     slicesObject: any;
     visible: boolean = true;
+    codeSmells : Array<Object>;
     constructor(){
         super();
         this._margin = {top: 10, right: 10, bottom: 10, left: 10};
@@ -25,6 +26,7 @@ class DonutChart extends Chart {
         this.floatFormat = d3.format('.4r');
         this.percentFormat = d3.format(',.2%');
         this._width = 300;
+        this.codeSmells = [];
         // getter and setter functions. See Mike Bostocks post "Towards Reusable Charts" for a tutorial on how this works.
         // this.width = function(value: any) {
         //     if (!arguments.length) return this.width;
@@ -126,7 +128,7 @@ class DonutChart extends Chart {
             this.element.attr("display","none");
         }
     }
-    buildData(leaves : Array<any>){
+    buildDataOld(leaves : Array<any>){
         this.slicesObject = {}
         let self = this;
         leaves.forEach(function(leaf){
@@ -149,7 +151,32 @@ class DonutChart extends Chart {
         for(let sliceData in this.slicesObject){
             this.slices.push(this.slicesObject[sliceData]);
         }
-        console.log(this.slices);
+        return this.slices;
+    }
+    buildData(leaves : Array<any>){
+        this.slicesObject = {}
+        let self = this;
+        leaves.forEach(function(leaf){
+            if(!leaf.data.children)
+                if(leaf.data.cs){
+                    for(let smell of leaf.data.cs){
+                        self.codeSmells.push(smell);
+                    }
+                }
+        });
+        this.slices = [];
+        let nestedData = d3.nest()
+        .key(function(d) { return d.type; })
+        .rollup(function(v) { return {
+            count: v.length,
+        }; })
+        .entries(this.codeSmells);
+        this.slices = nestedData.map(function(group) {
+            return {
+              name: group.key,
+              value: group.value.count
+            }
+        });
         return this.slices;
     }
     draw(leaves:any){

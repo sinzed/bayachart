@@ -1,6 +1,6 @@
 class LayoutOption {
     private _zoomIn : boolean = false;
-    private _donutChart : boolean = true;
+    private _donutChart : boolean = false;
     private _bundleChart : boolean = true;
     canShowForceChart: boolean = false;
     canShowTreeMap: boolean = false;
