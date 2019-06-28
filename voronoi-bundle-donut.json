@@ -35,10 +35,10 @@
         
         "children": [
           {"name": "United States", "weight": 24.32,
-            "text" : "the code smells can be detected with this program and highlighted like this in code",
+            "text" : "abcdefghijklmopqrstuvwxyz",
             "code": "US", "cs": 
             [
-              {"type": "GodClass",  "position" : {"boffset" :160, "eoffset" : 280}},
+              {"type": "GodClass",  "position" : {"boffset" :3, "eoffset" : 20}},
               {"type": "GodClass",  "position" : {"boffset" :160, "eoffset" : 280}},
               {"type": "GodClass",  "position" : {"boffset" :160, "eoffset" : 280}},
               {"type": "UnusedImport",  "position" : {"boffset" :6, "eoffset" : 6}},
