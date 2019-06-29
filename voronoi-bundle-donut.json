@@ -1,7 +1,7 @@
 {
   "name" : "bayachart",
   "smellColors" : {
-    "from":"yellow",
+    "from":"lightgray",
     "to": "red"
   },
   "children" : [
@@ -122,30 +122,30 @@
         "ilinks": [],
         
         "children": [
-          {"name": "China", "code": "CN", "ilinks": [], "source": "China", "target": "United States", "color": "#f58381", "type":"A"
+          {"name": "China", "code": "CN", "ilinks": [], "source": "China", "target": "United States", "type":"A"
             ,
             "children": [
-              {"name": "part1china", "size": 2, "code": "CN", "ilinks": [], "color": "#f58381",  "type":"A"},
-              {"name": "part2china", "size": 2, "code": "CN", "ilinks": [], "color": "#f58381", "type":"A"}
+              {"name": "part1china", "size": 2, "code": "CN", "ilinks": [],  "type":"A"},
+              {"name": "part2china", "size": 2, "code": "CN", "ilinks": [], "type":"A"}
             ]
           },
-          {"name": "Iran", "code": "Ir", "size": 4, "ilinks": [], "color": "#f58361", "type":"A"
+          {"name": "Iran", "code": "Ir", "size": 4, "ilinks": [], "type":"A"
             ,
             "children": [
-              {"name": "part1Iran", "size": 2, "code": "IR", "ilinks": [],  "color": "#f58381", "type":"A"},
-              {"name": "part2", "size": 2, "code": "IR", "ilinks": [],  "color": "#f58381", "type":"A"  
+              {"name": "part1Iran", "size": 2, "code": "IR", "ilinks": [], "type":"A"},
+              {"name": "part2", "size": 2, "code": "IR", "ilinks": [], "type":"A"  
                 ,"children": [
-                  {"name": "Ap2part2Iran", "size": 2, "code": "IR", "ilinks": [], "color": "#f58381",  "type":"A"},
-                    {"name": "Ap2part2Iran", "size": 2, "code": "IR", "ilinks": [], "color": "#f58381",  "type":"A" ,"children": [
-                      {"name": "Ap2part2IranA", "size": 2, "code": "IR", "ilinks": [], "color": "#f58381",  "type":"A","children": [
-                        {"name": "Ap2part2IranA1", "size": 0.5, "code": "IR", "ilinks": [], "color": "#f58381",  "type":"A"},
-                        {"name": "Ap2part2IranA1", "size": 0.5, "code": "IR", "ilinks": [], "color": "#f58381",  "type":"A"},
-                        {"name": "Ap2part2IranA1", "size": 0.5, "code": "IR", "ilinks": [], "color": "#f58381",  "type":"A"},
-                        {"name": "Bp2Part2iranB1", "size": 0.5, "code": "IR", "ilinks": [], "color": "#f58381", "type":"A"}
+                  {"name": "Ap2part2Iran", "size": 2, "code": "IR", "ilinks": [],  "type":"A"},
+                    {"name": "Ap2part2Iran", "size": 2, "code": "IR", "ilinks": [],  "type":"A" ,"children": [
+                      {"name": "Ap2part2IranA", "size": 2, "code": "IR", "ilinks": [],"children": [
+                        {"name": "Ap2part2IranA1", "size": 0.5, "code": "IR", "ilinks": [],  "type":"A"},
+                        {"name": "Ap2part2IranA1", "size": 0.5, "code": "IR", "ilinks": [],  "type":"A"},
+                        {"name": "Ap2part2IranA1", "size": 0.5, "code": "IR", "ilinks": [],  "type":"A"},
+                        {"name": "Bp2Part2iranB1", "size": 0.5, "code": "IR", "ilinks": [], "type":"A"}
                         ]},
-                        {"name": "Bp2Part2iranB", "size": 2, "code": "IR", "ilinks": [], "color": "#f58381", "type":"A"}
+                        {"name": "Bp2Part2iranB", "size": 2, "code": "IR", "ilinks": [], "type":"A"}
                     ]},
-                    {"name": "Bp2Part3iran", "size": 2, "code": "IR", "ilinks": [], "color": "#f58381", "type":"A"}
+                    {"name": "Bp2Part3iran", "size": 2, "code": "IR", "ilinks": [], "type":"A"}
                   ]
               }       
             ]

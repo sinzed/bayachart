@@ -214,6 +214,7 @@ declare class Voronoi extends Chart {
     drawParents(): void;
     getColorByDepth(leaf: any): string;
     getWidthByDepth(leaf: any): string;
+    buildColorsInterpolation(hierarchy: any): any;
     buildColors(rootData: any, parentColor?: Color): any;
     draw(rootData: any): Promise<boolean>;
 }

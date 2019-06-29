@@ -138,10 +138,10 @@ class Layout {
         return this.showBundleChartBtn;
     }
     toggleTreeMap(){
-        this.layoutOption.canShowTreeMap = !this.layoutOption.canShowTreeMap;
         this.treemapBtn.classed("selected", this.layoutOption.canShowTreeMap);
         for(let hybroChart of this.bayaChart.hybroCharts)
             hybroChart.voronoiChart.showTreeMapBorders(this.layoutOption.canShowTreeMap);
+        this.layoutOption.canShowTreeMap = !this.layoutOption.canShowTreeMap;
     }
     toggleBundleChart(){
         this.layoutOption.canShowBundleChart = !this.layoutOption.canShowBundleChart;

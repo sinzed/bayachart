@@ -137,7 +137,8 @@ handleWorker(){
         myWorker.postMessage([this.circlingPolygon,this.hierarchy]);
         myWorker.onmessage = function(e) {
             self.rebuildHierarchy(e.data, self.hierarchy);
-            let rootDataColorized = self.buildColors( self.hierarchy);
+            // let rootDataColorized = self.buildColors( self.hierarchy);
+            let rootDataColorized = self.buildColorsInterpolation( self.hierarchy);
             self.drawTreemap();
             self.resolve(true);
             // resolve(true);
@@ -441,6 +442,22 @@ rebuildHierarchy(data, hierarchy){
             depth+=2;
         }
         return max-depth+"px";
+    }
+    buildColorsInterpolation(hierarchy : any){
+        let colorScale;
+        let bayaChart : BayaChart = this.getParent().getParent();
+        let jsonData = bayaChart.jsonData;
+        let colors = jsonData.smellColors;
+        let leaves = hierarchy.leaves();
+        for(let leaf of leaves){
+            if(leaf.data.weight){
+                leaf.color = d3.interpolateRgb(colors.from, colors.to)(leaf.data.weight);
+            }
+            else {
+                leaf.color = d3.interpolateRgb(colors.from, colors.to)(0);
+            }
+        }
+        return hierarchy;
     }
     buildColors(rootData : any,parentColor?:Color){
         // return true;
