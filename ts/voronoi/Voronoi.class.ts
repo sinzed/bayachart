@@ -81,9 +81,9 @@ class Voronoi extends Chart {
             if(leaf.value)
             sumWeight+= leaf.value;
         }
-        // this.treemapRadius = Math.sqrt(sumWeight*100);
+        this.treemapRadius = Math.sqrt(sumWeight*100);
         
-        this.treemapRadius = 600;
+        // this.treemapRadius = 600;
     }
     setMarginLeft(marginLeft : number){
         this.margin.left = marginLeft;
