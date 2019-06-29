@@ -320,6 +320,7 @@ declare class Highlight {
     constructor(bayaChart: BayaChart);
     init(): void;
     private colorizeSmells;
+    private sortCodeSmells;
 }
 declare class HtmlManager {
     part2Html: string;

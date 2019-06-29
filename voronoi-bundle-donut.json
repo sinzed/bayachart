@@ -38,11 +38,11 @@
             "text" : "abcdefghijklmopqrstuvwxyz",
             "code": "US", "cs": 
             [
-              {"type": "GodClass",  "position" : {"boffset" :3, "eoffset" : 20}},
-              {"type": "GodClass",  "position" : {"boffset" :160, "eoffset" : 280}},
-              {"type": "GodClass",  "position" : {"boffset" :160, "eoffset" : 280}},
-              {"type": "UnusedImport",  "position" : {"boffset" :6, "eoffset" : 6}},
-              {"type": "DataClass",  "position" : {"boffset" :234, "eoffset" : 678}}
+              {"type": "GodClass",  "position" : {"boffset": 8, "eoffset": 10}},
+              {"type": "GodClass",  "position" : {"boffset": 2, "eoffset": 5}},
+              {"type": "GodClass",  "position" : {"boffset": 12, "eoffset": 15}},
+              {"type": "UnusedImport",  "position" : {"boffset": 6, "eoffset": 7}},
+              {"type": "DataClass",  "position" : {"boffset": 19, "eoffset": 20}}
             ]
           },
           {"name": "Canada", "weight": 2.09, "code": "CA", "imports":["Germany"]},

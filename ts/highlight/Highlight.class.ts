@@ -38,19 +38,24 @@ class Highlight {
         private colorizeSmells(hybroChart : HybroChart){
             for(let leaf of hybroChart.bundleChart.leaves){
                 if(leaf.data.cs != undefined){
-
-                    for(let smell of leaf.data.cs){
+                    let sortedSmells =  this.sortCodeSmells(leaf.data.cs);
+                    for(let smell of sortedSmells){
                         // let firstParts = leaf.text.split(smell.boffset);
                         // let secondParts = firstParts[1].split(smell.eoffset);
                         let finalText : string = "";
-                        if(leaf.data.text != "" && leaf.data.text != undefined)
-                           finalText = leaf.data.text.slice(0, smell.position.boffset) 
-                           + "1111highlight1111" + leaf.data.text.slice(smell.position.boffset,smell.position.eoffset)+"1111endhighlight1111"
-                           + leaf.data.text.slice(smell.position.eoffset);
-                        leaf.data.text = finalText;
+                        if(leaf.data.text != "" && leaf.data.text != undefined) {
+                            finalText = leaf.data.text.slice(0, smell.position.boffset) 
+                            + "1111highlight1111" + leaf.data.text.slice(smell.position.boffset,smell.position.eoffset)+"1111endhighlight1111"
+                            + leaf.data.text.slice(smell.position.eoffset);
+  
+                            leaf.data.text = finalText;
+                        } 
                     }
                 }
             }
+        }
+        private sortCodeSmells(codeSmells : Array<any>){
+           return codeSmells.sort((a, b) => (a.position.boffset < b.position.boffset) ? 1 : -1)
         }
 
 
