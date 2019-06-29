@@ -216,7 +216,7 @@ class ForceChart extends Chart {
                     let link = {};
                     for(let target of leaf.data.elinks){
                         let mainSource = this.findMainSource(leaf);
-                        let sourceMargin = this.findSourceMargin(leaf);
+                        let sourceMargin = this.findSourceMargin(leaf,mainSource);
                         let mainTarget = this.findMainTarget(target);
                         if(!mainTarget)
                             continue;
@@ -260,18 +260,24 @@ class ForceChart extends Chart {
             return this.followToFindleaf(foundLeaf, part2);
     }
     
-    findSourceMargin(leaf : any){
+    findSourceMargin(leaf : any,mainSource:any){
         if(leaf.polygon.site == undefined)
             return {"x":0,"y":0};
-        let x = leaf.polygon.site.x + this.getParent().hybroCharts[0].voronoiChart.margin.left - 100;
-        let y = leaf.polygon.site.y + this.getParent().hybroCharts[0].voronoiChart.margin.top - 100 ;
+            mainSource;
+        let hybroLeft = this.getParent().hybroCharts[0].voronoiChart.margin.left - mainSource.data.radius;
+        let hybroTop = this.getParent().hybroCharts[0].voronoiChart.margin.top - mainSource.data.radius;
+        let x = leaf.polygon.site.x+ hybroLeft ;
+        let y = leaf.polygon.site.y+ hybroTop ;
+        // let x = leaf.polygon.site.x + this.getParent().hybroCharts[0].voronoiChart.margin.left - 100;
+        // let y = leaf.polygon.site.y + this.getParent().hybroCharts[0].voronoiChart.margin.top - 100 ;
         return {"x":x,"y":y};
     }
     findTargetMargin(leaf : any){
         if(leaf.polygon == undefined)
             return {"x":0,"y":0};
-        let x = leaf.polygon.site.x + this.getParent().hybroCharts[0].voronoiChart.margin.left - 50;
-        let y = leaf.polygon.site.y + this.getParent().hybroCharts[0].voronoiChart.margin.top - 50;
+        let mainSourceOfTarget = this.findMainSource(leaf);
+        let x = leaf.polygon.site.x + this.getParent().hybroCharts[0].voronoiChart.margin.left - mainSourceOfTarget.data.radius;
+        let y = leaf.polygon.site.y + this.getParent().hybroCharts[0].voronoiChart.margin.top  - mainSourceOfTarget.data.radius ;
         return {"x":x,"y":y};
     }
     addLink(mainSource: any, sourceMargin: any, mainTarget: any, targetMargin: any) {

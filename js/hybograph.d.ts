@@ -72,9 +72,9 @@ declare class ForceChart extends Chart {
     findMainSource(leaf: any): any;
     findMainTarget(target: any): any;
     followToFindleaf(hierarchy: any, target: string): any;
-    findSourceMargin(leaf: any): {
-        "x": number;
-        "y": number;
+    findSourceMargin(leaf: any, mainSource: any): {
+        "x": any;
+        "y": any;
     };
     findTargetMargin(leaf: any): {
         "x": number;
