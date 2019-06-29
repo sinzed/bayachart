@@ -1,40 +1,44 @@
 {
   "name" : "bayachart",
+  "smellColors" : {
+    "from":"yellow",
+    "to": "red"
+  },
   "children" : [
     {
       "name": "hybrograph",
-      "imports": [],
+      "ilinks": [],
       "children": [
         {
           "name": "Asia",
-          "imports": [],
+          "ilinks": [],
           
           "text" :" Asia = new Asia();",
           "children": [
-          {"name": "China", "weight": 14.84, "code": "CN", "external-links": [],"targets" : ["controllers.Asia"],"text" :" China = new China();"},
-          {"name": "Japan", "weight": 5.91, "code": "JP"},
-          {"name": "India", "weight": 2.83, "code": "IN"},
-          {"name": "South Korea", "weight": 1.86, "code": "KR"},
-          {"name": "Russia", "weight": 1.8, "code": "RU"},
-          {"name": "Indonesia", "weight": 1.16, "code": "ID"},
-          {"name": "Turkey", "weight": 0.97, "code": "TR"},
-          {"name": "Saudi Arabia", "weight": 0.87, "code": "SA"},
-          {"name": "Iran", "weight": 0.57, "code": "IR", "imports": []},
-          {"name": "Thaïland", "weight": 0.53, "code": "TH"},
-          {"name": "United Arab Emirates", "weight": 0.5, "code": "AE"},
-          {"name": "Hong Kong", "weight": 0.42, "code": "HK"},
-          {"name": "Israel", "weight": 0.4, "code": "IL"},
-          {"name": "Malasya", "weight": 0.4, "code": "MY"},
-          {"name": "Singapore", "weight": 0.39, "code": "SG"},
-          {"name": "Philippines", "weight": 0.39, "code": "PH"}
+          {"name": "China", "size": 14.84, "weight":0.6, "code": "CN", "elinks" : ["controllers/Asia"],"text" :" China = new China();"},
+          {"name": "Japan", "size": 5.91, "weight":0.3, "code": "JP"},
+          {"name": "India", "size": 2.83, "weight":0.3, "code": "IN"},
+          {"name": "South Korea", "size": 1.86, "weight":0.3, "code": "KR"},
+          {"name": "Russia", "size": 1.8, "weight":0.3, "code": "RU"},
+          {"name": "Indonesia", "size": 1.16, "weight":0.3, "code": "ID"},
+          {"name": "Turkey", "size": 0.97, "weight":0.3, "code": "TR"},
+          {"name": "Saudi Arabia", "size": 0.87, "weight":0.3, "code": "SA"},
+          {"name": "Iran", "size": 0.57, "weight":0.3, "code": "IR", "ilinks": []},
+          {"name": "Thaïland", "size": 0.53, "weight":0.3, "code": "TH"},
+          {"name": "United Arab Emirates", "size": 0.5, "weight":0.3, "code": "AE"},
+          {"name": "Hong Kong", "size": 0.42, "weight":0.3, "code": "HK"},
+          {"name": "Israel", "size": 0.4, "weight":0.3, "code": "IL"},
+          {"name": "Malasya", "size": 0.4, "weight":0.3, "code": "MY"},
+          {"name": "Singapore", "size": 0.39, "weight":0.3, "code": "SG"},
+          {"name": "Philippines", "size": 0.39, "weight":0.3, "code": "PH"}
         ]
       },
       {
         "name": "North America",
-        "imports": ["Asia"],
+        "ilinks": ["Asia"],
         
         "children": [
-          {"name": "United States", "weight": 24.32,
+          {"name": "United States", "size": 24.32,
             "text" : "abcdefghijklmopqrstuvwxyz",
             "code": "US", "cs": 
             [
@@ -45,103 +49,103 @@
               {"type": "DataClass",  "position" : {"boffset": 19, "eoffset": 20}}
             ]
           },
-          {"name": "Canada", "weight": 2.09, "code": "CA", "imports":["Germany"]},
-          {"name": "Mexico", "weight": 1.54, "code": "MX"}
+          {"name": "Canada", "size": 2.09, "code": "CA", "ilinks":["Germany"]},
+          {"name": "Germany", "size": 1.54, "code": "MX"}
         ]
       },
       {
         "name": "Europe",
-        "imports": [],
+        "ilinks": [],
         
         "children": [
-          {"name": "Germany", "weight": 4.54, "code": "DE"},
-          {"name": "United Kingdom", "weight": 3.85, "code": "UK"},
-          {"name": "France", "weight": 3.26, "code": "FR"},
-          {"name": "Italy", "weight": 2.46, "code": "IT"},
-          {"name": "Spain", "weight": 1.62, "code": "ES"},
-          {"name": "Netherlands", "weight": 1.01, "code": "NL"},
-          {"name": "Switzerland", "weight": 0.9, "code": "CH"},
-          {"name": "Sweden", "weight": 0.67, "code": "SE",  "imports": ["Italy"]},
-          {"name": "Poland", "weight": 0.64, "code": "PL"},
-          {"name": "Belgium", "weight": 0.61, "code": "BE"},
-          {"name": "Norway", "weight": 0.52, "code": "NO"},
-          {"name": "Austria", "weight": 0.51, "code": "AT"},
-          {"name": "Denmark", "weight": 0.4, "code": "DK"},
-          {"name": "Ireland", "weight": 0.38, "code": "IE"}
+          {"name": "Germany", "size": 4.54, "code": "DE"},
+          {"name": "United Kingdom", "size": 3.85, "code": "UK"},
+          {"name": "France", "size": 3.26, "code": "FR"},
+          {"name": "Italy", "size": 2.46, "code": "IT"},
+          {"name": "Spain", "size": 1.62, "code": "ES"},
+          {"name": "Netherlands", "size": 1.01, "code": "NL"},
+          {"name": "Switzerland", "size": 0.9, "code": "CH"},
+          {"name": "Sweden", "size": 0.67, "code": "SE",  "ilinks": ["Italy"]},
+          {"name": "Poland", "size": 0.64, "code": "PL"},
+          {"name": "Belgium", "size": 0.61, "code": "BE"},
+          {"name": "Norway", "size": 0.52, "code": "NO"},
+          {"name": "Austria", "size": 0.51, "code": "AT"},
+          {"name": "Denmark", "size": 0.4, "code": "DK"},
+          {"name": "Ireland", "size": 0.38, "code": "IE"}
         ]
       },
       {
         "name": "South America",
-        "imports": [],
+        "ilinks": [],
         
         "children": [
-          {"name": "Brazil", "weight": 2.39, "code": "BR", "imports":["France"], "text" :" var a = 0,"},
-          {"name": "Argentina", "weight": 0.79, "code": "AR"},
-          {"name": "Venezuela", "weight": 0.5, "code": "VE"},
-          {"name": "Colombia", "weight": 0.39, "code": "CO"}
+          {"name": "Brazil", "size": 2.39, "code": "BR", "ilinks":["France"], "text" :" var a = 0,"},
+          {"name": "Argentina", "size": 0.79, "code": "AR"},
+          {"name": "Venezuela", "size": 0.5, "code": "VE"},
+          {"name": "Colombia", "size": 0.39, "code": "CO"}
         ]
       },
       {
         "name": "Australia",
-        "imports": ["Netherlands","South Africa"],
+        "ilinks": ["Netherlands","South Africa"],
         
         "children": [
-          {"name": "Australia", "weight": 1.81, "code": "AU", "imports":[]}
+          {"name": "Australia", "size": 1.81, "code": "AU", "ilinks":[]}
         ]
       },
       {
         "name": "Africa",
-        "imports": [],
+        "ilinks": [],
         
         "children": [
-          {"name": "Nigeria", "weight": 0.65, "code": "NG"},
-          {"name": "Egypt", "weight": 0.45, "code": "EG"},
-          {"name": "South Africa", "weight": 0.42, "code": "ZA","targets" : ["controllers.North America.United States"]}
+          {"name": "Nigeria", "size": 0.65, "code": "NG"},
+          {"name": "Egypt", "size": 0.45, "code": "EG"},
+          {"name": "South Africa", "size": 0.42, "code": "ZA","elinks" : ["controllers/North America/United States"]}
         ]
       },
       {
         "name": "Rest of the World",
-        "imports": [],
+        "ilinks": [],
         
         "children": [
-          {"name": "Rest of the World", "weight": 9.41, "code": "RotW"}
+          {"name": "Rest of the World", "size": 9.41, "code": "RotW"}
         ]
       }
     ]
 },
   {
     "name": "controllers",
-    "imports": [],
+    "ilinks": [],
     "children": [
       {
         "name": "Asia",
-        "imports": [],
+        "ilinks": [],
         
         "children": [
-          {"name": "China", "code": "CN", "imports": [], "source": "China", "target": "United States", "color": "#f58381", "type":"A"
+          {"name": "China", "code": "CN", "ilinks": [], "source": "China", "target": "United States", "color": "#f58381", "type":"A"
             ,
             "children": [
-              {"name": "part1china", "weight": 2, "code": "CN", "imports": [], "color": "#f58381",  "type":"A"},
-              {"name": "part2china", "weight": 2, "code": "CN", "imports": [], "color": "#f58381", "type":"A"}
+              {"name": "part1china", "size": 2, "code": "CN", "ilinks": [], "color": "#f58381",  "type":"A"},
+              {"name": "part2china", "size": 2, "code": "CN", "ilinks": [], "color": "#f58381", "type":"A"}
             ]
           },
-          {"name": "Iran", "code": "Ir", "weight": 4, "imports": [], "color": "#f58361", "type":"A"
+          {"name": "Iran", "code": "Ir", "size": 4, "ilinks": [], "color": "#f58361", "type":"A"
             ,
             "children": [
-              {"name": "part1Iran", "weight": 2, "code": "IR", "imports": [],  "color": "#f58381", "type":"A"},
-              {"name": "part2", "weight": 2, "code": "IR", "imports": [],  "color": "#f58381", "type":"A"  
+              {"name": "part1Iran", "size": 2, "code": "IR", "ilinks": [],  "color": "#f58381", "type":"A"},
+              {"name": "part2", "size": 2, "code": "IR", "ilinks": [],  "color": "#f58381", "type":"A"  
                 ,"children": [
-                  {"name": "Ap2part2Iran", "weight": 2, "code": "IR", "imports": [], "color": "#f58381",  "type":"A"},
-                    {"name": "Ap2part2Iran", "weight": 2, "code": "IR", "imports": [], "color": "#f58381",  "type":"A" ,"children": [
-                      {"name": "Ap2part2IranA", "weight": 2, "code": "IR", "imports": [], "color": "#f58381",  "type":"A","children": [
-                        {"name": "Ap2part2IranA1", "weight": 0.5, "code": "IR", "imports": [], "color": "#f58381",  "type":"A"},
-                        {"name": "Ap2part2IranA1", "weight": 0.5, "code": "IR", "imports": [], "color": "#f58381",  "type":"A"},
-                        {"name": "Ap2part2IranA1", "weight": 0.5, "code": "IR", "imports": [], "color": "#f58381",  "type":"A"},
-                        {"name": "Bp2Part2iranB1", "weight": 0.5, "code": "IR", "imports": [], "color": "#f58381", "type":"A"}
+                  {"name": "Ap2part2Iran", "size": 2, "code": "IR", "ilinks": [], "color": "#f58381",  "type":"A"},
+                    {"name": "Ap2part2Iran", "size": 2, "code": "IR", "ilinks": [], "color": "#f58381",  "type":"A" ,"children": [
+                      {"name": "Ap2part2IranA", "size": 2, "code": "IR", "ilinks": [], "color": "#f58381",  "type":"A","children": [
+                        {"name": "Ap2part2IranA1", "size": 0.5, "code": "IR", "ilinks": [], "color": "#f58381",  "type":"A"},
+                        {"name": "Ap2part2IranA1", "size": 0.5, "code": "IR", "ilinks": [], "color": "#f58381",  "type":"A"},
+                        {"name": "Ap2part2IranA1", "size": 0.5, "code": "IR", "ilinks": [], "color": "#f58381",  "type":"A"},
+                        {"name": "Bp2Part2iranB1", "size": 0.5, "code": "IR", "ilinks": [], "color": "#f58381", "type":"A"}
                         ]},
-                        {"name": "Bp2Part2iranB", "weight": 2, "code": "IR", "imports": [], "color": "#f58381", "type":"A"}
+                        {"name": "Bp2Part2iranB", "size": 2, "code": "IR", "ilinks": [], "color": "#f58381", "type":"A"}
                     ]},
-                    {"name": "Bp2Part3iran", "weight": 2, "code": "IR", "imports": [], "color": "#f58381", "type":"A"}
+                    {"name": "Bp2Part3iran", "size": 2, "code": "IR", "ilinks": [], "color": "#f58381", "type":"A"}
                   ]
               }       
             ]
@@ -151,10 +155,10 @@
       },
       {
         "name": "North America",
-        "imports": ["Asia"]
+        "ilinks": ["Asia"]
         ,
         "children": [
-          {"name": "United States", "weight": 10, "code": "US", 
+          {"name": "United States", "size": 10, "code": "US", 
             "cs": 
             [
               {"type": "GodClass",  "position" : {"boffset" :160, "eoffset" : 280}},
@@ -171,23 +175,23 @@
   },
   {
     "name": "providers",
-    "imports": [],
+    "ilinks": [],
     "children": [
       {
         "name": "Asia",
-        "imports": [],
-        "targets": ["controllers.Asia"],
+        "ilinks": [],
+        "elinks": ["controllers/Asia"],
         
         "children": [
-          {"name": "China", "weight": 14.84, "code": "CN", "imports": [], "type":"A"}
+          {"name": "China", "size": 14.84, "code": "CN", "ilinks": [], "type":"A"}
         ]
       },
       {
         "name": "North America",
-        "imports": ["Asia"],
+        "ilinks": ["Asia"],
         
         "children": [
-          {"name": "United States", "weight": 24.32, "code": "US",  "cs": 
+          {"name": "United States", "size": 24.32, "code": "US",  "cs": 
             [
               {"type": "GodClass",  "position" : {"boffset" :160, "eoffset" : 280}},
               {"type": "GodClass",  "position" : {"boffset" :160, "eoffset" : 280}},
@@ -201,15 +205,15 @@
       },
       {
         "name": "Europe",
-        "imports": [],
+        "ilinks": [],
         
         "children": [
-          {"name": "United Kingdom", "weight": 3.85, "code": "UK"},
-          {"name": "France", "weight": 3.26, "code": "FR"},
-          {"name": "Italy", "weight": 2.46, "code": "IT"},
-          {"name": "Spain", "weight": 1.62, "code": "ES"},
-          {"name": "Netherlands", "weight": 1.01, "code": "NL"},
-          {"name": "Switzerland", "weight": 0.9, "code": "CH",
+          {"name": "United Kingdom", "size": 3.85, "code": "UK"},
+          {"name": "France", "size": 3.26, "code": "FR"},
+          {"name": "Italy", "size": 2.46, "code": "IT"},
+          {"name": "Spain", "size": 1.62, "code": "ES"},
+          {"name": "Netherlands", "size": 1.01, "code": "NL"},
+          {"name": "Switzerland", "size": 0.9, "code": "CH",
             "cs": 
             [
               {"type": "GodClass",  "position" : {"boffset" :160, "eoffset" : 280}},
@@ -220,13 +224,13 @@
             ]
           
           },
-          {"name": "Sweden", "weight": 0.67, "code": "SE",  "imports": ["Italy"]},
-          {"name": "Poland", "weight": 0.64, "code": "PL"},
-          {"name": "Belgium", "weight": 0.61, "code": "BE"},
-          {"name": "Norway", "weight": 0.52, "code": "NO"},
-          {"name": "Austria", "weight": 0.51, "code": "AT"},
-          {"name": "Denmark", "weight": 0.4, "code": "DK"},
-          {"name": "Ireland", "weight": 0.38, "code": "IE"}
+          {"name": "Sweden", "size": 0.67, "code": "SE",  "ilinks": ["Italy"]},
+          {"name": "Poland", "size": 0.64, "code": "PL"},
+          {"name": "Belgium", "size": 0.61, "code": "BE"},
+          {"name": "Norway", "size": 0.52, "code": "NO"},
+          {"name": "Austria", "size": 0.51, "code": "AT"},
+          {"name": "Denmark", "size": 0.4, "code": "DK"},
+          {"name": "Ireland", "size": 0.38, "code": "IE"}
         ]
       }
     ]

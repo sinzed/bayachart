@@ -209,19 +209,19 @@ class ForceChart extends Chart {
             if(hybroChart.bundleChart == undefined || hybroChart.bundleChart.leaves == undefined )
                 continue;
             for(let leaf of hybroChart.bundleChart.leaves){
-                if(leaf && leaf.data.dependencies && !leaf.data.targets){
-                    leaf.data.targets = leaf.data.dependencies;
+                if(leaf && leaf.data.dependencies && !leaf.data.elinks){
+                    leaf.data.elinks = leaf.data.dependencies;
                 }
-                if(leaf.data.targets && leaf.data.targets.length > 0){
+                if(leaf.data.elinks && leaf.data.elinks.length > 0){
                     let link = {};
-                    for(let target of leaf.data.targets){
+                    for(let target of leaf.data.elinks){
                         let mainSource = this.findMainSource(leaf);
                         let sourceMargin = this.findSourceMargin(leaf);
                         let mainTarget = this.findMainTarget(target);
                         if(!mainTarget)
                             continue;
                         let targetMargin = this.findTargetMargin(mainTarget);
-                        let mainTargetName = {"name": target.split(".")[0]};
+                        let mainTargetName = {"name": target.split("/")[0]};
                         this.addLink(mainSource,sourceMargin,mainTargetName,targetMargin);
                     }
                 }
@@ -241,13 +241,13 @@ class ForceChart extends Chart {
         for(let hybridChart of this.getParent().hybroCharts){
             if(hybridChart.voronoiChart.hierarchy == undefined)
                 continue;
-            if(hybridChart.voronoiChart.hierarchy.data.name == target.split(">")[0] )
+            if(hybridChart.voronoiChart.hierarchy.data.name == target.split("/")[0] )
                 return this.followToFindleaf(hybridChart.voronoiChart.hierarchy, target)
         }
     }
     followToFindleaf(hierarchy : any, target: string) :any {
-        let part1 = target.split(">")[0];
-        let part2 = target.split(">")[1];
+        let part1 = target.split("/")[0];
+        let part2 = target.split("/")[1];
         if(part2 == undefined)
             return hierarchy;
 
@@ -263,15 +263,15 @@ class ForceChart extends Chart {
     findSourceMargin(leaf : any){
         if(leaf.polygon.site == undefined)
             return {"x":0,"y":0};
-        let x = leaf.polygon.site.x + this.getParent().hybroCharts[0].voronoiChart.margin.left - 200;
-        let y = leaf.polygon.site.y + this.getParent().hybroCharts[0].voronoiChart.margin.top - 200 ;
+        let x = leaf.polygon.site.x + this.getParent().hybroCharts[0].voronoiChart.margin.left - 100;
+        let y = leaf.polygon.site.y + this.getParent().hybroCharts[0].voronoiChart.margin.top - 100 ;
         return {"x":x,"y":y};
     }
     findTargetMargin(leaf : any){
         if(leaf.polygon == undefined)
             return {"x":0,"y":0};
-        let x = leaf.polygon.site.x + this.getParent().hybroCharts[0].voronoiChart.margin.left - 200;
-        let y = leaf.polygon.site.y + this.getParent().hybroCharts[0].voronoiChart.margin.top - 200;
+        let x = leaf.polygon.site.x + this.getParent().hybroCharts[0].voronoiChart.margin.left - 50;
+        let y = leaf.polygon.site.y + this.getParent().hybroCharts[0].voronoiChart.margin.top - 50;
         return {"x":x,"y":y};
     }
     addLink(mainSource: any, sourceMargin: any, mainTarget: any, targetMargin: any) {

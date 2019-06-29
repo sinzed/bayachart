@@ -68,20 +68,20 @@ class Voronoi extends Chart {
     }
     initData(rootData:any) {
         // this.leaves=this.hierarchy.leaves();
-        this.hierarchy = d3.hierarchy(rootData).sum(function(d){ return d.weight; });
+        this.hierarchy = d3.hierarchy(rootData).sum(function(d){ return d.size; });
         this.calculateTreemapRadius();
         this.circlingPolygon = this.computeCirclingPolygon(this.treemapRadius);
         this.fontScale.domain([3, 20]).range([8, 20]).clamp(true);
         this.initLayout(rootData);
     }
     calculateTreemapRadius() {
-        let sumWeight = 0;
+        let sumsize = 0;
         const length = this.hierarchy.leaves().length;
         for( let leaf of this.hierarchy.leaves()){
             if(leaf.value)
-            sumWeight+= leaf.value;
+            sumsize+= leaf.value;
         }
-        this.treemapRadius = Math.sqrt(sumWeight*100);
+        this.treemapRadius = Math.sqrt(sumsize*100);
         
         // this.treemapRadius = 600;
     }
@@ -132,7 +132,7 @@ handleWorker(){
     let self = this;
     // return new Promise((resolve,reject)=>{
 
-        this.hierarchy = d3.hierarchy(this.rootData).sum(function(d){ return d.weight; });
+        this.hierarchy = d3.hierarchy(this.rootData).sum(function(d){ return d.size; });
         let myWorker = new Worker('worker/worker.js');
         myWorker.postMessage([this.circlingPolygon,this.hierarchy]);
         myWorker.onmessage = function(e) {
@@ -286,14 +286,14 @@ rebuildHierarchy(data, hierarchy){
                 }
             })
             .style("font-size", function(d : any){
-                // return self.fontScale(d.data.weight); 
+                // return self.fontScale(d.data.size); 
                 // return "50px"; 
                 return self.fontScale(self.treemapRadius); 
             });
             
             labels.append("text")
             .style("font-size", function(d : any){
-                // return self.fontScale(d.data.weight); 
+                // return self.fontScale(d.data.size); 
                 // d.polygon. 
                 let width ;
                 if(d.polygon.site && d.polygon.site.width)
@@ -307,12 +307,12 @@ rebuildHierarchy(data, hierarchy){
            
 
             .classed("name", true)
-            .html(function(d: { data: { weight: number; code: any; name: any; }; }){
-                return (d.data.weight<1)? d.data.code : d.data.name.slice(0, 1);
+            .html(function(d: { data: { size: number; code: any; name: any; }; }){
+                return (d.data.size<1)? d.data.code : d.data.name.slice(0, 1);
             });
             labels.append("text")
             .style("font-size", function(d : any){
-                // return self.fontScale(d.data.weight); 
+                // return self.fontScale(d.data.size); 
                 // d.polygon. 
                 let width ;
                 if(d.polygon.site && d.polygon.site.width){
@@ -325,8 +325,8 @@ rebuildHierarchy(data, hierarchy){
                 // return self.fontScale(self.treemapRadius); 
             })
             .classed("value", true)
-            .text(function(d: { data: { weight: string; }; }){ return d.data.weight; });
-            // .text(function(d: { data: { weight: string; }; }){ return d.data.weight+"%"; });
+            .text(function(d: { data: { size: string; }; }){ return d.data.size; });
+            // .text(function(d: { data: { size: string; }; }){ return d.data.size+"%"; });
         }
             this.drawParents();
         if(this.canShowHoverer()){
@@ -443,6 +443,7 @@ rebuildHierarchy(data, hierarchy){
         return max-depth+"px";
     }
     buildColors(rootData : any,parentColor?:Color){
+        // return true;
         let colors : Array<Color> =[];
         // colors.push("hsla(120,100%,0%,1)");
         // for(let i = 0;i<rootData.children.length;i++){

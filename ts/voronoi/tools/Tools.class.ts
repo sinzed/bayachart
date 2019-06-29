@@ -101,8 +101,8 @@ packageImports(nodes: any) {
 
 // For each import, construct a link from the source to target node.
     nodes.forEach(function(d: any) {
-    if (d.data.imports) 
-    d.data.imports.forEach(function(i: any) {
+    if (d.data.ilinks) 
+    d.data.ilinks.forEach(function(i: any) {
         imports.push(map[d.data.name].path(map[i]));
     });
     });
