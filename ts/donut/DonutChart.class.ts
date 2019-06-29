@@ -328,7 +328,10 @@ class DonutChart extends Chart {
                         .style('font-size', '.9em')
                         .style('text-anchor', 'middle'); // centres text in tooltip
 
-                    svg.append('circle')
+                    
+                    // svg.append('circle')
+                    // self.getParent().voronoiChart.treemapContainer
+                    self.getParent().voronoiChart.drawingArea.append('circle')
                         .attr('class', 'toolCircle')
                         .attr('r', radius * 0.55) // radius of tooltip circle
                         .style('fill', self.setColour(data.data.name)) // colour based on category mouse is over
@@ -339,7 +342,7 @@ class DonutChart extends Chart {
 
                 // remove the tooltip when mouse leaves the slice/label
                 selection.on('mouseout', function () {
-                    d3.selectAll('.toolCircle').remove();
+                    // d3.selectAll('.toolCircle').remove();
                 });
             }
 
