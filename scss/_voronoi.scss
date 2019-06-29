@@ -1,6 +1,6 @@
 .hoverer {
     fill: transparent;
-    stroke: white;
+    stroke: whitesmoke;
     stroke-width:0px;
   }
   
@@ -19,4 +19,9 @@
   .cells path {
     stroke: black;
     stroke-width:1px;
+  }
+  .labels {
+    .label {
+      color:  black;
+    }
   }

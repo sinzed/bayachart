@@ -280,6 +280,8 @@ declare class DonutChart extends Chart {
     toggle(): false | undefined;
     buildDataOld(leaves: Array<any>): any;
     buildData(leaves: Array<any>): any;
+    toolTipOld(selection: any): void;
+    toolTip(selection: any, data: any): void;
     draw(leaves: any): void;
     chart(selection: any): void;
 }

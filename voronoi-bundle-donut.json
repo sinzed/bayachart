@@ -1,7 +1,7 @@
 {
   "name" : "bayachart",
   "smellColors" : {
-    "from":"lightgray",
+    "from":"#dddddd",
     "to": "red"
   },
   "children" : [
@@ -180,7 +180,7 @@
       {
         "name": "Asia",
         "ilinks": [],
-        "elinks": ["controllers/Asia"],
+        "elinks": ["controllers/Asia/China"],
         
         "children": [
           {"name": "China", "size": 14.84, "code": "CN", "ilinks": [], "type":"A"}

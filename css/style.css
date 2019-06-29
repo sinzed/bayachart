@@ -28,7 +28,6 @@ text.light {
 
 .label {
   text-anchor: middle;
-  fill: white;
 }
 
 .dialog code {
@@ -242,7 +241,7 @@ line.link {
 
 .hoverer {
   fill: transparent;
-  stroke: white;
+  stroke: whitesmoke;
   stroke-width: 0px;
 }
 
@@ -263,6 +262,10 @@ line.link {
 .cells path {
   stroke: black;
   stroke-width: 1px;
+}
+
+.labels .label {
+  color: black;
 }
 
 .highlight {

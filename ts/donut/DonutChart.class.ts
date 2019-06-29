@@ -179,6 +179,62 @@ class DonutChart extends Chart {
         });
         return this.slices;
     }
+    // function that creates and adds the tool tip to a selected element
+   toolTipOld(selection:any) {
+        // add tooltip (svg circle element) when mouse enters label or slice
+        let self = this;
+        selection.on('mouseenter', function (data:any) {
+            console.log("entered here",selection);
+            selection.append('text')
+            .attr('class', 'toolCircle')
+            .attr('dy', -15) // hard-coded. can adjust this to adjust text vertical alignment in tooltip
+            // .html(toolTipHTML(data.data.name)) // add text to the circle.
+            .html(data.data.name) // add text to the circle.
+            .style('font-size', '.9em')
+            .style('text-anchor', 'middle'); // centres text in tooltip
+
+            
+            // svg.append('circle')
+            // self.getParent().voronoiChart.treemapContainer
+            selection.append('circle')
+                .attr('class', 'toolCircle')
+                .attr('r', self.getParent().voronoiChart.treemapRadius * 0.7) // radius of tooltip circle
+                .style('fill', self.setColour(data.data.name)) // colour based on category mouse is over
+                // .style('fill', colour(data.data[category])) // colour based on category mouse is over
+                .style('fill-opacity', 0.35);
+
+        });
+
+        // remove the tooltip when mouse leaves the slice/label
+        selection.on('mouseout', function () {
+            // d3.selectAll('.toolCircle').remove();
+        });
+    }
+    toolTip(selection:any,data:any) {
+        // add tooltip (svg circle element) when mouse enters label or slice
+        let self = this;
+        selection.append('text')
+        .attr('class', 'toolCircle')
+        .attr('dy', -15) // hard-coded. can adjust this to adjust text vertical alignment in tooltip
+        // .html(toolTipHTML(data.data.name)) // add text to the circle.
+        .html(data.data.name) // add text to the circle.
+        .style('font-size', '.9em')
+        .style('text-anchor', 'middle'); // centres text in tooltip
+
+        
+        // svg.append('circle')
+        // self.getParent().voronoiChart.treemapContainer
+        selection.append('circle')
+            .attr('class', 'toolCircle')
+            .attr('r', self.getParent().voronoiChart.treemapRadius) // radius of tooltip circle
+            .style('fill', self.setColour(data.data.name)) // colour based on category mouse is over
+            // .style('fill', colour(data.data[category])) // colour based on category mouse is over
+            .style('fill-opacity', 0.35);
+    // remove the tooltip when mouse leaves the slice/label
+        selection.on('mouseout', function () {
+            d3.selectAll('.toolCircle').remove();
+        });
+    }
     draw(leaves:any){
             // d3.select('.drawingArea')
     // this.selection = d3.select('svg g').datum(leaves); // bind data to the div
@@ -197,11 +253,10 @@ class DonutChart extends Chart {
 
         selection.each(function(data:any) {
             // generate chart
-
             // ===========================================================================================
             // Set up constructors for making donut. See https://github.com/d3/d3-shape/blob/master/README.md
             // var radius = Math.min(self._width, self._height) / 2;
-            var radius = self.getParent().voronoiChart.treemapRadius*2;
+            let radius = self.getParent().voronoiChart.treemapRadius*2;
 
             // creates a new pie generator
             var pie = d3.pie()
@@ -227,7 +282,7 @@ class DonutChart extends Chart {
             // ===========================================================================================
             // append the svg object to the selection
             // self.element = selection.append('g').classed("donut",true);
-            var svg =  self.element
+            let svg =  self.element
                 .attr('width', self._width + self._margin.left + self._margin.right)
                 .attr('height', self._height + self._margin.top + self._margin.bottom)
               .append('g')
@@ -257,9 +312,7 @@ class DonutChart extends Chart {
                 })
                 .attr('d', arc);
             // ===========================================================================================
-
            if(self.canDrawPipeLables){
-
                // ===========================================================================================
                // add text labels
                var label = svg.select('.labelName').selectAll('text')
@@ -294,7 +347,6 @@ class DonutChart extends Chart {
             .data(pie)
             .enter().append('polyline')
             .attr('points', function(d:any) {
-                
                 // see label transform function for explanations of these three lines.
                 var pos = outerArc.centroid(d);
                 pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
@@ -305,7 +357,14 @@ class DonutChart extends Chart {
 
             // ===========================================================================================
             // add tooltip to mouse events on slices and labels
-            d3.selectAll('.labelName text, .slices path').call(toolTip);
+            // d3.selectAll('.labelName text, .slices path').call(toolTip);
+            // selection.selectAll('.labelName text, .slices path').call(self.toolTip);
+
+
+            selection.selectAll('.labelName text, .slices path').on('mouseenter', function (data:any) {
+                self.toolTip(selection,data);
+            }
+            
             // ===========================================================================================
 
             // ===========================================================================================
@@ -314,37 +373,7 @@ class DonutChart extends Chart {
             // calculates the angle for the middle of a slice
             function midAngle(d:any) { return d.startAngle + (d.endAngle - d.startAngle) / 2; }
 
-            // function that creates and adds the tool tip to a selected element
-            function toolTip(selection:any) {
 
-                // add tooltip (svg circle element) when mouse enters label or slice
-                selection.on('mouseenter', function (data:any) {
-
-                    svg.append('text')
-                        .attr('class', 'toolCircle')
-                        .attr('dy', -15) // hard-coded. can adjust this to adjust text vertical alignment in tooltip
-                        // .html(toolTipHTML(data.data.name)) // add text to the circle.
-                        .html(data.data.name) // add text to the circle.
-                        .style('font-size', '.9em')
-                        .style('text-anchor', 'middle'); // centres text in tooltip
-
-                    
-                    // svg.append('circle')
-                    // self.getParent().voronoiChart.treemapContainer
-                    self.getParent().voronoiChart.drawingArea.append('circle')
-                        .attr('class', 'toolCircle')
-                        .attr('r', radius * 0.55) // radius of tooltip circle
-                        .style('fill', self.setColour(data.data.name)) // colour based on category mouse is over
-                        // .style('fill', colour(data.data[category])) // colour based on category mouse is over
-                        .style('fill-opacity', 0.35);
-
-                });
-
-                // remove the tooltip when mouse leaves the slice/label
-                selection.on('mouseout', function () {
-                    // d3.selectAll('.toolCircle').remove();
-                });
-            }
 
             // function to create the HTML string for the tool tip. Loops through each key in data object
             // and returns the html string key: value
