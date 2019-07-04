@@ -1,0 +1,215 @@
+{
+    "definitions": {},
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://example.com/root.json",
+    "type": "object",
+    "title": "The Root Schema",
+    "required": [
+      "name",
+      "smellColors",
+      "children"
+   ],
+   "properties": {
+     "name": {
+       "$id": "#/properties/name",
+       "type": "string",
+       "title": "The Name Schema",
+       "default": "",
+       "examples": [
+         "bayachart"
+       ],
+       "pattern": "^(.*)$"
+     },
+     "smellColors": {
+       "$id": "#/properties/smellColors",
+       "type": "object",
+       "title": "The Smellcolors Schema",
+       "required": [
+         "from",
+         "to"
+       ],
+       "properties": {
+         "from": {
+           "$id": "#/properties/smellColors/properties/from",
+           "type": "string",
+           "title": "The From Schema",
+           "default": "",
+           "examples": [
+             "white"
+           ],
+           "pattern": "^(.*)$"
+         },
+         "to": {
+           "$id": "#/properties/smellColors/properties/to",
+           "type": "string",
+           "title": "The To Schema",
+           "default": "",
+           "examples": [
+             "red"
+           ],
+           "pattern": "^(.*)$"
+         }
+       }
+     },
+     "children": {
+       "$id": "#/properties/children",
+       "type": "array",
+       "title": "The Children Schema",
+       "items": {
+         "$id": "#/properties/children/items",
+         "type": "object",
+         "title": "The Items Schema",
+          "required": [
+           "name",
+           "ilinks",
+           "children"
+         ],
+         "properties": {
+           "name": {
+             "$id": "#/properties/children/items/properties/name",
+             "type": "string",
+             "title": "The Name Schema",
+             "default": "",
+             "examples": [
+               "hybrograph"
+             ],
+             "pattern": "^(.*)$"
+           },
+           "ilinks": {
+             "$id": "#/properties/children/items/properties/ilinks",
+             "type": "array",
+             "title": "The Ilinks Schema"
+           },
+           "children": {
+             "$id": "#/properties/children/items/properties/children",
+             "type": "array",
+             "title": "The Children Schema",
+             "items": {
+               "$id": "#/properties/children/items/properties/children/items",
+               "type": "object",
+               "title": "The Items Schema",
+               "required": [
+                 "name",
+                 "ilinks",
+                 "text",
+                 "children"
+               ],
+               "properties": {
+                 "name": {
+                 "$id": "#/properties/children/items/properties/children/items/properties/name",
+                 "type": "string",
+                 "title": "The Name Schema",
+                 "default": "",
+                 "examples": [
+                  "Asia"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "ilinks": {
+                  "$id": "#/properties/children/items/properties/children/items/properties/ilinks",
+                  "type": "array",
+                  "title": "The Ilinks Schema"
+                },
+                "text": {
+                  "$id": "#/properties/children/items/properties/children/items/properties/text",
+                  "type": "string",
+                  "title": "The Text Schema",
+                  "default": "",
+                  "examples": [
+                    " Asia = new Asia();"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "children": {
+                  "$id": "#/properties/children/items/properties/children/items/properties/children",
+                  "type": "array",
+                  "title": "The Children Schema",
+                  "items": {
+                    "$id": "#/properties/children/items/properties/children/items/properties/children/items",
+                    "type": "object",
+                    "title": "The Items Schema",
+                    "required": [
+                      "name",
+                      "size",
+                      "weight",
+                     "code",
+                      "elinks",
+                      "text"
+                    ],
+                    "properties": {
+                      "name": {
+                        "$id": "#/properties/children/items/properties/children/items/properties/children/items/properties/name",
+                        "type": "string",
+                        "title": "The Name Schema",
+                        "default": "",
+                        "examples": [
+                          "China"
+                        ],
+                        "pattern": "^(.*)$"
+                      },
+                      "size": {
+                        "$id": "#/properties/children/items/properties/children/items/properties/children/items/properties/size",
+                        "type": "number",
+                        "title": "The Size Schema",
+                        "default": 0.0,
+                        "examples": [
+                          14.84
+                        ]
+                      },
+                      "weight": {
+                        "$id": "#/properties/children/items/properties/children/items/properties/children/items/properties/weight",
+                        "type": "number",
+                        "title": "The Weight Schema",
+                        "default": 0.0,
+                        "examples": [
+                          0.6
+                        ]
+                      },
+                      "code": {
+                        "$id": "#/properties/children/items/properties/children/items/properties/children/items/properties/code",
+                        "type": "string",
+                        "title": "The Code Schema",
+                        "default": "",
+                        "examples": [
+                          "CN"
+                        ],
+                        "pattern": "^(.*)$"
+                      },
+                      "elinks": {
+                        "$id": "#/properties/children/items/properties/children/items/properties/children/items/properties/elinks",
+                        "type": "array",
+                        "title": "The Elinks Schema",
+                        "items": {
+                          "$id": "#/properties/children/items/properties/children/items/properties/children/items/properties/elinks/items",
+                          "type": "string",
+                          "title": "The Items Schema",
+                          "default": "",
+                          "examples": [
+                            "controllers/Asia"
+                          ],
+                          "pattern": "^(.*)$"
+                        }
+                      },
+                      "text": {
+                        "$id": "#/properties/children/items/properties/children/items/properties/children/items/properties/text",
+                        "type": "string",
+                        "title": "The Text Schema",
+                        "default": "",
+                        "examples": [
+                          " China = new China();"
+                        ],
+                        "pattern": "^(.*)$"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+

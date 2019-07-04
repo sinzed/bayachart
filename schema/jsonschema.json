@@ -1,0 +1,2598 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "smellColors": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "from",
+          "to"
+        ]
+      },
+      "children": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "ilinks": {
+                "type": "array",
+                "items": {}
+              },
+              "children": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "ilinks": {
+                        "type": "array",
+                        "items": {}
+                      },
+                      "text": {
+                        "type": "string"
+                      },
+                      "children": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "weight": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "elinks": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "string"
+                                  }
+                                ]
+                              },
+                              "text": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "weight",
+                              "elinks",
+                              "text"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "weight": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "weight"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "weight": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "weight"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "weight": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "weight",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "weight": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "weight",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "weight": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "weight",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "weight": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "weight",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "weight": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "weight",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "weight": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "ilinks": {
+                                "type": "array",
+                                "items": {}
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "weight",
+                              "code",
+                              "ilinks"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "weight": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "weight",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "weight": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "weight",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "weight": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "weight",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "weight": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "weight",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "weight": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "weight",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "weight": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "weight",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "weight": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "weight",
+                              "code"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "ilinks",
+                      "text",
+                      "children"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "ilinks": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "children": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "text": {
+                                "type": "string"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "cs": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "position": {
+                                        "type": "object",
+                                        "properties": {
+                                          "boffset": {
+                                            "type": "integer"
+                                          },
+                                          "eoffset": {
+                                            "type": "integer"
+                                          }
+                                        },
+                                        "required": [
+                                          "boffset",
+                                          "eoffset"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "position"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "position": {
+                                        "type": "object",
+                                        "properties": {
+                                          "boffset": {
+                                            "type": "integer"
+                                          },
+                                          "eoffset": {
+                                            "type": "integer"
+                                          }
+                                        },
+                                        "required": [
+                                          "boffset",
+                                          "eoffset"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "position"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "position": {
+                                        "type": "object",
+                                        "properties": {
+                                          "boffset": {
+                                            "type": "integer"
+                                          },
+                                          "eoffset": {
+                                            "type": "integer"
+                                          }
+                                        },
+                                        "required": [
+                                          "boffset",
+                                          "eoffset"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "position"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "position": {
+                                        "type": "object",
+                                        "properties": {
+                                          "boffset": {
+                                            "type": "integer"
+                                          },
+                                          "eoffset": {
+                                            "type": "integer"
+                                          }
+                                        },
+                                        "required": [
+                                          "boffset",
+                                          "eoffset"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "position"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "position": {
+                                        "type": "object",
+                                        "properties": {
+                                          "boffset": {
+                                            "type": "integer"
+                                          },
+                                          "eoffset": {
+                                            "type": "integer"
+                                          }
+                                        },
+                                        "required": [
+                                          "boffset",
+                                          "eoffset"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "position"
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "text",
+                              "code",
+                              "cs"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "ilinks": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "string"
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code",
+                              "ilinks"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "ilinks",
+                      "children"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "ilinks": {
+                        "type": "array",
+                        "items": {}
+                      },
+                      "children": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "ilinks": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "string"
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code",
+                              "ilinks"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "ilinks",
+                      "children"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "ilinks": {
+                        "type": "array",
+                        "items": {}
+                      },
+                      "children": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "ilinks": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "string"
+                                  }
+                                ]
+                              },
+                              "text": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code",
+                              "ilinks",
+                              "text"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "ilinks",
+                      "children"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "ilinks": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "children": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "ilinks": {
+                                "type": "array",
+                                "items": {}
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code",
+                              "ilinks"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "ilinks",
+                      "children"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "ilinks": {
+                        "type": "array",
+                        "items": {}
+                      },
+                      "children": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "elinks": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "string"
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code",
+                              "elinks"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "ilinks",
+                      "children"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "ilinks": {
+                        "type": "array",
+                        "items": {}
+                      },
+                      "children": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "ilinks",
+                      "children"
+                    ]
+                  }
+                ]
+              }
+            },
+            "required": [
+              "name",
+              "ilinks",
+              "children"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "ilinks": {
+                "type": "array",
+                "items": {}
+              },
+              "children": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "ilinks": {
+                        "type": "array",
+                        "items": {}
+                      },
+                      "children": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "ilinks": {
+                                "type": "array",
+                                "items": {}
+                              },
+                              "source": {
+                                "type": "string"
+                              },
+                              "target": {
+                                "type": "string"
+                              },
+                              "children": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "size": {
+                                        "type": "integer"
+                                      },
+                                      "code": {
+                                        "type": "string"
+                                      },
+                                      "ilinks": {
+                                        "type": "array",
+                                        "items": {}
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "size",
+                                      "code",
+                                      "ilinks"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "size": {
+                                        "type": "integer"
+                                      },
+                                      "code": {
+                                        "type": "string"
+                                      },
+                                      "ilinks": {
+                                        "type": "array",
+                                        "items": {}
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "size",
+                                      "code",
+                                      "ilinks"
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "code",
+                              "ilinks",
+                              "source",
+                              "target",
+                              "children"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "integer"
+                              },
+                              "ilinks": {
+                                "type": "array",
+                                "items": {}
+                              },
+                              "children": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "size": {
+                                        "type": "integer"
+                                      },
+                                      "code": {
+                                        "type": "string"
+                                      },
+                                      "ilinks": {
+                                        "type": "array",
+                                        "items": {}
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "size",
+                                      "code",
+                                      "ilinks"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "size": {
+                                        "type": "integer"
+                                      },
+                                      "code": {
+                                        "type": "string"
+                                      },
+                                      "ilinks": {
+                                        "type": "array",
+                                        "items": {}
+                                      },
+                                      "children": {
+                                        "type": "array",
+                                        "items": [
+                                          {
+                                            "type": "object",
+                                            "properties": {
+                                              "name": {
+                                                "type": "string"
+                                              },
+                                              "size": {
+                                                "type": "integer"
+                                              },
+                                              "code": {
+                                                "type": "string"
+                                              },
+                                              "ilinks": {
+                                                "type": "array",
+                                                "items": {}
+                                              }
+                                            },
+                                            "required": [
+                                              "name",
+                                              "size",
+                                              "code",
+                                              "ilinks"
+                                            ]
+                                          },
+                                          {
+                                            "type": "object",
+                                            "properties": {
+                                              "name": {
+                                                "type": "string"
+                                              },
+                                              "size": {
+                                                "type": "integer"
+                                              },
+                                              "code": {
+                                                "type": "string"
+                                              },
+                                              "ilinks": {
+                                                "type": "array",
+                                                "items": {}
+                                              },
+                                              "children": {
+                                                "type": "array",
+                                                "items": [
+                                                  {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "name": {
+                                                        "type": "string"
+                                                      },
+                                                      "size": {
+                                                        "type": "integer"
+                                                      },
+                                                      "code": {
+                                                        "type": "string"
+                                                      },
+                                                      "ilinks": {
+                                                        "type": "array",
+                                                        "items": {}
+                                                      },
+                                                      "children": {
+                                                        "type": "array",
+                                                        "items": [
+                                                          {
+                                                            "type": "object",
+                                                            "properties": {
+                                                              "name": {
+                                                                "type": "string"
+                                                              },
+                                                              "size": {
+                                                                "type": "number"
+                                                              },
+                                                              "code": {
+                                                                "type": "string"
+                                                              },
+                                                              "ilinks": {
+                                                                "type": "array",
+                                                                "items": {}
+                                                              }
+                                                            },
+                                                            "required": [
+                                                              "name",
+                                                              "size",
+                                                              "code",
+                                                              "ilinks"
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "object",
+                                                            "properties": {
+                                                              "name": {
+                                                                "type": "string"
+                                                              },
+                                                              "size": {
+                                                                "type": "number"
+                                                              },
+                                                              "code": {
+                                                                "type": "string"
+                                                              },
+                                                              "ilinks": {
+                                                                "type": "array",
+                                                                "items": {}
+                                                              }
+                                                            },
+                                                            "required": [
+                                                              "name",
+                                                              "size",
+                                                              "code",
+                                                              "ilinks"
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "object",
+                                                            "properties": {
+                                                              "name": {
+                                                                "type": "string"
+                                                              },
+                                                              "size": {
+                                                                "type": "number"
+                                                              },
+                                                              "code": {
+                                                                "type": "string"
+                                                              },
+                                                              "ilinks": {
+                                                                "type": "array",
+                                                                "items": {}
+                                                              }
+                                                            },
+                                                            "required": [
+                                                              "name",
+                                                              "size",
+                                                              "code",
+                                                              "ilinks"
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "object",
+                                                            "properties": {
+                                                              "name": {
+                                                                "type": "string"
+                                                              },
+                                                              "size": {
+                                                                "type": "number"
+                                                              },
+                                                              "code": {
+                                                                "type": "string"
+                                                              },
+                                                              "ilinks": {
+                                                                "type": "array",
+                                                                "items": {}
+                                                              }
+                                                            },
+                                                            "required": [
+                                                              "name",
+                                                              "size",
+                                                              "code",
+                                                              "ilinks"
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    },
+                                                    "required": [
+                                                      "name",
+                                                      "size",
+                                                      "code",
+                                                      "ilinks",
+                                                      "children"
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "name": {
+                                                        "type": "string"
+                                                      },
+                                                      "size": {
+                                                        "type": "integer"
+                                                      },
+                                                      "code": {
+                                                        "type": "string"
+                                                      },
+                                                      "ilinks": {
+                                                        "type": "array",
+                                                        "items": {}
+                                                      }
+                                                    },
+                                                    "required": [
+                                                      "name",
+                                                      "size",
+                                                      "code",
+                                                      "ilinks"
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            "required": [
+                                              "name",
+                                              "size",
+                                              "code",
+                                              "ilinks",
+                                              "children"
+                                            ]
+                                          },
+                                          {
+                                            "type": "object",
+                                            "properties": {
+                                              "name": {
+                                                "type": "string"
+                                              },
+                                              "size": {
+                                                "type": "integer"
+                                              },
+                                              "code": {
+                                                "type": "string"
+                                              },
+                                              "ilinks": {
+                                                "type": "array",
+                                                "items": {}
+                                              }
+                                            },
+                                            "required": [
+                                              "name",
+                                              "size",
+                                              "code",
+                                              "ilinks"
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "size",
+                                      "code",
+                                      "ilinks",
+                                      "children"
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "code",
+                              "size",
+                              "ilinks",
+                              "children"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "ilinks",
+                      "children"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "ilinks": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "children": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "integer"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "cs": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "position": {
+                                        "type": "object",
+                                        "properties": {
+                                          "boffset": {
+                                            "type": "integer"
+                                          },
+                                          "eoffset": {
+                                            "type": "integer"
+                                          }
+                                        },
+                                        "required": [
+                                          "boffset",
+                                          "eoffset"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "position"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "position": {
+                                        "type": "object",
+                                        "properties": {
+                                          "boffset": {
+                                            "type": "integer"
+                                          },
+                                          "eoffset": {
+                                            "type": "integer"
+                                          }
+                                        },
+                                        "required": [
+                                          "boffset",
+                                          "eoffset"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "position"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "position": {
+                                        "type": "object",
+                                        "properties": {
+                                          "boffset": {
+                                            "type": "integer"
+                                          },
+                                          "eoffset": {
+                                            "type": "integer"
+                                          }
+                                        },
+                                        "required": [
+                                          "boffset",
+                                          "eoffset"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "position"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "position": {
+                                        "type": "object",
+                                        "properties": {
+                                          "boffset": {
+                                            "type": "integer"
+                                          },
+                                          "eoffset": {
+                                            "type": "integer"
+                                          }
+                                        },
+                                        "required": [
+                                          "boffset",
+                                          "eoffset"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "position"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "position": {
+                                        "type": "object",
+                                        "properties": {
+                                          "boffset": {
+                                            "type": "integer"
+                                          },
+                                          "eoffset": {
+                                            "type": "integer"
+                                          }
+                                        },
+                                        "required": [
+                                          "boffset",
+                                          "eoffset"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "position"
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code",
+                              "cs"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "ilinks",
+                      "children"
+                    ]
+                  }
+                ]
+              }
+            },
+            "required": [
+              "name",
+              "ilinks",
+              "children"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "ilinks": {
+                "type": "array",
+                "items": {}
+              },
+              "children": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "ilinks": {
+                        "type": "array",
+                        "items": {}
+                      },
+                      "elinks": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "children": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "ilinks": {
+                                "type": "array",
+                                "items": {}
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code",
+                              "ilinks"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "ilinks",
+                      "elinks",
+                      "children"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "ilinks": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "children": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "cs": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "position": {
+                                        "type": "object",
+                                        "properties": {
+                                          "boffset": {
+                                            "type": "integer"
+                                          },
+                                          "eoffset": {
+                                            "type": "integer"
+                                          }
+                                        },
+                                        "required": [
+                                          "boffset",
+                                          "eoffset"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "position"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "position": {
+                                        "type": "object",
+                                        "properties": {
+                                          "boffset": {
+                                            "type": "integer"
+                                          },
+                                          "eoffset": {
+                                            "type": "integer"
+                                          }
+                                        },
+                                        "required": [
+                                          "boffset",
+                                          "eoffset"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "position"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "position": {
+                                        "type": "object",
+                                        "properties": {
+                                          "boffset": {
+                                            "type": "integer"
+                                          },
+                                          "eoffset": {
+                                            "type": "integer"
+                                          }
+                                        },
+                                        "required": [
+                                          "boffset",
+                                          "eoffset"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "position"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "position": {
+                                        "type": "object",
+                                        "properties": {
+                                          "boffset": {
+                                            "type": "integer"
+                                          },
+                                          "eoffset": {
+                                            "type": "integer"
+                                          }
+                                        },
+                                        "required": [
+                                          "boffset",
+                                          "eoffset"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "position"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "position": {
+                                        "type": "object",
+                                        "properties": {
+                                          "boffset": {
+                                            "type": "integer"
+                                          },
+                                          "eoffset": {
+                                            "type": "integer"
+                                          }
+                                        },
+                                        "required": [
+                                          "boffset",
+                                          "eoffset"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "position"
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code",
+                              "cs"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "ilinks",
+                      "children"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "ilinks": {
+                        "type": "array",
+                        "items": {}
+                      },
+                      "children": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "cs": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "position": {
+                                        "type": "object",
+                                        "properties": {
+                                          "boffset": {
+                                            "type": "integer"
+                                          },
+                                          "eoffset": {
+                                            "type": "integer"
+                                          }
+                                        },
+                                        "required": [
+                                          "boffset",
+                                          "eoffset"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "position"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "position": {
+                                        "type": "object",
+                                        "properties": {
+                                          "boffset": {
+                                            "type": "integer"
+                                          },
+                                          "eoffset": {
+                                            "type": "integer"
+                                          }
+                                        },
+                                        "required": [
+                                          "boffset",
+                                          "eoffset"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "position"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "position": {
+                                        "type": "object",
+                                        "properties": {
+                                          "boffset": {
+                                            "type": "integer"
+                                          },
+                                          "eoffset": {
+                                            "type": "integer"
+                                          }
+                                        },
+                                        "required": [
+                                          "boffset",
+                                          "eoffset"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "position"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "position": {
+                                        "type": "object",
+                                        "properties": {
+                                          "boffset": {
+                                            "type": "integer"
+                                          },
+                                          "eoffset": {
+                                            "type": "integer"
+                                          }
+                                        },
+                                        "required": [
+                                          "boffset",
+                                          "eoffset"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "position"
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string"
+                                      },
+                                      "position": {
+                                        "type": "object",
+                                        "properties": {
+                                          "boffset": {
+                                            "type": "integer"
+                                          },
+                                          "eoffset": {
+                                            "type": "integer"
+                                          }
+                                        },
+                                        "required": [
+                                          "boffset",
+                                          "eoffset"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type",
+                                      "position"
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code",
+                              "cs"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              },
+                              "ilinks": {
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "type": "string"
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code",
+                              "ilinks"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "size": {
+                                "type": "number"
+                              },
+                              "code": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "size",
+                              "code"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "ilinks",
+                      "children"
+                    ]
+                  }
+                ]
+              }
+            },
+            "required": [
+              "name",
+              "ilinks",
+              "children"
+            ]
+          }
+        ]
+      }
+    },
+    "required": [
+      "name",
+      "smellColors",
+      "children"
+    ]
+  }

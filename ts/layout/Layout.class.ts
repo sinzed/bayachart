@@ -168,6 +168,9 @@ class Layout {
         this.layoutOption.canShowForceChart = !this.layoutOption.canShowForceChart;
         this.showForceChartBtn.classed("selected", this.layoutOption.canShowForceChart);
         let enable = this.layoutOption.canShowForceChart;
+        this.bayaChart.forceChart.simulation.force('collision', d3.forceCollide().radius(function(d) {
+            return d.radius;
+        }))
         // for(let hybroChart of this.bayaChart.forceChart)
         if(enable)
             this.bayaChart.forceChart.run();

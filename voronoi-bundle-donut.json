@@ -122,30 +122,30 @@
         "ilinks": [],
         
         "children": [
-          {"name": "China", "code": "CN", "ilinks": [], "source": "China", "target": "United States", "type":"A"
+          {"name": "China", "code": "CN", "ilinks": [], "source": "China", "target": "United States"
             ,
             "children": [
-              {"name": "part1china", "size": 2, "code": "CN", "ilinks": [],  "type":"A"},
-              {"name": "part2china", "size": 2, "code": "CN", "ilinks": [], "type":"A"}
+              {"name": "part1china", "size": 2, "code": "CN", "ilinks": []},
+              {"name": "part2china", "size": 2, "code": "CN", "ilinks": []}
             ]
           },
-          {"name": "Iran", "code": "Ir", "size": 4, "ilinks": [], "type":"A"
+          {"name": "Iran", "code": "Ir", "size": 4, "ilinks": []
             ,
             "children": [
-              {"name": "part1Iran", "size": 2, "code": "IR", "ilinks": [], "type":"A"},
-              {"name": "part2", "size": 2, "code": "IR", "ilinks": [], "type":"A"  
+              {"name": "part1Iran", "size": 2, "code": "IR", "ilinks": []},
+              {"name": "part2", "size": 2, "code": "IR", "ilinks": []  
                 ,"children": [
-                  {"name": "Ap2part2Iran", "size": 2, "code": "IR", "ilinks": [],  "type":"A"},
-                    {"name": "Ap2part2Iran", "size": 2, "code": "IR", "ilinks": [],  "type":"A" ,"children": [
+                  {"name": "Ap2part2Iran", "size": 2, "code": "IR", "ilinks": []},
+                    {"name": "Ap2part2Iran", "size": 2, "code": "IR", "ilinks": [] ,"children": [
                       {"name": "Ap2part2IranA", "size": 2, "code": "IR", "ilinks": [],"children": [
-                        {"name": "Ap2part2IranA1", "size": 0.5, "code": "IR", "ilinks": [],  "type":"A"},
-                        {"name": "Ap2part2IranA1", "size": 0.5, "code": "IR", "ilinks": [],  "type":"A"},
-                        {"name": "Ap2part2IranA1", "size": 0.5, "code": "IR", "ilinks": [],  "type":"A"},
-                        {"name": "Bp2Part2iranB1", "size": 0.5, "code": "IR", "ilinks": [], "type":"A"}
+                        {"name": "Ap2part2IranA1", "size": 0.5, "code": "IR", "ilinks": []},
+                        {"name": "Ap2part2IranA1", "size": 0.5, "code": "IR", "ilinks": []},
+                        {"name": "Ap2part2IranA1", "size": 0.5, "code": "IR", "ilinks": []},
+                        {"name": "Bp2Part2iranB1", "size": 0.5, "code": "IR", "ilinks": []}
                         ]},
-                        {"name": "Bp2Part2iranB", "size": 2, "code": "IR", "ilinks": [], "type":"A"}
+                        {"name": "Bp2Part2iranB", "size": 2, "code": "IR", "ilinks": []}
                     ]},
-                    {"name": "Bp2Part3iran", "size": 2, "code": "IR", "ilinks": [], "type":"A"}
+                    {"name": "Bp2Part3iran", "size": 2, "code": "IR", "ilinks": []}
                   ]
               }       
             ]
@@ -166,9 +166,8 @@
               {"type": "GodClass",  "position" : {"boffset" :160, "eoffset" : 280}},
               {"type": "UnusedImport",  "position" : {"boffset" :6, "eoffset" : 6}},
               {"type": "DataClass",  "position" : {"boffset" :234, "eoffset" : 678}}
-            ],
-          
-            "type":"A"}
+            ]
+         }
         ]
       }
     ]
@@ -183,7 +182,7 @@
         "elinks": ["controllers/Asia/China"],
         
         "children": [
-          {"name": "China", "size": 14.84, "code": "CN", "ilinks": [], "type":"A"}
+          {"name": "China", "size": 14.84, "code": "CN", "ilinks": []}
         ]
       },
       {
@@ -199,8 +198,7 @@
               {"type": "UnusedImport",  "position" : {"boffset" :6, "eoffset" : 6}},
               {"type": "DataClass",  "position" : {"boffset" :234, "eoffset" : 678}}
             ]
-          , 
-          "type":"A"}
+          }
         ]
       },
       {

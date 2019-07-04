@@ -314,6 +314,7 @@ class ForceChart extends Chart {
             this.link.attr("d", function(d:any) {
                 var dx = d.target.x - d.targetPoint.x + - d.source.x + d.sourcePoint.x ,
                     dy = d.target.y - d.targetPoint.y - d.source.y + d.sourcePoint.y,
+                    // dr = Math.sqrt(0);
                     dr = Math.sqrt(dx * dx + dy * dy);
                     let prop = "M" + 
                     (d.source.x + d.sourcePoint.x) + "," + 

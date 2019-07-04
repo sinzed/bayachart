@@ -213,23 +213,37 @@ class DonutChart extends Chart {
     toolTip(selection:any,data:any) {
         // add tooltip (svg circle element) when mouse enters label or slice
         let self = this;
-        selection.append('text')
-        .attr('class', 'toolCircle')
-        .attr('dy', -15) // hard-coded. can adjust this to adjust text vertical alignment in tooltip
-        // .html(toolTipHTML(data.data.name)) // add text to the circle.
-        .html(data.data.name) // add text to the circle.
-        .style('font-size', '.9em')
-        .style('text-anchor', 'middle'); // centres text in tooltip
 
-        
-        // svg.append('circle')
+
+                // svg.append('circle')
         // self.getParent().voronoiChart.treemapContainer
         selection.append('circle')
             .attr('class', 'toolCircle')
             .attr('r', self.getParent().voronoiChart.treemapRadius) // radius of tooltip circle
             .style('fill', self.setColour(data.data.name)) // colour based on category mouse is over
             // .style('fill', colour(data.data[category])) // colour based on category mouse is over
-            .style('fill-opacity', 0.35);
+            .style('fill-opacity', 0.55);
+
+        selection.append('text')
+        .attr('class', 'toolCircle')
+        .attr('dy', -15) // hard-coded. can adjust this to adjust text vertical alignment in tooltip
+        // .html(toolTipHTML(data.data.name)) // add text to the circle.
+        .html(data.data.name) // add text to the circle.
+        .style('font-size', '.9em')
+        .style("fill","white")
+        .style('text-anchor', 'middle'); // centres text in tooltip
+
+        selection.append('text')
+        .attr('class', 'toolCircle')
+        .attr('dy', 0) // hard-coded. can adjust this to adjust text vertical alignment in tooltip
+        // .html(toolTipHTML(data.data.name)) // add text to the circle.
+        .html(data.data.value) // add text to the circle.
+        .style('font-size', '.9em')
+        .style("fill","white")
+        .style('text-anchor', 'middle'); // centres text in tooltip
+
+        
+
     // remove the tooltip when mouse leaves the slice/label
         selection.on('mouseout', function () {
             d3.selectAll('.toolCircle').remove();
