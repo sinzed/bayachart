@@ -119,10 +119,19 @@ class ForceChart extends Chart {
         .enter()
         .append("svg:path")
         .attr("customdata",function(d:any){
+            // give the reference of the elinks to data
+            // in order to activate it by interactions like hover
             if(d.ref.data.elinkElements == undefined){
                 d.ref.data.elinkElements = [];
             }
             d.ref.data.elinkElements.push(d3.select(this));
+
+            if(d.targetRef.data == undefined)
+            return true;
+            if(d.targetRef.data.elinkElements == undefined){
+                d.targetRef.data.elinkElements = [];
+            }
+            d.targetRef.data.elinkElements.push(d3.select(this));
         })
         // .style("filter","url(#dropshadow)")
         .attr("stroke-width", function(d:any) { return 1 });
@@ -228,8 +237,9 @@ class ForceChart extends Chart {
                         if(!mainTarget)
                             continue;
                         let targetMargin = this.findTargetMargin(mainTarget);
-                        let mainTargetName = {"name": target.split("/")[0]};
-                        this.addLink(mainSource,sourceMargin,mainTargetName,targetMargin, leaf);
+                        // let mainTargetName = {"name": target.split("/")[0]};
+                        // this.addLink(mainSource,sourceMargin,mainTargetName,targetMargin, leaf);
+                        this.addLink(mainSource,sourceMargin,target,targetMargin, leaf,mainTarget);
                     }
                 }
             }
@@ -244,7 +254,11 @@ class ForceChart extends Chart {
         }
         return leaf;
     }
+    /*
+        find the root of target
+    */
     findMainTarget(target :any){
+        
         for(let hybridChart of this.getParent().hybroCharts){
             if(hybridChart.voronoiChart.hierarchy == undefined)
                 continue;
@@ -255,6 +269,8 @@ class ForceChart extends Chart {
     followToFindleaf(hierarchy : any, target: string) :any {
         let part1 = target.split("/")[0];
         let part2 = target.split("/")[1];
+
+        let nextPath = target.substring(target.indexOf('/')+1);
         if(part2 == undefined)
             return hierarchy;
 
@@ -264,7 +280,7 @@ class ForceChart extends Chart {
                 foundLeaf = leaf;
         }
         if(foundLeaf)
-            return this.followToFindleaf(foundLeaf, part2);
+            return this.followToFindleaf(foundLeaf, nextPath);
     }
     
     findSourceMargin(leaf : any,mainSource:any){
@@ -287,8 +303,16 @@ class ForceChart extends Chart {
         let y = leaf.polygon.site.y + this.getParent().hybroCharts[0].voronoiChart.margin.top  - mainSourceOfTarget.data.radius ;
         return {"x":x,"y":y};
     }
-    addLink(mainSource: any, sourceMargin: any, mainTarget: any, targetMargin: any, leaf: any) {
-        this.links_data.push({"source":mainSource.data.name,"sourcePoint":sourceMargin,"target":mainTarget.name,"targetPoint":targetMargin, "ref":leaf});
+    // addLink(mainSource: any, sourceMargin: any, mainTarget: any, targetMargin: any, leaf: any) {
+    addLink(mainSource: any, sourceMargin: any, target: any, targetMargin: any, leaf: any,targetLeaf:any) {
+        let mainTarget = {"name": target.split("/")[0]};
+        this.links_data.push(
+            {"source":mainSource.data.name,
+            "sourcePoint":sourceMargin,
+            "target":mainTarget.name,
+            "targetRef":targetLeaf,
+            "targetPoint":targetMargin,
+            "ref":leaf});
     }
  
     tickActions() {

@@ -179,10 +179,10 @@
       {
         "name": "Asia",
         "ilinks": [],
-        "elinks": ["controllers/Asia/China"],
+
         
         "children": [
-          {"name": "China", "size": 14.84, "code": "CN", "ilinks": []}
+          {"name": "China", "size": 14.84, "code": "CN", "ilinks": [],"elinks": ["controllers/Asia/China/part1china"]}
         ]
       },
       {

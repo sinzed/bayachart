@@ -80,7 +80,7 @@ declare class ForceChart extends Chart {
         "x": number;
         "y": number;
     };
-    addLink(mainSource: any, sourceMargin: any, mainTarget: any, targetMargin: any, leaf: any): void;
+    addLink(mainSource: any, sourceMargin: any, target: any, targetMargin: any, leaf: any, targetLeaf: any): void;
     tickActions(): void;
 }
 declare class JoinLink {

@@ -365,29 +365,21 @@ rebuildHierarchy(data, hierarchy){
         .classed("hoverer", true)
         .attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; })
         .on("mouseover", function(d){
-        //     let bayaChart : BayaChart = self.getParent().getParent();
-            
-        //    console.log(d);
-        let bayaChart  : BayaChart= self.getParent().getParent();
-        // ba
-        if(!bayaChart.layout.layoutOption.canShowInteractiveActions)
-        return true;
-
-            if(d.data.elinkElements !=undefined ) {
-                for(let elinkElement of d.data.elinkElements){
-                    console.log(elinkElement);
-                    elinkElement.style("opacity","1");
+            let bayaChart: BayaChart = self.getParent().getParent();
+            if (!bayaChart.layout.layoutOption.canShowInteractiveActions)
+                return true;
+            console.log("data is",d);
+            if (d.data.elinkElements != undefined) {
+                for (let elinkElement of d.data.elinkElements) {
+                    elinkElement.style("opacity", "1");
                 }
             }
-        //    console.log(bayaChart.forceChart.links_data);
-
-
         }) 
         .on("mouseout", function(d){
             let bayaChart  : BayaChart= self.getParent().getParent();
-            // ba
             if(bayaChart.layout.layoutOption.canShowInteractiveActions)
                 d3.selectAll(".links path").style("opacity","0.3");
+            
         });
         
         this.hoverers.on("click",function(){
@@ -435,9 +427,9 @@ rebuildHierarchy(data, hierarchy){
             return self.getColorByDepth(d);
         })
         .on("mouseover", function(){
-            let element  = d3.select(this);
-            element.style("stroke-width","3px");
-            element.style("stroke","white");
+            // let element  = d3.select(this);
+            // element.style("stroke-width","3px");
+            // element.style("stroke","white");
 
         })
         // .on("mouseout", function(d){

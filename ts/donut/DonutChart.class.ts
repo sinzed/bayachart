@@ -377,7 +377,7 @@ class DonutChart extends Chart {
 
             selection.selectAll('.labelName text, .slices path').on('mouseenter', function (data:any) {
                 self.toolTip(selection,data);
-            }
+            });
             
             // ===========================================================================================
 
@@ -412,6 +412,7 @@ class DonutChart extends Chart {
             }
             // ===========================================================================================
 
-        });
+        }
+        );
     }
 }
