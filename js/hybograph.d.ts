@@ -80,7 +80,7 @@ declare class ForceChart extends Chart {
         "x": number;
         "y": number;
     };
-    addLink(mainSource: any, sourceMargin: any, mainTarget: any, targetMargin: any): void;
+    addLink(mainSource: any, sourceMargin: any, mainTarget: any, targetMargin: any, leaf: any): void;
     tickActions(): void;
 }
 declare class JoinLink {
@@ -105,7 +105,11 @@ declare class LayoutOption {
     canShowForceChart: boolean;
     canShowTreeMap: boolean;
     canShowSource: any;
-    constructor();
+    canShowElinks: boolean;
+    canShowInteractiveActions: boolean;
+    layout: Layout;
+    constructor(layout: Layout);
+    init(): void;
     canZoomIn: boolean;
     canShowBundleChart: boolean;
     canShowDonutChart: boolean;
@@ -125,12 +129,20 @@ declare class Layout {
     scale: number;
     xTranslate: number;
     yTranslate: number;
+    iLinkBtn: any;
+    eLinkBtn: any;
+    interactiveBtn: any;
     constructor(bayaChart: BayaChart);
     init(): void;
     initElement(): void;
     initZoom(): void;
     addTreemap(): any;
     addSourceBtn(): any;
+    addIlinksBtn(): any;
+    addElinksBtn(): void;
+    addInteractiveBtn(): void;
+    toggleInteractive(): void;
+    toggleELinks(): void;
     addEditBtn(): any;
     showSourceDialog(): void;
     addZoomInButton(): any;

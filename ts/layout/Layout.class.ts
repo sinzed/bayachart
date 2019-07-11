@@ -1,4 +1,6 @@
 class Layout {
+
+
     layoutOption : LayoutOption;
     bayaChart : BayaChart;
     zoomInBtn:any;
@@ -13,6 +15,9 @@ class Layout {
     scale: number;
     xTranslate: number;
     yTranslate: number;
+    iLinkBtn: any;
+    eLinkBtn: any;
+    interactiveBtn: any;
     constructor(bayaChart : BayaChart){
         this.bayaChart = bayaChart;
         this.layoutOption = new LayoutOption();
@@ -24,6 +29,9 @@ class Layout {
         this.addTreemap();
         this.addSourceBtn();
         this.addEditBtn();
+        this.addElinksBtn();
+        this.addIlinksBtn();
+        this.addInteractiveBtn();
         this.init();
         
 
@@ -40,6 +48,7 @@ class Layout {
         // this.toggleTreeMap();
         // this.toggleTreeMap();
     }
+
     initElement(){
         this.element = d3.select("body")
         .insert("div",":first-child")
@@ -81,6 +90,45 @@ class Layout {
         });
         return this.sourceBtn;
 
+    }
+    addIlinksBtn() {
+        let self = this;
+        this.iLinkBtn =  this.element.insert("button",":first-child");
+        this.iLinkBtn.text("I-links");
+        this.iLinkBtn.on("click",()=>{
+            self.toggleBundleChart();
+        });
+        return this.sourceBtn;
+    }
+    addElinksBtn() {
+        let self = this;
+        this.eLinkBtn =  this.element.insert("button",":first-child");
+        this.eLinkBtn.text("E-links");
+        this.eLinkBtn.on("click",()=>{
+            self.toggleELinks();
+        });
+    }
+    addInteractiveBtn() {
+        let self = this;
+        this.interactiveBtn =  this.element.insert("button",":first-child");
+        this.interactiveBtn.text("Interactive");
+        this.interactiveBtn.on("click",()=>{
+            console.log("clicked",this.layoutOption.canShowInteractiveActions);
+         this.toggleInteractive();
+            
+        });
+    }
+    toggleInteractive(){
+        this.layoutOption.canShowInteractiveActions = !this.layoutOption.canShowInteractiveActions;
+        this.interactiveBtn.classed("selected", this.layoutOption.canShowInteractiveActions);
+        // this.bayaChart.forceChart.link.style("stroke","black");
+        this.bayaChart.forceChart.link.style("opacity","0.3");
+    }
+    toggleELinks(){
+        
+        d3.selectAll(".links path").style("display",this.layoutOption.canShowElinks?"none":"block");
+        this.layoutOption.canShowElinks = !this.layoutOption.canShowElinks;
+        this.eLinkBtn.classed("selected", this.layoutOption.canShowElinks);
     }
     addEditBtn(){
         let self = this;
@@ -146,6 +194,7 @@ class Layout {
     toggleBundleChart(){
         this.layoutOption.canShowBundleChart = !this.layoutOption.canShowBundleChart;
         this.showBundleChartBtn.classed("selected", this.layoutOption.canShowBundleChart);
+        this.iLinkBtn.classed("selected", this.layoutOption.canShowBundleChart);
         for(let hybroChart of this.bayaChart.hybroCharts)
             hybroChart.bundleChart.element.attr("display",this.layoutOption.canShowBundleChart?"block":"none");
     }

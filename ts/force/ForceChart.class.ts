@@ -116,8 +116,15 @@ class ForceChart extends Chart {
         .attr("class", "links")
         .selectAll("path")
         .data(this.links_data)
-        .enter().append("svg:path")
-        .style("filter","url(#dropshadow)")
+        .enter()
+        .append("svg:path")
+        .attr("customdata",function(d:any){
+            if(d.ref.data.elinkElements == undefined){
+                d.ref.data.elinkElements = [];
+            }
+            d.ref.data.elinkElements.push(d3.select(this));
+        })
+        // .style("filter","url(#dropshadow)")
         .attr("stroke-width", function(d:any) { return 1 });
         
         this.link.style('fill', 'none')
@@ -222,7 +229,7 @@ class ForceChart extends Chart {
                             continue;
                         let targetMargin = this.findTargetMargin(mainTarget);
                         let mainTargetName = {"name": target.split("/")[0]};
-                        this.addLink(mainSource,sourceMargin,mainTargetName,targetMargin);
+                        this.addLink(mainSource,sourceMargin,mainTargetName,targetMargin, leaf);
                     }
                 }
             }
@@ -280,8 +287,8 @@ class ForceChart extends Chart {
         let y = leaf.polygon.site.y + this.getParent().hybroCharts[0].voronoiChart.margin.top  - mainSourceOfTarget.data.radius ;
         return {"x":x,"y":y};
     }
-    addLink(mainSource: any, sourceMargin: any, mainTarget: any, targetMargin: any) {
-        this.links_data.push({"source":mainSource.data.name,"sourcePoint":sourceMargin,"target":mainTarget.name,"targetPoint":targetMargin});
+    addLink(mainSource: any, sourceMargin: any, mainTarget: any, targetMargin: any, leaf: any) {
+        this.links_data.push({"source":mainSource.data.name,"sourcePoint":sourceMargin,"target":mainTarget.name,"targetPoint":targetMargin, "ref":leaf});
     }
  
     tickActions() {
@@ -314,8 +321,8 @@ class ForceChart extends Chart {
             this.link.attr("d", function(d:any) {
                 var dx = d.target.x - d.targetPoint.x + - d.source.x + d.sourcePoint.x ,
                     dy = d.target.y - d.targetPoint.y - d.source.y + d.sourcePoint.y,
-                    // dr = Math.sqrt(0);
-                    dr = Math.sqrt(dx * dx + dy * dy);
+                    dr = Math.sqrt(0);
+                    // dr = Math.sqrt(dx * dx + dy * dy);
                     let prop = "M" + 
                     (d.source.x + d.sourcePoint.x) + "," + 
                     (d.source.y + d.sourcePoint.y) + "A" + 

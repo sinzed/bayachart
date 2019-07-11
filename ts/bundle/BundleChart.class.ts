@@ -61,7 +61,6 @@ class BundleChart extends Chart {
         .style('color', 'darkOrange')
         // let self = this;
         d3.selectAll(".link").each(function(d,i){
-            console.log(d);
             d3.select(this).style("stroke",self.getColor());
             // d3.select(this).append("circle").attr("cx",d.source.polygon.site.x).attr("cy",d.source.polygon.site.y).attr("r","20px");
 
@@ -88,6 +87,7 @@ class BundleChart extends Chart {
     }
     getColor(){
         let color : any= this.colors.pop();
+        this.colors.unshift(color);
         return color.value;
     }
     drawNodeNames(){

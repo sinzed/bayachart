@@ -255,10 +255,11 @@ rebuildHierarchy(data, hierarchy){
         //     element.style("stroke-dasharray","9");;
         // })
         // .on("click", function(){
-        //     let element  = d3.select(this);
+        //    alert("hi");
         // })
         // .on("mousedown", function(){
-        //     let element  = d3.select(this);
+        //     // let element  = d3.select(this);
+        //     alert("ht");
         // });
         let attrd = appendedPath.attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; });
         let cells  = attrd.style("fill", 
@@ -329,7 +330,7 @@ rebuildHierarchy(data, hierarchy){
             .text(function(d: { data: { size: string; }; }){ return d.data.size; });
             // .text(function(d: { data: { size: string; }; }){ return d.data.size+"%"; });
         }
-            this.drawParents();
+        this.drawParents();
         if(this.canShowHoverer()){
             this.drawHoverers();
         }
@@ -353,6 +354,7 @@ rebuildHierarchy(data, hierarchy){
         // throw new Error("Method not implemented.");
     }
     drawHoverers(){ 
+        let self = this;
         this.hoverers = this.treemapContainer.append("g")
         .classed('hoverers', true)
         .attr("transform", "translate("+[-this.treemapRadius,-this.treemapRadius]+")")
@@ -361,9 +363,36 @@ rebuildHierarchy(data, hierarchy){
         .enter()
         .append("path")
         .classed("hoverer", true)
-        .attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; });
+        .attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; })
+        .on("mouseover", function(d){
+        //     let bayaChart : BayaChart = self.getParent().getParent();
+            
+        //    console.log(d);
+        let bayaChart  : BayaChart= self.getParent().getParent();
+        // ba
+        if(!bayaChart.layout.layoutOption.canShowInteractiveActions)
+        return true;
+
+            if(d.data.elinkElements !=undefined ) {
+                for(let elinkElement of d.data.elinkElements){
+                    console.log(elinkElement);
+                    elinkElement.style("opacity","1");
+                }
+            }
+        //    console.log(bayaChart.forceChart.links_data);
+
+
+        }) 
+        .on("mouseout", function(d){
+            let bayaChart  : BayaChart= self.getParent().getParent();
+            // ba
+            if(bayaChart.layout.layoutOption.canShowInteractiveActions)
+                d3.selectAll(".links path").style("opacity","0.3");
+        });
         
-  
+        this.hoverers.on("click",function(){
+            alert("hi");
+        })
 
         this.hoverers.append("title")
         .text((d:any)=>{
@@ -405,12 +434,12 @@ rebuildHierarchy(data, hierarchy){
         .style("stroke",function(d){
             return self.getColorByDepth(d);
         })
-        // .on("mouseover", function(){
-        //     let element  = d3.select(this);
-        //     element.style("stroke-width","3px");
-        //     element.style("stroke","white");
+        .on("mouseover", function(){
+            let element  = d3.select(this);
+            element.style("stroke-width","3px");
+            element.style("stroke","white");
 
-        // })
+        })
         // .on("mouseout", function(d){
         //     let element  = d3.select(this);
         //     element.style("stroke-width",self.getWidthByDepth(d));
