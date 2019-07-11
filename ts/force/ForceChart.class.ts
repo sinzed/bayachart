@@ -117,6 +117,7 @@ class ForceChart extends Chart {
         .selectAll("path")
         .data(this.links_data)
         .enter()
+        
         .append("svg:path")
         .attr("customdata",function(d:any){
             // give the reference of the elinks to data
@@ -140,7 +141,23 @@ class ForceChart extends Chart {
         // .style('stroke', '#36fffdcf')
         .style('stroke', this.linkColour)
         .style("stroke-width", '4px');
-        
+        this.link.append("title").text(function(d){
+            return "from: "+d.ref.data.name+ " to: "+d.targetRef.data.name;
+        });
+        this.link.on("mouseover", function(d){
+            if(!self.getParent().layout.layoutOption.canShowInteractiveActions)
+                return true;
+            d.ref.element.style("display","none");
+            d.targetRef.element.style("display","none");
+            d3.select(this).style("opacity","1");
+        })
+        .on("mouseout", function(d){
+            if(!self.getParent().layout.layoutOption.canShowInteractiveActions)
+                return true;
+            d.ref.element.style("display","block");
+            d.targetRef.element.style("display","block");
+            d3.select(this).style("opacity","0.3");
+        })
         
         //draw circles for the nodes 
         // this.initNode1();

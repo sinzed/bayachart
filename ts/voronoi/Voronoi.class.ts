@@ -261,7 +261,11 @@ rebuildHierarchy(data, hierarchy){
         //     // let element  = d3.select(this);
         //     alert("ht");
         // });
-        let attrd = appendedPath.attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; });
+        let attrd = appendedPath.attr("d", 
+            function(d: { polygon: { join: (arg0: string) => string; }; }){ 
+                d.element = d3.select(this);
+                return "M"+d.polygon.join(",")+"z";
+         });
         let cells  = attrd.style("fill", 
             function(d: { parent: { data: { color: any; }; }; }){
                     // return d.parent.data.color;
