@@ -47,6 +47,9 @@ class Layout {
         // this.toggleTreeMap();
         // this.toggleTreeMap();
         // this.toggleTreeMap();
+            this.interactiveBtn.classed("selected", this.layoutOption.canShowInteractiveActions);
+            this.iLinkBtn.classed("selected", this.layoutOption.canShowBundleChart);
+            this.eLinkBtn.classed("selected", this.layoutOption.canShowElinks);
     }
 
     initElement(){

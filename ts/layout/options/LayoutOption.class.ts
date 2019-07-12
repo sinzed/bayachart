@@ -12,9 +12,7 @@ class LayoutOption {
         this.layout = layout;
         this.canZoomIn = false;
     }
-    init(){
-        this.layout.interactiveBtn.classed("selected", this.layout.layoutOption.canShowInteractiveActions);
-    }
+
     get canZoomIn(){
         return this._zoomIn;
     }
