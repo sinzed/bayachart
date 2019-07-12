@@ -24,22 +24,24 @@ class ForceChart extends Chart {
         .id(function (d:any) { 
             return d.name;
          });
-        let charge_force = d3.forceManyBody().strength(0.01);
-        let center_force = d3.forceCenter(this.width / 3, this.height / 5);
+        let charge_force = d3.forceManyBody().strength(0.1);
+        // let center_force = d3.forceCenter(this.width / 3, this.height / 5);
+        let center_force = d3.forceCenter(0, 0);
        
         this.simulation
         .force("charge_force", charge_force)
         .force("center_force", center_force)
-        .force("forceX", d3.forceX().strength(0.01))
-        .force("forceY", d3.forceY().strength(0.01))
+        // .force("colide", d3.forceCollide( function(d){return d.radius + 8 }).iterations(16) )
+        .force("forceX", d3.forceX().strength(0))
+        .force("forceY", d3.forceY().strength(0))
         .force("links", link_force);
     }
     unlink(){
         this.simulation
         .force("charge_force", null)
         .force("center_force", null)
-        // .force("forceX", null)
-        // .force("forceY", null)
+        .force("forceX", null)
+        .force("forceY", null)
         .force("links", null);
     }
     destroy(){
@@ -70,7 +72,7 @@ class ForceChart extends Chart {
         this.width = +this.svg.attr("width");
         this.height = +this.svg.attr("height");
 
-        let charge_force = d3.forceManyBody().strength(109);
+        let charge_force = d3.forceManyBody().strength(0.1);
         let center_force = d3.forceCenter(this.width / 3, this.height / 5);
        
 
