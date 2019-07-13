@@ -224,12 +224,13 @@ class DonutChart extends Chart {
             // .style('fill', colour(data.data[category])) // colour based on category mouse is over
             .style('fill-opacity', 0.55);
 
+        let fontSize = self.getParent().voronoiChart.treemapRadius * 0.02;
         selection.append('text')
         .attr('class', 'toolCircle')
-        .attr('dy', -15) // hard-coded. can adjust this to adjust text vertical alignment in tooltip
+        .attr('dy', -self.getParent().voronoiChart.treemapRadius * 0.3) // hard-coded. can adjust this to adjust text vertical alignment in tooltip
         // .html(toolTipHTML(data.data.name)) // add text to the circle.
         .html(data.data.name) // add text to the circle.
-        .style('font-size', '.9em')
+        .style('font-size', fontSize+'em')
         .style("fill","white")
         .style('text-anchor', 'middle'); // centres text in tooltip
 
@@ -238,7 +239,7 @@ class DonutChart extends Chart {
         .attr('dy', 0) // hard-coded. can adjust this to adjust text vertical alignment in tooltip
         // .html(toolTipHTML(data.data.name)) // add text to the circle.
         .html(data.data.value) // add text to the circle.
-        .style('font-size', '.9em')
+        .style('font-size', fontSize+'em')
         .style("fill","white")
         .style('text-anchor', 'middle'); // centres text in tooltip
 

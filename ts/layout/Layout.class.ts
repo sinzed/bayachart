@@ -47,6 +47,9 @@ class Layout {
         // this.toggleTreeMap();
         // this.toggleTreeMap();
         // this.toggleTreeMap();
+            this.interactiveBtn.classed("selected", this.layoutOption.canShowInteractiveActions);
+            this.iLinkBtn.classed("selected", this.layoutOption.canShowBundleChart);
+            this.eLinkBtn.classed("selected", this.layoutOption.canShowElinks);
     }
 
     initElement(){
@@ -219,7 +222,7 @@ class Layout {
         this.showForceChartBtn.classed("selected", this.layoutOption.canShowForceChart);
         let enable = this.layoutOption.canShowForceChart;
         this.bayaChart.forceChart.simulation.force('collision', d3.forceCollide().radius(function(d) {
-            return d.radius;
+            return d.radius*1.03;
         }))
         // for(let hybroChart of this.bayaChart.forceChart)
         if(enable)
