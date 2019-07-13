@@ -48,8 +48,15 @@ class BundleChart extends Chart {
         .data(data)
         .enter()
         .append("path")
+        .attr("csData",function(d){
+            d.ilinkElement = d3.select(this);
+            console.log("d for csdata",d);
+        })
         .attr("transform","translate("+this.transLeft+","+this.transTop+")")
-        .each(function(d: any) { d.source = d[0], d.target = d[d.length - 1]; })
+        .each(function(d: any) { 
+           
+            d.source = d[0], d.target = d[d.length - 1]; 
+        })
         .attr("class", "link")
         .attr("d", this.line)
         .attr("stroke-width", 2)

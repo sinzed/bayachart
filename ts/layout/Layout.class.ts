@@ -123,6 +123,7 @@ class Layout {
         this.interactiveBtn.classed("selected", this.layoutOption.canShowInteractiveActions);
         // this.bayaChart.forceChart.link.style("stroke","black");
         this.bayaChart.forceChart.link.style("opacity","0.3");
+        d3.selectAll("#bundleElements .link").style("opacity","0.3");
     }
     toggleELinks(){
         

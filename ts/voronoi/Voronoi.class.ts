@@ -376,13 +376,21 @@ rebuildHierarchy(data, hierarchy){
             if (d.data.elinkElements != undefined) {
                 for (let elinkElement of d.data.elinkElements) {
                     elinkElement.style("opacity", "1");
+                    elinkElement.style("stroke-width", "30");
+
+                }
+            }
+            if (d.data.ilinkElements != undefined) {
+                for (let ilinkElement of d.data.ilinkElements) {
+                    ilinkElement.style("opacity", "1");
                 }
             }
         }) 
         .on("mouseout", function(d){
             let bayaChart  : BayaChart= self.getParent().getParent();
             if(bayaChart.layout.layoutOption.canShowInteractiveActions)
-                d3.selectAll(".links path").style("opacity","0.3");
+                d3.selectAll(".links path").style("opacity","0.3").style("stroke-width", "3");
+
             
         });
         
