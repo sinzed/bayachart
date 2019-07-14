@@ -214,8 +214,8 @@ class Layout {
             return d.radius*1.6;
         }))
         // .radius(this.layoutOption.canShowDonutChart?310:210));
-        this.bayaChart.forceChart.simulation.force('charge_force',d3.forceManyBody().strength(4000));
-        this.bayaChart.forceChart.simulation.force('charge_force',d3.forceManyBody().strength(200));
+        this.bayaChart.forceChart.simulation.force('charge_force',d3.forceManyBody().strength(0.1));
+        this.bayaChart.forceChart.simulation.force('charge_force',d3.forceManyBody().strength(0.1));
     }
     toggleForceChart(){
         this.layoutOption.canShowForceChart = !this.layoutOption.canShowForceChart;

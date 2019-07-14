@@ -9,6 +9,7 @@ class BundleChart extends Chart {
     transLeft : number;
     element: any;
     colors: Array<Color>;
+    curveBundle : number = 0.1;
     constructor(){
         super();
         this.init();
@@ -48,14 +49,23 @@ class BundleChart extends Chart {
         .data(data)
         .enter()
         .append("path")
-        .attr("csData",function(d){
-            d.ilinkElement = d3.select(this);
-            console.log("d for csdata",d);
+        .attr("bdata",function(d){
+            console.log("path data",d   );
         })
         .attr("transform","translate("+this.transLeft+","+this.transTop+")")
         .each(function(d: any) { 
            
             d.source = d[0], d.target = d[d.length - 1]; 
+
+            if(d.source.data.ilinkElements == undefined) {
+                d.source.data.ilinkElements = [];
+            }
+            d.source.data.ilinkElements.push(d3.select(this));
+            if(d.target.data.ilinkElements == undefined) {
+                d.target.data.ilinkElements = [];
+            }
+            d.target.data.ilinkElements.push(d3.select(this));
+
         })
         .attr("class", "link")
         .attr("d", this.line)
@@ -67,12 +77,9 @@ class BundleChart extends Chart {
         // )
         .style('color', 'darkOrange')
         // let self = this;
-        d3.selectAll(".link").each(function(d,i){
-            d3.select(this).style("stroke",self.getColor());
-            // d3.select(this).append("circle").attr("cx",d.source.polygon.site.x).attr("cy",d.source.polygon.site.y).attr("r","20px");
-
-            // d.style("stroke","red");
-            //
+        d3.selectAll(".link").each(
+            function(d:any,i){  
+                d3.select(this).style("stroke",self.getColor());
         })
         .on("mouseover", function(){
             alert("fde");
@@ -97,56 +104,18 @@ class BundleChart extends Chart {
         this.colors.unshift(color);
         return color.value;
     }
-    drawNodeNames(){
-        let node = this.nodeElement
-        .data(this.leaves)
-        .enter()
-        .append("text")
-        .attr("class", "node")
-        .attr("dy", "0.31em")
-        .attr("transform", function(d:any) {
-          // var x = Math.abs(d.polygon[0][0]-d.polygon[d.polygon.length-1][0])/2;
-          // var y = Math.abs(d.polygon[0][0]-d.polygon[d.polygon.length-1][0])/2;
-          var x = d.polygon[0][0];
-          var y = d.polygon[0][1];
-          // console.log(d);
-          if(d.polygon.site != undefined){
-            var x = d.polygon.site.x;
-            var y = d.polygon.site.y;
-          }
-          // console.log("dis",d.polygon.site);
-          // return "translate(0,0)"; 
-          return "translate(" + x + "," +y+")"; 
-          // return "rotate(" + (x- 90) + ")translate(" + (y + 8) + ",0)" + (x < 180 ? "" : "rotate(180)"); 
-        
-        })
-        .attr("text-anchor", function(d:any ) { 
-          var x = d.polygon[0][0];
-          // var x = d.polygon.site.x;
-          // var y = d.polygon.site.y;
-          
-          return x < 180 ? "start" : "end"; 
-          // return "start"; 
-        
-        })
-        .text(function(d:any) {
-             return d.data.name;
-             })
-        // .on("mouseover", function(){
-        //     alert("fde");
-        // })
-        // .on("mouseout", function(){
-        //     alert("wirklich");
-        // });
-    }
+   
 
     lineFunction(){
         let self = this;
-        this.line = d3.line().curve(d3.curveBundle.beta(0.25)).x(
+        // this.line = d3.line().curve(d3.curveBundle.beta(0.25)).x(
+        this.line = d3.line().curve(d3.curveBundle.beta(this.curveBundle)).x(
             function(d : any) {
                 let x = d.polygon[0][0];
                 x =   self.getParent().tools.compute2DPolygonCentroid(d.polygon);
                 
+           
+
                 // if(d.data && d.data.name == "Netherlands"){
                 //     x =   self.getParent().tools.compute2DPolygonCentroidDebug(d.polygon);
                 // }
@@ -155,6 +124,8 @@ class BundleChart extends Chart {
             .y(function(d: any) {
                 let y =  d.polygon[0][1];     
                 y =  self.getParent().tools.compute2DPolygonCentroid(d.polygon);
+
+                
                 return y.y;
                 }    
             )

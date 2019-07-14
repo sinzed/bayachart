@@ -109,7 +109,6 @@ declare class LayoutOption {
     canShowInteractiveActions: boolean;
     layout: Layout;
     constructor(layout: Layout);
-    init(): void;
     canZoomIn: boolean;
     canShowBundleChart: boolean;
     canShowDonutChart: boolean;
@@ -222,6 +221,7 @@ declare class Voronoi extends Chart {
     findWidth(polygon: any): number;
     canShowHoverer(): boolean;
     drawHoverers(): void;
+    toggleInteraction(d: any): void;
     showTreeMapBorders(enable: boolean): void;
     drawParents(): void;
     getColorByDepth(leaf: any): string;
@@ -240,13 +240,13 @@ declare class BundleChart extends Chart {
     transLeft: number;
     element: any;
     colors: Array<Color>;
+    curveBundle: number;
     constructor();
     init(): void;
     getParnet(): HybroChart;
     draw(rootData: any): true | undefined;
     buildColors(): void;
     getColor(): any;
-    drawNodeNames(): void;
     lineFunction(): void;
 }
 declare class DonutChart extends Chart {

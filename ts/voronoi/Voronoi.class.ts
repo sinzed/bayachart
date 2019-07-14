@@ -254,9 +254,9 @@ rebuildHierarchy(data, hierarchy){
         //     element.style("stroke","black");
         //     element.style("stroke-dasharray","9");;
         // })
-        // .on("click", function(){
-        //    alert("hi");
-        // })
+        .on("click", function(){
+           alert("hi");
+        })
         // .on("mousedown", function(){
         //     // let element  = d3.select(this);
         //     alert("ht");
@@ -368,32 +368,42 @@ rebuildHierarchy(data, hierarchy){
         .append("path")
         .classed("hoverer", true)
         .attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; })
+        .on("click", function(d){
+            // d3.event.stopPropagation();
+            d3.event.defaultPrevented;
+            console.log("d3 default prevented",d3.event.defaultPrevented);
+            alert("clicked");
+            self.toggleInteraction(d);
+        })
         .on("mouseover", function(d){
             let bayaChart: BayaChart = self.getParent().getParent();
             if (!bayaChart.layout.layoutOption.canShowInteractiveActions)
                 return true;
-            console.log("data is",d);
-            if (d.data.elinkElements != undefined) {
-                for (let elinkElement of d.data.elinkElements) {
-                    elinkElement.style("opacity", "1");
-                    elinkElement.style("stroke-width", "30");
-
+                if (d.data.elinkElements != undefined) {
+                    for (let elinkElement of d.data.elinkElements) {
+                        elinkElement.style("opacity", "1");
+                        elinkElement.style("stroke-width", "15");
+                    }
                 }
-            }
-            if (d.data.ilinkElements != undefined) {
-                for (let ilinkElement of d.data.ilinkElements) {
-                    ilinkElement.style("opacity", "1");
+                if (d.data.ilinkElements != undefined) {
+                    for (let ilinkElement of d.data.ilinkElements) {
+                        ilinkElement.style("opacity", "1");
                 }
             }
         }) 
         .on("mouseout", function(d){
             let bayaChart  : BayaChart= self.getParent().getParent();
-            if(bayaChart.layout.layoutOption.canShowInteractiveActions)
+            if(bayaChart.layout.layoutOption.canShowInteractiveActions){
+
                 d3.selectAll(".links path").style("opacity","0.3").style("stroke-width", "3");
+                d3.selectAll(".link").style("opacity","0.3").style("stroke-width", "3");
+            }
 
             
-        });
-        
+        })
+
+        ;
+  
         this.hoverers.on("click",function(){
             alert("hi");
         })
@@ -401,11 +411,23 @@ rebuildHierarchy(data, hierarchy){
         this.hoverers.append("title")
         .text((d:any)=>{
             const area = this.treemapRadius * this.treemapRadius * 3.14;
-            const title= d.data.name + "\n" + d.value+"%"+"\n"+ area;
+            const size = this.leaves.reduce(
+                (a:any, b:any) => 
+            +a + +b.value
+            , 0);
+            // + operator for casting to Number
+            
+            const title= d.data.name + "\n" 
+            + d.value+" "
+            +"\n"+ ((d.value/size)*100).toFixed(2)+"%";
             return title; 
             
             });
     }
+    toggleInteraction(d:any){
+        alert("tooggle interaction");
+    }
+    
     showTreeMapBorders(enable:boolean){
             d3.selectAll(".parents").style("display",enable?"block":"none");
     }
@@ -443,6 +465,9 @@ rebuildHierarchy(data, hierarchy){
             // element.style("stroke-width","3px");
             // element.style("stroke","white");
 
+        })
+        .on("click",function(){
+            alert("paw");
         })
         // .on("mouseout", function(d){
         //     let element  = d3.select(this);
