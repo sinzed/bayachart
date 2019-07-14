@@ -71,10 +71,8 @@ class HybroChart extends Chart {
     }
     addDbClickHandler(){
         this.voronoiChart.hoverers.on("dblclick", (d)=>{
-            // let win = window.open("", "Title", "toolbar=yes,location=yes,directories=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=780,height=200,top="+(screen.height-400)+",left="+(screen.width-840));
-            // win.document.body.innerHTML = "HTML";
             var win = window.open("", '_blank');
-            // win.focus();
+
             let htmlManager = new HtmlManager();
             let mainSource = this.forceChart.findMainSource(d);
             const data = this.findJsonDataSource(mainSource.data);
@@ -82,7 +80,17 @@ class HybroChart extends Chart {
             // let newGrahData = {name: 'newtab', children : mainSource.data};
             
             // localStorage.setItem("jsonData",JSON.stringify(this.copyRootOFData[0] ));
-            localStorage.setItem("jsonData",this.stringData);
+            let jsonData = JSON.parse(this.stringData);
+            for ( let child of jsonData.children){
+                child.elinks = child.ilinks;
+            }
+            jsonData["smellColors"] ={
+                "from":"#dddddd",
+                "to": "red"
+              };
+            
+            localStorage.setItem("jsonData",JSON.stringify(jsonData));
+            // localStorage.setItem("jsonData",this.stringData);
             // let newData = "var spoonDataDependencies = '"+jsonString+"';";
             // htmlManager.addScript(newData);
             const html = htmlManager.getHtml();

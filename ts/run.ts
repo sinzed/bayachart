@@ -2,7 +2,7 @@
 var diameter = 1260,
 radius = diameter / 2,
 innerRadius = radius - 120;
-let readDataByD3 = false;
+let readDataByD3 = true;
 var cluster : d3.ClusterLayout<any>;
 cluster = d3.cluster().size([360, innerRadius]);
 
@@ -13,7 +13,7 @@ let bayaChart = new BayaChart();
 if(!readDataByD3){
   // bayaChart.jsonData = graphsData;
       if(localStorage.getItem("jsonData") == null){
-        bayaChart.setJsonData({});
+        bayaChart.setJsonData(spoonDataDependencies);
       }
       else {
         bayaChart.setJsonData(JSON.parse(<string>localStorage.getItem("jsonData")));
@@ -30,7 +30,13 @@ else {
     d3.json("voronoi-bundle-donut.json", function(error:any, graphsData:any) {
           if (error) throw error;
       // });
-      bayaChart.setJsonData(graphsData);
+      if(localStorage.getItem("jsonData") == null){
+        bayaChart.setJsonData(graphsData);
+      }
+      else {
+        bayaChart.setJsonData(JSON.parse(<string>localStorage.getItem("jsonData")));
+        localStorage.clear();
+      }
       // bayaChart.jsonData = graphsData;
       bayaChart.draw();
       });
