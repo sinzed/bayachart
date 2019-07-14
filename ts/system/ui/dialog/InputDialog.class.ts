@@ -42,7 +42,7 @@ class InputDialog extends Dialog {
     saveOnline(){
         let url = "http://tasks.towist.com/api/chartapi.php";
         let data = {name: this.nameInput.property("value"),
-                    content: this.jsonString};
+                    content: JSON.parse(this.jsonString)};
         d3.request(url)
         .header("X-Requested-With", "XMLHttpRequest")
         .header("Content-Type", "application/x-www-form-urlencoded")

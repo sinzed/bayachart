@@ -70,7 +70,9 @@ class BayaChart extends Chart {
         //       hybroChart.voronoiChart.handleWorker();
         //   }
           Promise.all(promiseList).then(() => {
-            // this.forceChart.draw(this.jsonData);
+            
+            this.forceChart.unlink();
+            this.forceChart.draw(this.jsonData);
             this.highlight.init();
             
           });

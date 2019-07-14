@@ -41,11 +41,16 @@ class HistoryDialog extends Dialog {
         .post("action=getHistory&historyID="+this.selectedInput.id,  (error, response)=>{
             let receivedResult = JSON.parse(response['response']);
             let result = JSON.parse(receivedResult);
-            let data= JSON.parse(result['history']);
-            let jsonString = data['content'];
-            console.log("result",jsonString);
+            // let data= JSON.parse(result['history']);
+            // console.log("resul t",result);
+            let result2 = result['history'];
+            console.log("result2", result2);
+            let jsonString = JSON.parse(result2);
+            console.log("jsonString", jsonString);
+            jsonString['content'] = jsonString['content'].replace("\n","\\n");
+            console.log(jsonString['content']);
             this.layout.bayaChart.delete();
-            this.layout.bayaChart.setJsonData(JSON.parse(jsonString));
+            this.layout.bayaChart.setJsonData(JSON.parse(jsonString['content']));
             this.layout.bayaChart.draw();
         });
 

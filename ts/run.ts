@@ -2,7 +2,7 @@
 var diameter = 1260,
 radius = diameter / 2,
 innerRadius = radius - 120;
-let readDataByD3 = true;
+let readDataByD3 = false;
 var cluster : d3.ClusterLayout<any>;
 cluster = d3.cluster().size([360, innerRadius]);
 
@@ -13,8 +13,7 @@ let bayaChart = new BayaChart();
 if(!readDataByD3){
   // bayaChart.jsonData = graphsData;
       if(localStorage.getItem("jsonData") == null){
-        bayaChart.setJsonData(spoonDataDependencies);
-        // bayaChart.jsonData = spoonDataDependencies;
+        bayaChart.setJsonData({});
       }
       else {
         bayaChart.setJsonData(JSON.parse(<string>localStorage.getItem("jsonData")));
