@@ -18,6 +18,7 @@ class Layout {
     iLinkBtn: any;
     eLinkBtn: any;
     interactiveBtn: any;
+    historyBtn: any;
     constructor(bayaChart : BayaChart){
         this.bayaChart = bayaChart;
         this.layoutOption = new LayoutOption();
@@ -32,6 +33,7 @@ class Layout {
         this.addElinksBtn();
         this.addIlinksBtn();
         this.addInteractiveBtn();
+        this.addHistoryBtn();
         this.init();
         
 
@@ -148,6 +150,24 @@ class Layout {
         });
         return this.sourceBtn;
 
+    }
+    addHistoryBtn(){
+        let self = this;
+        this.historyBtn =  this.element.insert("button",":first-child");
+        this.historyBtn.text("history");
+        this.historyBtn.on("click",()=>{
+            let dialog = new HistoryDialog(this);
+            dialog.init();
+            dialog.setInputJson(this.bayaChart.rawdata);
+            this.showHistoryDialog();
+        
+        });
+        return this.sourceBtn;
+
+    }
+    showHistoryDialog() {
+        _init();
+        _showDialog();
     }
     showSourceDialog(){
 

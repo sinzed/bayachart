@@ -432,7 +432,7 @@ rebuildHierarchy(data, hierarchy){
         if (d.data.elinkElements != undefined) {
             for (let elinkElement of d.data.elinkElements) {
                 elinkElement.style("opacity", "1");
-                elinkElement.style("stroke-width", this.treemapRadius/15);
+                elinkElement.style("stroke-width", this.treemapRadius/25);
             }
         }
         if (d.data.ilinkElements != undefined) {

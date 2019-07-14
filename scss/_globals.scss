@@ -168,3 +168,17 @@ width: 80%;
 .labels g text {
 font-size: 10px;
 }
+.historyItem {
+  background: darkgray;
+
+border-color: yellow;
+
+border: 1px solid;
+
+border-radius: 7px;
+
+padding: 4px 5px 6px 5px;
+}
+.historyItem.selected {
+  background: darkcyan;
+}

@@ -21,10 +21,25 @@ declare class Dialog {
 declare class InputDialog extends Dialog {
     preElement: any;
     codeElement: any;
+    jsonString: any;
+    nameInput: any;
     constructor(layout: Layout);
     init(): void;
     redraw(): void;
     setInputJson(jsonString: string): void;
+    saveOnline(): void;
+}
+declare class HistoryDialog extends Dialog {
+    preElement: any;
+    histories: Array<any>;
+    selectedItem: any;
+    selectedInput: any;
+    constructor(layout: Layout);
+    init(): void;
+    redraw(): void;
+    setInputJson(jsonString: string): void;
+    loadHistory(): void;
+    showHistories(): void;
 }
 declare class SourceDialog extends Dialog {
     preElement: any;
@@ -131,6 +146,7 @@ declare class Layout {
     iLinkBtn: any;
     eLinkBtn: any;
     interactiveBtn: any;
+    historyBtn: any;
     constructor(bayaChart: BayaChart);
     init(): void;
     initElement(): void;
@@ -143,6 +159,8 @@ declare class Layout {
     toggleInteractive(): void;
     toggleELinks(): void;
     addEditBtn(): any;
+    addHistoryBtn(): any;
+    showHistoryDialog(): void;
     showSourceDialog(): void;
     addZoomInButton(): any;
     addForceChartButton(): any;

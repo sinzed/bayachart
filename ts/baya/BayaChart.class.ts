@@ -64,13 +64,13 @@ class BayaChart extends Chart {
             });
             promiseList.push(promise);
           }
-        //   this.forceChart.draw(this.jsonData);
+          this.forceChart.draw(this.jsonData);
           this.layout.initZoom();
         //   for ( let hybroChart of this.hybroCharts ){
         //       hybroChart.voronoiChart.handleWorker();
         //   }
           Promise.all(promiseList).then(() => {
-            this.forceChart.draw(this.jsonData);
+            // this.forceChart.draw(this.jsonData);
             this.highlight.init();
             
           });

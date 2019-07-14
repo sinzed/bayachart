@@ -1,6 +1,8 @@
 class InputDialog extends Dialog {
     preElement : any;
     codeElement : any;
+    jsonString: any;
+    nameInput: any;
     constructor(layout : Layout){
       super(layout);
       this.title = "JSON data";
@@ -11,6 +13,10 @@ class InputDialog extends Dialog {
     }
     init(){
         super.init();
+        this.nameInput = this.divButtonSet.insert("input");
+        this.nameInput.style("width","200px");
+        this.nameInput.style("height","20px").style("margin-left","5px");
+        
         this.preElement = this.contentDiv.insert("pre");
         this.codeElement = this.preElement.insert("code");
         // this.codeElement = this.preElement.insert("textarea");
@@ -21,15 +27,28 @@ class InputDialog extends Dialog {
         rebuild.on("click",()=>{
             this.redraw();
             this.element.remove()
+            this.saveOnline();
         });
     }
     redraw(){
-        let jsonString = this.codeElement.text();
+        this.jsonString = this.codeElement.text();
         this.layout.bayaChart.delete();
-        this.layout.bayaChart.setJsonData(JSON.parse(jsonString));
+        this.layout.bayaChart.setJsonData(JSON.parse(this.jsonString));
         this.layout.bayaChart.draw();
     }
     setInputJson(jsonString : string){
         this.codeElement.text(jsonString);
+    }
+    saveOnline(){
+        let url = "http://tasks.towist.com/api/chartapi.php";
+        let data = {name: this.nameInput.property("value"),
+                    content: this.jsonString};
+        d3.request(url)
+        .header("X-Requested-With", "XMLHttpRequest")
+        .header("Content-Type", "application/x-www-form-urlencoded")
+        .post("action=save&data="+JSON.stringify(data),  (error, response)=>{
+            let receivedResult = response;
+            console.log("result",response,error);
+        });
     }
 }
