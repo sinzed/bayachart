@@ -78,19 +78,6 @@ class HybroChart extends Chart {
             let htmlManager = new HtmlManager();
             let mainSource = this.forceChart.findMainSource(d);
             const data = this.findJsonDataSource(mainSource.data);
-            // const getCircularReplacer = () => {
-            //     const seen = new WeakSet();
-            //     return (key, value) => {
-            //       if (typeof value === "object" && value !== null) {
-            //         if (seen.has(value)) {
-            //           return;
-            //         }
-            //         seen.add(value);
-            //       }
-            //       return value;
-            //     };
-            //   };
-              
             // let jsonString = JSON.stringify((this.rootData, getCircularReplacer());
             // let newGrahData = {name: 'newtab', children : mainSource.data};
             
@@ -99,8 +86,6 @@ class HybroChart extends Chart {
             // let newData = "var spoonDataDependencies = '"+jsonString+"';";
             // htmlManager.addScript(newData);
             const html = htmlManager.getHtml();
-            // let body = "<script>alert('hello')</script><div class='drawingarea'>graph is here</div>";
-            // // win.document.body.innerHTML =body ;
             win.document.write( html);
 
     

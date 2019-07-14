@@ -222,6 +222,8 @@ declare class Voronoi extends Chart {
     canShowHoverer(): boolean;
     drawHoverers(): void;
     toggleInteraction(d: any): void;
+    hideLinks(d: any): true | undefined;
+    showLinks(d: any): void;
     showTreeMapBorders(enable: boolean): void;
     drawParents(): void;
     getColorByDepth(leaf: any): string;

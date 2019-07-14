@@ -154,10 +154,14 @@ class ForceChart extends Chart {
             d3.select(this).style("opacity","1");
         })
         .on("mouseout", function(d){
+            // just work if the interactive button is on
             if(!self.getParent().layout.layoutOption.canShowInteractiveActions)
                 return true;
-            d.ref.element.style("display","block");
-            d.targetRef.element.style("display","block");
+                d.ref.element.style("display","block");
+                d.targetRef.element.style("display","block");
+            // should not work if it is selected as showLink by click
+            if(d.ref.showLink || d.targetRef.showLink)
+                return true;
             d3.select(this).style("opacity","0.3");
         })
         

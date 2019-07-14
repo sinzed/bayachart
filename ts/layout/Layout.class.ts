@@ -123,10 +123,11 @@ class Layout {
     }
     toggleInteractive(){
         this.layoutOption.canShowInteractiveActions = !this.layoutOption.canShowInteractiveActions;
+        let active = this.layoutOption.canShowInteractiveActions;
         this.interactiveBtn.classed("selected", this.layoutOption.canShowInteractiveActions);
         // this.bayaChart.forceChart.link.style("stroke","black");
-        this.bayaChart.forceChart.link.style("opacity","0.3");
-        d3.selectAll("#bundleElements .link").style("opacity","0.3");
+        this.bayaChart.forceChart.link.style("opacity",active?"0.3":"1");
+        d3.selectAll("#bundleElements .link").style("opacity",active?"0.3":"1");
     }
     toggleELinks(){
         

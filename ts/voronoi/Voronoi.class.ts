@@ -370,43 +370,24 @@ rebuildHierarchy(data, hierarchy){
         .attr("d", function(d: { polygon: { join: (arg0: string) => string; }; }){ return "M"+d.polygon.join(",")+"z"; })
         .on("click", function(d){
             // d3.event.stopPropagation();
-            d3.event.defaultPrevented;
-            console.log("d3 default prevented",d3.event.defaultPrevented);
-            alert("clicked");
             self.toggleInteraction(d);
         })
         .on("mouseover", function(d){
             let bayaChart: BayaChart = self.getParent().getParent();
             if (!bayaChart.layout.layoutOption.canShowInteractiveActions)
                 return true;
-                if (d.data.elinkElements != undefined) {
-                    for (let elinkElement of d.data.elinkElements) {
-                        elinkElement.style("opacity", "1");
-                        elinkElement.style("stroke-width", "15");
-                    }
-                }
-                if (d.data.ilinkElements != undefined) {
-                    for (let ilinkElement of d.data.ilinkElements) {
-                        ilinkElement.style("opacity", "1");
-                }
-            }
+            self.showLinks(d);
         }) 
         .on("mouseout", function(d){
             let bayaChart  : BayaChart= self.getParent().getParent();
             if(bayaChart.layout.layoutOption.canShowInteractiveActions){
-
-                d3.selectAll(".links path").style("opacity","0.3").style("stroke-width", "3");
-                d3.selectAll(".link").style("opacity","0.3").style("stroke-width", "3");
-            }
-
-            
-        })
-
-        ;
+                self.hideLinks(d);
+            }            
+        });
   
-        this.hoverers.on("click",function(){
-            alert("hi");
-        })
+        // this.hoverers.on("click",function(){
+        //     alert("hi");
+        // })
 
         this.hoverers.append("title")
         .text((d:any)=>{
@@ -425,7 +406,40 @@ rebuildHierarchy(data, hierarchy){
             });
     }
     toggleInteraction(d:any){
-        alert("tooggle interaction");
+        d.showLink = !d.showLink;
+        d.showLink?this.showLinks(d):this.hideLinks(d);
+    }
+    hideLinks(d){
+        // d3.selectAll(".links path").style("opacity","0.3").style("stroke-width", "3");
+        // d3.selectAll(".link").style("opacity","0.3").style("stroke-width", "3");
+        if(d.showLink)
+            return true;
+        if (d.data.elinkElements != undefined) {
+            for (let elinkElement of d.data.elinkElements) {
+                elinkElement.style("opacity", "0.3");
+                elinkElement.style("stroke-width", "3");
+            }
+        }
+        if (d.data.ilinkElements != undefined) {
+            for (let ilinkElement of d.data.ilinkElements) {
+                ilinkElement.style("opacity", "0.3");
+                ilinkElement.style("stroke-width", "3");
+            }
+        }
+    }
+    showLinks(d){
+
+        if (d.data.elinkElements != undefined) {
+            for (let elinkElement of d.data.elinkElements) {
+                elinkElement.style("opacity", "1");
+                elinkElement.style("stroke-width", this.treemapRadius/15);
+            }
+        }
+        if (d.data.ilinkElements != undefined) {
+            for (let ilinkElement of d.data.ilinkElements) {
+                ilinkElement.style("opacity", "1");
+            }
+        }
     }
     
     showTreeMapBorders(enable:boolean){
