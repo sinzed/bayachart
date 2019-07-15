@@ -1,7 +1,7 @@
 <?php
 class HistoryDBHandler extends DatabaseHandler {
     function getAllVersions(){
-        $queryResult = $this->connection->query("SELECT id,name,timestamp FROM inputs")  or die ( $this->connection->error );
+        $queryResult = $this->connection->query("SELECT id,name,timestamp FROM inputs ORDER BY id DESC")  or die ( $this->connection->error );
         while($result = mysqli_fetch_assoc($queryResult) ){
             $inputs[] = $result;
         }
@@ -19,6 +19,7 @@ class HistoryDBHandler extends DatabaseHandler {
     function saveNewInput($input,$name){
         // $input = mysqli_real_escape_string($input);
         $input = json_encode($input);
+        $input = $this->connection->real_escape_string($input);
         $query = "INSERT into inputs (name,content)
         Values(
         '".$name."',

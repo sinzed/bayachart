@@ -47,7 +47,8 @@ class HistoryDialog extends Dialog {
             console.log("result2", result2);
             let jsonString = JSON.parse(result2);
             console.log("jsonString", jsonString);
-            jsonString['content'] = jsonString['content'].replace("\n","\\n");
+            // jsonString['content'] = jsonString['content'].replace("\n","\\n");
+            // jsonString['content'] = jsonString['content'].replace("\n","\\n");
             console.log(jsonString['content']);
             this.layout.bayaChart.delete();
             this.layout.bayaChart.setJsonData(JSON.parse(jsonString['content']));

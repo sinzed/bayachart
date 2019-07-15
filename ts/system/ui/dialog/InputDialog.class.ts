@@ -39,16 +39,37 @@ class InputDialog extends Dialog {
     setInputJson(jsonString : string){
         this.codeElement.text(jsonString);
     }
-    saveOnline(){
+    saveOnlineOld(){
         let url = "http://tasks.towist.com/api/chartapi.php";
         let data = {name: this.nameInput.property("value"),
                     content: JSON.parse(this.jsonString)};
+
+
         d3.request(url)
         .header("X-Requested-With", "XMLHttpRequest")
-        .header("Content-Type", "application/x-www-form-urlencoded")
+        // .header("Content-Type", "application/x-www-form-urlencoded")
+        .header("Content-Type", "multipart/form-data")
         .post("action=save&data="+JSON.stringify(data),  (error, response)=>{
             let receivedResult = response;
             console.log("result",response,error);
+        });
+    }
+    saveOnline(){
+        let fd = new FormData();    
+        fd.append( 'action',"save" );
+        let data = {name: this.nameInput.property("value"),
+        content: JSON.parse(this.jsonString)};
+        fd.append( 'data', JSON.stringify(data) );
+
+        $.ajax({
+        url: "http://tasks.towist.com/api/chartapi.php",
+        data: fd,
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        success: function(data){
+            console.log("data ",data);
+        }
         });
     }
 }

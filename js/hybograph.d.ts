@@ -27,6 +27,7 @@ declare class InputDialog extends Dialog {
     init(): void;
     redraw(): void;
     setInputJson(jsonString: string): void;
+    saveOnlineOld(): void;
     saveOnline(): void;
 }
 declare class HistoryDialog extends Dialog {
