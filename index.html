@@ -13,6 +13,8 @@
     
     
     <link  rel="stylesheet" type="text/css" media="all" href="css/style.css"/>
+    <link  rel="stylesheet" type="text/css" media="all" href="libs/slideinpanel/css/reset.css"/>
+    <link  rel="stylesheet" type="text/css" media="all" href="libs/slideinpanel/css/style.css"/>
     <!-- <link  rel="stylesheet" type="text/css" media="all" href="css/donut.css"/>
       <link  rel="stylesheet" type="text/css" media="all" href="css/button.css"/> -->
       <link rel="stylesheet" href="css/draggable-resizable-dialog.css" />
@@ -20,39 +22,17 @@
       <script src="libs/highlight/highlight.pack.js"></script>
     </head>
     <body>
-
-        <!-- <div class="col panel"> -->
-          
-          <!-- <pre><code class="java">
-            public static void main(String arr[]) throws FileNotFoundException 
-            { 
-              // Creating a File object that represents the disk file. 
-              PrintStream o = new PrintStream(new File("A.txt")); 
-              
-              // Store current System.out before assigning a new value 
-              PrintStream console = System.out; 
-              
-              // Assign o to output stream 
-              System.setOut(o); 
-              System.out.println("This will be written to the text file"); 
-              
-              // Use stored value for output stream 
-              System.setOut(console); 
-              System.out.println("This will be written on the console!"); 
-            } 
-          </code></pre> -->
-        <!-- </div> -->
         <div class="col view">
-          <svg>
-            <filter id="dropshadow" height="190%">
-              <feGaussianBlur in="SourceAlpha" stdDeviation="2"/> <!-- stdDeviation is how much to blur -->
-              <feOffset dx="2" dy="2" result="offsetblur"/> <!-- how much to offset -->
-              <feComponentTransfer>
-                <feFuncA type="linear" slope="0.3"/> <!-- slope is the opacity of the shadow -->
-              </feComponentTransfer>
-              <feMerge> 
-                <feMergeNode/> <!-- this contains the offset blurred image -->
-                <feMergeNode in="SourceGraphic"/> <!-- this contains the element that the filter is applied to -->
+        <svg>
+          <filter id="dropshadow" height="190%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="2"/> <!-- stdDeviation is how much to blur -->
+            <feOffset dx="2" dy="2" result="offsetblur"/> <!-- how much to offset -->
+            <feComponentTransfer>
+              <feFuncA type="linear" slope="0.3"/> <!-- slope is the opacity of the shadow -->
+            </feComponentTransfer>
+            <feMerge> 
+              <feMergeNode/> <!-- this contains the offset blurred image -->
+              <feMergeNode in="SourceGraphic"/> <!-- this contains the element that the filter is applied to -->
               </feMerge>
             </filter>
             <g class="layout zoomable">
@@ -61,37 +41,41 @@
           </svg>
         </div>
         <div id="chart">
-        <!-- <textarea id="graphsData" style="width : 100%; height: 500px;">
-        </textarea> -->
-    </div>
-     <!-- <div class="dialog" style="width:580px; height:240px;     z-index: 99999;">
-        <div class="titlebar">Source Code</div>
-        <button>Close</button>
-        <div class="content">
-            <pre><code class="java">
-              </code>
-            </pre>
         </div>
-        <div class="buttonpane">
-          <div class="buttonset">
-            <button>OK</button>
-            <button>Cancel</button>
-          </div>
-        </div>
-    </div>  -->
-  </body>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <script>document.addEventListener('DOMContentLoaded', (event) => {
-    document.querySelectorAll('pre code').forEach((block) => {
-      hljs.highlightBlock(block);
-    });
-  });</script>
-    <!-- <script src="js/hybograph.min.js"></script> -->
+        <div class="cd-panel cd-panel--from-right js-cd-panel-main">
+          <header class="cd-panel__header">
+            <!-- <h1>Title Goes Here</h1> -->
+            <!-- <label> search</label> -->
+            <input style="width: 100%; height: 100%;" placeholder="search"></input>
+            <a href="#0" class="cd-panel__close js-cd-close">Close</a>
+          </header>
 
+          <div class="cd-panel__container">
+            <div class="cd-panel__content">
+              <ul>
+                <li>element</li>
+                <li>element</li>
+                <li>element</li>
+                <li>element</li>
+              </ul>
+            </div> <!-- cd-panel__content -->
+          </div> <!-- cd-panel__container -->
+        </div> <!-- cd-panel -->
+        
+      </body>
+      <script>hljs.initHighlightingOnLoad();</script>
+      <script>document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre code').forEach((block) => {
+          hljs.highlightBlock(block);
+        });
+      });</script>
+    <!-- <script src="js/hybograph.min.js"></script> -->
+    
     <script src="js/inputs/input.js"></script>
     <script src="js/hybograph.js"></script>
     <!-- <script src="js/force.js"></script> -->
     <script type="text/javascript" src="js/draggable-resizable-dialog.js"></script>
     <script></script>
+    <!-- <script src="libs/slideinpanel/js/main.js"></script> -->
     
     </html>

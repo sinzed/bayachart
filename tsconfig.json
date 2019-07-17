@@ -81,6 +81,7 @@
     "ts/hybro/HybroChart.class.ts",
     "ts/baya/BayaChart.class.ts",
     "ts/highlight/Highlight.class.ts",
+    "ts/search/SearchPanel.class.ts",
     "ts/system/rebuild/html/HtmlManager.class.ts",
     "ts/run.ts"
 ]

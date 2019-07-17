@@ -49,9 +49,9 @@ class BundleChart extends Chart {
         .data(data)
         .enter()
         .append("path")
-        .attr("bdata",function(d){
-            console.log("path data",d   );
-        })
+        // .attr("bdata",function(d){
+            // console.log("path data",d   );
+        // })
         .attr("transform","translate("+this.transLeft+","+this.transTop+")")
         .each(function(d: any) { 
            

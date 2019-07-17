@@ -19,9 +19,13 @@ class Layout {
     eLinkBtn: any;
     interactiveBtn: any;
     historyBtn: any;
+    searchBtn: any;
+    tools: Tools;
+    searchPanel: SearchPanel;
     constructor(bayaChart : BayaChart){
         this.bayaChart = bayaChart;
-        this.layoutOption = new LayoutOption();
+        this.layoutOption = new LayoutOption(this);
+        this.tools = new Tools();
         this.initElement();
         this.addForceChartButton();
         this.addDonutChartButton();
@@ -34,6 +38,7 @@ class Layout {
         this.addIlinksBtn();
         this.addInteractiveBtn();
         this.addHistoryBtn();
+        this.addSearchBtn();
         this.init();
         
 
@@ -95,6 +100,16 @@ class Layout {
         });
         return this.sourceBtn;
 
+    }
+    addSearchBtn() {
+        let self = this;
+        this.searchBtn =  this.element.insert("button",":first-child");
+        this.searchBtn.text("search");
+        this.searchPanel = new SearchPanel(this);
+        this.searchBtn.on("click",()=>{
+           this.searchPanel.open();
+        });
+        return this.searchBtn;
     }
     addIlinksBtn() {
         let self = this;

@@ -285,6 +285,82 @@ line.link {
   color: black;
 }
 
+.cd-panel__content li {
+  background: #b4bfb3;
+  margin: 2px;
+  padding: 13px;
+  border-radius: 6px;
+}
+
+#animationtest {
+  width: 200px;
+  height: 200px;
+  background: yellow;
+  position: absolute;
+  z-index: 2000;
+  -webkit-animation-name: blinking;
+          animation-name: blinking;
+  -webkit-animation-duration: 20s;
+          animation-duration: 20s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+
+.searched {
+  -webkit-animation-duration: 6s;
+          animation-duration: 6s;
+  -webkit-animation-name: blinking;
+          animation-name: blinking;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes blinking {
+  0% {
+    fill: green !important;
+    stroke: red !important;
+    background-color: red;
+  }
+  10% {
+    fill: red !important;
+    stroke: yellow !important;
+    background-color: yellow;
+  }
+  60% {
+    fill: yellow !important;
+    stroke: green !important;
+    background-color: red;
+  }
+  90% {
+    fill: green !important;
+    stroke: pink !important;
+    background-color: green;
+  }
+}
+
+@keyframes blinking {
+  0% {
+    fill: green !important;
+    stroke: red !important;
+    background-color: red;
+  }
+  10% {
+    fill: red !important;
+    stroke: yellow !important;
+    background-color: yellow;
+  }
+  60% {
+    fill: yellow !important;
+    stroke: green !important;
+    background-color: red;
+  }
+  90% {
+    fill: green !important;
+    stroke: pink !important;
+    background-color: green;
+  }
+}
+
 path {
   color: red;
 }
