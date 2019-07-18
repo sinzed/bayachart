@@ -148,12 +148,16 @@ declare class Layout {
     eLinkBtn: any;
     interactiveBtn: any;
     historyBtn: any;
+    searchBtn: any;
+    tools: Tools;
+    searchPanel: SearchPanel;
     constructor(bayaChart: BayaChart);
     init(): void;
     initElement(): void;
     initZoom(): void;
     addTreemap(): any;
     addSourceBtn(): any;
+    addSearchBtn(): any;
     addIlinksBtn(): any;
     addElinksBtn(): void;
     addInteractiveBtn(): void;
@@ -186,6 +190,9 @@ declare class Tools {
     };
     packageImports(nodes: any): any;
     packageHierarchy(classes: any): d3.HierarchyNode<any>;
+    hasClass(el: any, className: string): any;
+    addClass(el: any, className: string): void;
+    removeClass(el: any, className: string): void;
 }
 declare class Voronoi extends Chart {
     _2PI: number;
@@ -357,6 +364,20 @@ declare class Highlight {
     init(): void;
     private colorizeSmells;
     private sortCodeSmells;
+}
+declare class SearchPanel {
+    layout: Layout;
+    panel: Element;
+    elements: Array<any>;
+    items: Array<any>;
+    originalItems: any;
+    constructor(layout: Layout);
+    init(): void;
+    initCloseEvent(): void;
+    initElements(): void;
+    initElementsOld(): void;
+    open(): void;
+    draw(): void;
 }
 declare class HtmlManager {
     part2Html: string;
