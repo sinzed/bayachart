@@ -118,7 +118,8 @@ class Voronoi extends Chart {
       this.treemapContainer = this.drawingArea.append("g")
       .classed("treemap-container", true)
       .attr("transform", "translate("+this.treemapCenter+")");
-  
+    
+      
       this.treemapContainer.append("path")
       .classed("world", true)
       .attr("fill","transparent")
@@ -140,6 +141,8 @@ handleWorker(){
             // let rootDataColorized = self.buildColors( self.hierarchy);
             let rootDataColorized = self.buildColorsInterpolation( self.hierarchy);
             self.drawTreemap();
+            self.rootData.element = self.treemapContainer;
+
             self.resolve(true);
             // resolve(true);
         }

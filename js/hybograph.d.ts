@@ -378,6 +378,10 @@ declare class SearchPanel {
     initElementsOld(): void;
     open(): void;
     draw(): void;
+    hintItem(item: any): void;
+    focusItem(item: any): void;
+    blinkItemColor(item: any): Promise<{}>;
+    blinkItemOpacity(item: any): Promise<{}>;
 }
 declare class HtmlManager {
     part2Html: string;

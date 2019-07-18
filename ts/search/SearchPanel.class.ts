@@ -1,5 +1,5 @@
 class SearchPanel {
-    layout : Layout;
+layout : Layout;
     panel: Element;
     elements: Array<any>;
     items: Array<any>;
@@ -87,6 +87,7 @@ class SearchPanel {
         this.panel.selectAll("ul").remove();
         let panelContent = this.panel.select(".cd-panel__content");
         let ul = panelContent.insert("ul",":first-child");
+        let self = this;
         for(let item of this.items){
             // let item = ul.insert("li",":first-child");
             let li = ul.insert("li",":first-child");
@@ -94,26 +95,7 @@ class SearchPanel {
             li.on("click", function(){
                 // item.element.classed("searched", false);
                 // item.element.classed("searched", true);
-                item.element.transition()
-                .duration(300)
-                .transition()
-                .style("fill", "yellowgreen")
-                .duration(300)
-                .transition()
-                .style("fill", "rgb(221, 221, 221)")
-                .duration(300)
-                .transition()
-                .style("fill", "yellowgreen")
-                .duration(300)
-                .transition()
-                .style("fill", "rgb(221, 221, 221)")
-                .duration(300)
-                .transition()
-                .style("fill", "yellowgreen")
-                .duration(300)
-                .transition()
-                .style("fill", "rgb(221, 221, 221)")
-                console.log(item);
+                self.hintItem(item);
 
             });
             // this.initItemClickEvent(item);
@@ -121,6 +103,79 @@ class SearchPanel {
 
 
     }
-    
+    hintItem(item: any){
+        let leaf = this.layout.bayaChart.forceChart.findMainSource(item);
+        // this.focusItem(leaf.data);
+        this.blinkItemOpacity(leaf.data).then(()=>{
 
+            this.blinkItemColor(item);
+        });
+    }
+    focusItem(item:any){
+        console.log(item);
+        let t = item.element.attr("transform");
+        console.log("item transform",t);
+        let t2 = d3.select(".layout").attr("transform");
+        console.log("item transform",t2);
+            // x = t.translate[0],
+            // y = t.translate[1];
+        let layoutTransform = d3.select(".layout").transition().duration(1000).attr("transform","translate(30,30)");
+        d3.select(".layout").transition().duration(1000).attr("transform","translate(30,30)");
+    }
+    blinkItemColor(item: any){
+        return new Promise((resolve,reject)=>{
+
+             item.element.transition()
+             .duration(300)
+             .transition()
+             .style("fill", "yellowgreen")
+             .duration(300)
+             .transition()
+             .style("fill", "rgb(221, 221, 221)")
+             .duration(300)
+             .transition()
+             .style("fill", "yellowgreen")
+             .duration(300)
+            .transition()
+            .style("fill", "rgb(221, 221, 221)")
+            .duration(300)
+            .transition()
+            .style("fill", "yellowgreen")
+            .duration(300)
+            .transition()
+            .style("fill", "rgb(221, 221, 221)")
+            .on("end", ()=>{
+                resolve(true);
+            });
+
+        });
+    }
+    blinkItemOpacity(item: any){
+        return new Promise((resolve,reject)=>{
+        item.element.transition()
+                .duration(300)
+                .transition()
+                .style("opacity", 0)
+                .duration(300)
+                .transition()
+                .style("opacity", 1)
+                .duration(300)
+                .transition()
+                .style("opacity", 0)
+                .duration(300)
+                .transition()
+                .style("opacity", 1)
+                .duration(300)
+                .transition()
+                .style("opacity", 0)
+                .duration(300)
+                .transition()
+                .style("opacity", 1)
+                .on("end", ()=>{
+                    resolve(true);
+                });
+            
+            });
+    }
+    
 }
