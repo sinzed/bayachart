@@ -218,7 +218,6 @@ declare class Voronoi extends Chart {
     svg: any;
     drawingArea: any;
     treemapContainer: any;
-    canDrawLegends: boolean;
     canDrawTitle: boolean;
     canDrawFooter: boolean;
     cells: Array<any>;
@@ -238,11 +237,6 @@ declare class Voronoi extends Chart {
     rebuildHierarchy(data: any, hierarchy: any): void;
     drawTitle(): true | undefined;
     drawFooter(): true | undefined;
-    drawLegends(rootData: {
-        children: {
-            reverse: () => Array<any>;
-        };
-    }): true | undefined;
     drawTreemap(): void;
     findWidth(polygon: any): number;
     canShowHoverer(): boolean;
@@ -296,8 +290,11 @@ declare class DonutChart extends Chart {
     slices: any;
     slicesObject: any;
     visible: boolean;
+    colorPool: any;
     codeSmells: Array<Object>;
+    canDrawLegends: boolean;
     constructor();
+    initColors(): void;
     getParent(): HybroChart;
     getWidth(): any;
     setWidth(value: any): DonutChart;
@@ -323,7 +320,10 @@ declare class DonutChart extends Chart {
     toolTipOld(selection: any): void;
     toolTip(selection: any, data: any): void;
     draw(leaves: any): void;
+    buildColors(data: any): void;
+    getRightColor(codeSmell: any): any;
     chart(selection: any): void;
+    drawLegends(): true | undefined;
 }
 declare class HybroChart extends Chart {
     tools: Tools;

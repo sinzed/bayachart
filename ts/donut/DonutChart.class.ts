@@ -18,7 +18,10 @@ class DonutChart extends Chart {
     slices: any;
     slicesObject: any;
     visible: boolean = true;
+    colorPool : any;
     codeSmells : Array<Object>;
+    canDrawLegends: boolean = true;
+
     constructor(){
         super();
         this._margin = {top: 10, right: 10, bottom: 10, left: 10};
@@ -27,6 +30,7 @@ class DonutChart extends Chart {
         this.percentFormat = d3.format(',.2%');
         this._width = 300;
         this.codeSmells = [];
+        this.initColors();
         // getter and setter functions. See Mike Bostocks post "Towards Reusable Charts" for a tutorial on how this works.
         // this.width = function(value: any) {
         //     if (!arguments.length) return this.width;
@@ -36,6 +40,14 @@ class DonutChart extends Chart {
         
         
         
+    }
+    initColors(){
+        this.colorPool = {};
+        this.colorPool["GodClass"] = new Color(120,40,40,1).value;
+        this.colorPool["GodClass"] = new Color(120,40,40,1).value;
+        this.colorPool["GodClass"] = new Color(120,40,40,1).value;
+        this.colorPool["GodClass"] = new Color(120,40,40,1).value;
+        this.colorPool["GodClass"] = new Color(120,40,40,1).value;
     }
     getParent() : HybroChart{
         return super.getParent();
@@ -258,10 +270,20 @@ class DonutChart extends Chart {
     this.element = this.selection.append('g').classed("donut",true);
     this.selection = this.selection.select(".donut").datum(slicesData); // bind data to the div
     this.chart(this.selection);
+    this.drawLegends();
     
     // .call(donutChart.chart); // draw chart in div
 
   // bundleChart.drawNodeNames();
+    }
+    buildColors(data:any){
+        for(let codeSmellSliceData of data){
+            codeSmellSliceData.color = this.getRightColor(codeSmellSliceData);
+        }
+        console.log(data);
+    }
+    getRightColor(codeSmell:any ){
+        return this.colorPool[codeSmell.name];
     }
     chart(selection: any){
         let self =this;
@@ -312,9 +334,10 @@ class DonutChart extends Chart {
             svg.append('g').attr('class', 'lines');
             // ===========================================================================================
 
-
+            
             // ===========================================================================================
             // add and colour the donut slices
+            self.buildColors(data);
             var path = svg.select('.slices')
                 .datum(data)
                 .selectAll('path')
@@ -323,7 +346,8 @@ class DonutChart extends Chart {
                 .append('path')
                 .attr('fill', function (d: any) {
                     //  return colour(d.data[category]);
-                    return self.colorize(d.data.name);
+                    // return self.colorize(d.data.name);
+                    return d.data.color;
                 })
                 .attr('d', arc);
             // ===========================================================================================
@@ -415,5 +439,44 @@ class DonutChart extends Chart {
 
         }
         );
+    }
+    drawLegends() {
+        if(!this.canDrawLegends)
+            return true;
+        var legendHeight = 13,
+            interLegend = 4,
+            colorWidth = legendHeight*6,
+            colorPool = this.colorPool;
+        
+        var legendContainer = d3.select("svg").append("g")
+            .classed("legend", true)
+            .attr("transform", "translate(0, 100)");
+        
+        var legends = legendContainer.selectAll(".legend")
+            .data(colorPool)
+            .enter();
+        
+        var legend = legends.append("g")
+            .classed("legend", true)
+            .attr("transform", function(d: any,i: number){
+            return "translate("+[0, -i*(legendHeight+interLegend)]+")";
+            })
+            
+        legend.append("rect")
+            .classed("legend-color", true)
+            .attr("y", -legendHeight)
+            .attr("width", colorWidth)
+            .attr("height", legendHeight)
+            .style("fill", function(d: { color: any; }){ 
+                return d.color; 
+            });
+        legend.append("text")
+            .classed("tiny", true)
+            .attr("transform", "translate("+[colorWidth+5, -2]+")")
+            .text(function(d: { name: any; }){ return d.name; });
+        
+        legendContainer.append("text")
+            .attr("transform", "translate("+[0, -colorPool.length*(legendHeight+interLegend)-5]+")")
+            .text("Continents");
     }
 }

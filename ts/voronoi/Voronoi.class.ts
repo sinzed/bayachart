@@ -37,7 +37,6 @@ class Voronoi extends Chart {
     svg: any;
     drawingArea: any;
     treemapContainer: any;
-    canDrawLegends: boolean = false;
     canDrawTitle: boolean = false;
     canDrawFooter: boolean = false;
     cells: Array<any>;
@@ -188,45 +187,7 @@ rebuildHierarchy(data, hierarchy){
         .text("bl.ocks.org/Kcnarf/fa95aa7b076f537c00aed614c29bb568")
     }
 
-    drawLegends(rootData: { children: { reverse: () => Array<any>; }; }) {
-        if(!this.canDrawLegends)
-            return true;
-        var legendHeight = 13,
-            interLegend = 4,
-            colorWidth = legendHeight*6,
-            continents = rootData.children.reverse();
-        
-        var legendContainer = this.drawingArea.append("g")
-            .classed("legend", true)
-            .attr("transform", "translate("+[0, this.legendsMinY]+")");
-        
-        var legends = legendContainer.selectAll(".legend")
-            .data(continents)
-            .enter();
-        
-        var legend = legends.append("g")
-            .classed("legend", true)
-            .attr("transform", function(d: any,i: number){
-            return "translate("+[0, -i*(legendHeight+interLegend)]+")";
-            })
-            
-        legend.append("rect")
-            .classed("legend-color", true)
-            .attr("y", -legendHeight)
-            .attr("width", colorWidth)
-            .attr("height", legendHeight)
-            .style("fill", function(d: { color: any; }){ 
-                return d.color; 
-            });
-        legend.append("text")
-            .classed("tiny", true)
-            .attr("transform", "translate("+[colorWidth+5, -2]+")")
-            .text(function(d: { name: any; }){ return d.name; });
-        
-        legendContainer.append("text")
-            .attr("transform", "translate("+[0, -continents.length*(legendHeight+interLegend)-5]+")")
-            .text("Continents");
-    }
+
     drawTreemap() {
         this.leaves=this.hierarchy.leaves();
         
