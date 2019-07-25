@@ -270,7 +270,7 @@ class DonutChart extends Chart {
     this.element = this.selection.append('g').classed("donut",true);
     this.selection = this.selection.select(".donut").datum(slicesData); // bind data to the div
     this.chart(this.selection);
-    this.drawLegends();
+    // this.drawLegends();
     
     // .call(donutChart.chart); // draw chart in div
 
@@ -283,7 +283,15 @@ class DonutChart extends Chart {
         console.log(data);
     }
     getRightColor(codeSmell:any ){
-        return this.colorPool[codeSmell.name];
+        let color = "black";
+        if(this.getParent().getParent().jsonData.sliceColors)
+        for(let sliceColor of  this.getParent().getParent().jsonData.sliceColors){
+            if(sliceColor.name == codeSmell.name){
+                color = sliceColor.color;
+            }
+            
+        }
+        return color;
     }
     chart(selection: any){
         let self =this;
@@ -441,42 +449,49 @@ class DonutChart extends Chart {
         );
     }
     drawLegends() {
-        if(!this.canDrawLegends)
-            return true;
-        var legendHeight = 13,
-            interLegend = 4,
-            colorWidth = legendHeight*6,
-            colorPool = this.colorPool;
+        // if(!this.canDrawLegends)
+        //     return true;
+        // let legendHeight = 13,
+        //     interLegend = 4,
+        //     colorWidth = legendHeight*6;
+        // let i = 10;
         
-        var legendContainer = d3.select("svg").append("g")
-            .classed("legend", true)
-            .attr("transform", "translate(0, 100)");
+        // let legendContainer = d3.select("svg").append("g")
+        //     .classed("legend2", true);
+            // .attr("transform", "translate(10, 200)");
         
-        var legends = legendContainer.selectAll(".legend")
-            .data(colorPool)
-            .enter();
-        
-        var legend = legends.append("g")
-            .classed("legend", true)
-            .attr("transform", function(d: any,i: number){
-            return "translate("+[0, -i*(legendHeight+interLegend)]+")";
-            })
+        // let legends = legendContainer.selectAll(".legend")
+        //     .data(this.colorPool)
+        //     .enter().append("g")
+        //     .classed("legend", true)
+        //     .attr("transform", function(d: any,i: number){
+        //     // return "translate("+[0, -i*100*(legendHeight+interLegend)]+")";
+        //     console.log(d,i);
+        //     return "translate(30,50)";
+        //     })
             
-        legend.append("rect")
-            .classed("legend-color", true)
-            .attr("y", -legendHeight)
-            .attr("width", colorWidth)
-            .attr("height", legendHeight)
-            .style("fill", function(d: { color: any; }){ 
-                return d.color; 
-            });
-        legend.append("text")
-            .classed("tiny", true)
-            .attr("transform", "translate("+[colorWidth+5, -2]+")")
-            .text(function(d: { name: any; }){ return d.name; });
+        // legend.append("rect")
+        //     .classed("legend-color", true)
+        //     .attr("y", -legendHeight)
+        //     .attr("width", colorWidth)
+        //     .attr("height", legendHeight)
+        //     .style("fill", function(d: { color: any; }){ 
+        //         return d.color; 
+        //     });
+            
+        // legend.append("text")
+        //     .classed("tiny", true)
+        //     .attr("transform", "translate(300,400)")
+        //     .text(function(d: { name: any; }){ return d.name; });
         
-        legendContainer.append("text")
-            .attr("transform", "translate("+[0, -colorPool.length*(legendHeight+interLegend)-5]+")")
-            .text("Continents");
+        //     legend.append("text")
+        //     .attr("transform", "translate(30,60)")
+        //     .text("from container 1");
+        //     legend.append("text")
+        //     .attr("transform", "translate(60,80)")
+        //     .text("from container 2");
+
+        //
+        //legendContainer.insert(legend); //???
     }
 }

@@ -7,6 +7,7 @@ class BayaChart extends Chart {
     svg : any;
     highlight : Highlight;
     public layout: Layout;
+    legend: Legend;
     constructor(){
         super();
         this.nodesData = [];
@@ -18,6 +19,7 @@ class BayaChart extends Chart {
         this.forceChart = new ForceChart();
         this.forceChart.setParent(this);
         this.highlight = new Highlight(this);
+        this.legend = new Legend(this);
         
     }
     init(){
@@ -65,6 +67,7 @@ class BayaChart extends Chart {
             promiseList.push(promise);
           }
           this.forceChart.draw(this.jsonData);
+          this.legend.draw();
           this.layout.initZoom();
         //   for ( let hybroChart of this.hybroCharts ){
         //       hybroChart.voronoiChart.handleWorker();

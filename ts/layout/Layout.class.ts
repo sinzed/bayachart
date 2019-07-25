@@ -244,6 +244,9 @@ class Layout {
         let exteraRadius = this.layoutOption.canShowDonutChart?true:false;
         for(let hybroChart of this.bayaChart.hybroCharts)
             hybroChart.donutChart.element.attr("display",this.layoutOption.canShowDonutChart?"block":"none");
+
+        // enable/disable legends
+        this.bayaChart.legend.element.attr("display",this.layoutOption.canShowDonutChart?"block":"none");
         // this.bayaChart.forceChart.simulation.force('collision', d3.forceCollide()
         this.bayaChart.forceChart.simulation.force('collision', d3.forceCollide().radius(function(d) {
             if(exteraRadius)

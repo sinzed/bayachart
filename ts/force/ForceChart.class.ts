@@ -144,7 +144,7 @@ class ForceChart extends Chart {
         .style('stroke', this.linkColour)
         .style("stroke-width", '4px');
         this.link.append("title").text(function(d){
-            return "from: "+d.ref.data.name+ " to: "+d.targetRef.data.name;
+            return "elink \n from: "+d.ref.data.name+ " \nto: "+d.targetRef.data.name;
         });
         this.link.on("mouseover", function(d){
             if(!self.getParent().layout.layoutOption.canShowInteractiveActions)

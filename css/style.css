@@ -361,6 +361,10 @@ line.link {
   }
 }
 
+svg {
+  width: 100%;
+}
+
 path {
   color: red;
 }

@@ -6,7 +6,7 @@ class Voronoi extends Chart {
     //end: constants
     
     //begin: layout conf.
-    svgWidth = 980;
+    // svgWidth = 980;
     svgAreaHeight = 700;
     svgHeight = 820;
     margin : any;
@@ -356,15 +356,21 @@ rebuildHierarchy(data, hierarchy){
         this.hoverers.append("title")
         .text((d:any)=>{
             const area = this.treemapRadius * this.treemapRadius * 3.14;
+            let forceChart : ForceChart = this.getParent().getParent().forceChart;
+            let mainLeaf = forceChart.findMainSource(d);
             const size = this.leaves.reduce(
                 (a:any, b:any) => 
-            +a + +b.value
-            , 0);
+                +a + +b.value
+                , 0);
             // + operator for casting to Number
             
-            const title= d.data.name + "\n" 
-            + d.value+" "
-            +"\n"+ ((d.value/size)*100).toFixed(2)+"%";
+            const title=
+            "Module: "+mainLeaf.data.name+ "\n"+
+            "class: "+ d.data.name + "\n"+ 
+            "size: "+ d.data.size + "\n"+ 
+            "weight: "+ d.data.weight + "\n" 
+            // + d.value+" "
+            // +"\n"+ ((d.value/size)*100).toFixed(2)+"%";
             return title; 
             
             });

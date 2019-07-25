@@ -196,7 +196,6 @@ declare class Tools {
 }
 declare class Voronoi extends Chart {
     _2PI: number;
-    svgWidth: number;
     svgAreaHeight: number;
     svgHeight: number;
     margin: any;
@@ -321,9 +320,9 @@ declare class DonutChart extends Chart {
     toolTip(selection: any, data: any): void;
     draw(leaves: any): void;
     buildColors(data: any): void;
-    getRightColor(codeSmell: any): any;
+    getRightColor(codeSmell: any): string;
     chart(selection: any): void;
-    drawLegends(): true | undefined;
+    drawLegends(): void;
 }
 declare class HybroChart extends Chart {
     tools: Tools;
@@ -350,6 +349,7 @@ declare class BayaChart extends Chart {
     svg: any;
     highlight: Highlight;
     layout: Layout;
+    legend: Legend;
     constructor();
     init(): void;
     initLayout(): void;
@@ -382,6 +382,12 @@ declare class SearchPanel {
     focusItem(item: any): void;
     blinkItemColor(item: any): Promise<{}>;
     blinkItemOpacity(item: any): Promise<{}>;
+}
+declare class Legend {
+    bayaChart: BayaChart;
+    element: any;
+    constructor(bayaChart: BayaChart);
+    draw(): true | undefined;
 }
 declare class HtmlManager {
     part2Html: string;

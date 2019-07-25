@@ -4,6 +4,30 @@
     "from":"#dddddd",
     "to": "red"
   },
+  "sliceColors" : 
+    [
+      {
+        "name":"GodClass",
+        "color":"red"
+      },
+      {
+        "name":"DataClass",
+        "color":"blue"
+      },
+      {
+        "name":"UnusedImport",
+        "color":"pink"
+      },
+      {
+        "name":"GreenClass",
+        "color":"yellow"
+      },
+      {
+        "name":"NonClass",
+        "color":"green"
+      }
+    ]
+  ,
   "children" : [
     {
       "name": "hybrograph",

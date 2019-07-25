@@ -82,6 +82,7 @@
     "ts/baya/BayaChart.class.ts",
     "ts/highlight/Highlight.class.ts",
     "ts/search/SearchPanel.class.ts",
+    "ts/legend/Legend.class.ts",
     "ts/system/rebuild/html/HtmlManager.class.ts",
     "ts/run.ts"
 ]
