@@ -24,7 +24,7 @@ layout : Layout;
             this.panel.classed("cd-panel--is-visible",false);
         });
         d3.select(".js-cd-panel-main").on("click",()=>{
-            this.panel.classed("cd-panel--is-visible",false);
+            // this.panel.classed("cd-panel--is-visible",false);
         });
         this.panel.select("header input").on("click",(target,event)=>{
             d3.event.preventDefault();
@@ -88,18 +88,40 @@ layout : Layout;
         let panelContent = this.panel.select(".cd-panel__content");
         let ul = panelContent.insert("ul",":first-child");
         let self = this;
-        for(let item of this.items){
-            // let item = ul.insert("li",":first-child");
-            let li = ul.insert("li",":first-child");
-            li.text(item.data.name);
-            li.on("click", function(){
+
+        for(let hybroChart of this.layout.bayaChart.hybroCharts){
+
+            let li = ul.insert("li");
+            li.text(hybroChart.rootData.name);
+            li.style("background-color","rgb(100, 100, 100)");
+
+            for(let leaf of hybroChart.bundleChart.leaves){
+                let li = ul.insert("li");
+                // let li = ul.insert("li",":first-child");
+                li.text(leaf.data.name);
+                li.style("background-color","#a3a6a3");
+                li.on("click", function(){
                 // item.element.classed("searched", false);
                 // item.element.classed("searched", true);
-                self.hintItem(item);
+                    self.hintItem(leaf);
 
-            });
-            // this.initItemClickEvent(item);
+                });
+            }
         }
+
+        // for(let item of this.items){
+            
+        //     // let item = ul.insert("li",":first-child");
+        //     let li = ul.insert("li",":first-child");
+        //     li.text(item.data.name);
+        //     li.on("click", function(){
+        //         // item.element.classed("searched", false);
+        //         // item.element.classed("searched", true);
+        //         self.hintItem(item);
+
+        //     });
+        //     // this.initItemClickEvent(item);
+        // }
 
 
     }
