@@ -1,4 +1,5 @@
-.vscode/
+# .vscode/
+.vscode/sftp.json
 node_modules/
 js/hybograph.js
 js/hybograph.js.map
