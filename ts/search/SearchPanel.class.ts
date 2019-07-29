@@ -146,7 +146,7 @@ layout : Layout;
     }
     blinkItemColor(item: any){
         return new Promise((resolve,reject)=>{
-
+            let itemOriginalColor =  item.element.style("fill");
              item.element.transition()
              .duration(300)
              .transition()
@@ -165,7 +165,7 @@ layout : Layout;
             .style("fill", "yellowgreen")
             .duration(300)
             .transition()
-            .style("fill", "rgb(221, 221, 221)")
+            .style("fill", itemOriginalColor)
             .on("end", ()=>{
                 resolve(true);
             });
