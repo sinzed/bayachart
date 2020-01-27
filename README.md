@@ -8,4 +8,7 @@ it uses D3 Library in Javascript with the power of workers to visualise VORONOI 
 
 INSTALL:
 - clone the repository
-- install npm using node
+- install typescript
+- to contribute run "tsc -w" and edit typescript files
+- you can use sass to compile scss styles
+
