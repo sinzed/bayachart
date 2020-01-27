@@ -336,7 +336,7 @@ declare class HybroChart extends Chart {
     stringData: string;
     showPerformance: boolean;
     constructor();
-    draw(rootData: any): Promise<{}>;
+    draw(rootData: any): any;
     addDbClickHandler(): void;
     findJsonDataSource(source: any): any;
 }
@@ -362,8 +362,8 @@ declare class Highlight {
     bayaChart: BayaChart;
     constructor(bayaChart: BayaChart);
     init(): void;
-    private colorizeSmells;
-    private sortCodeSmells;
+    private colorizeSmells(hybroChart);
+    private sortCodeSmells(codeSmells);
 }
 declare class SearchPanel {
     layout: Layout;
@@ -380,8 +380,8 @@ declare class SearchPanel {
     draw(): void;
     hintItem(item: any): void;
     focusItem(item: any): void;
-    blinkItemColor(item: any): Promise<{}>;
-    blinkItemOpacity(item: any): Promise<{}>;
+    blinkItemColor(item: any): any;
+    blinkItemOpacity(item: any): any;
 }
 declare class Legend {
     bayaChart: BayaChart;

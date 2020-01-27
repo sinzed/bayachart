@@ -1,4 +1,0 @@
-[0512/083712.420:ERROR:file_io_win.cc(170)] CreateFile C:\Users\len\AppData\Local\Temp\vscode-chrome-debug-userdatadir_9222\Crashpad\reports\01247f27-b0a2-43cb-b828-f65e0f3fbf99.dmp: The system cannot find the path specified. (0x3)
-[0512/083712.451:ERROR:crash_report_exception_handler.cc(97)] PrepareNewCrashReport failed
-[0512/122804.416:ERROR:file_io_win.cc(170)] CreateFile C:\Users\len\AppData\Local\Temp\vscode-chrome-debug-userdatadir_9222\Crashpad\reports\71cd56a2-85cc-4825-a70a-5ab82c093ac5.dmp: The system cannot find the path specified. (0x3)
-[0512/122804.417:ERROR:crash_report_exception_handler.cc(97)] PrepareNewCrashReport failed
